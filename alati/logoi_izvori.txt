@@ -1,18 +1,29 @@
 logo_air_liquide.webp	Air Liquide	Q407448	https://commons.wikimedia.org/wiki/File:Air_Liquide_-_logo_(France%2C_1991).svg
 logo_avia.webp	AVIA	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
 logo_avia_xpress.webp	AVIA XPress	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
+logo_ballenoil.webp	Ballenoil	Q110743569	https://commons.wikimedia.org/wiki/File:Logo_Ballenoil.svg
+logo_benzina.webp	Benzina	Q11130894	https://commons.wikimedia.org/wiki/File:Benzina_nov%C3%A9_logo.png
 logo_bp.webp	BP	Q152057	https://commons.wikimedia.org/wiki/File:Bp_textlogo.svg
+logo_circle_k.webp	Circle K	Q3268010	https://commons.wikimedia.org/wiki/File:Circle_K_logo_2015.svg
 logo_costantin.webp	Costantin	Q48800790	https://commons.wikimedia.org/wiki/File:Logo_Costantin.svg
 logo_enercoop.webp	Enercoop	Q24936353	https://commons.wikimedia.org/wiki/File:Logo_EnerCoop.png
 logo_enerpetroli.webp	Enerpetroli	Q114647217	https://commons.wikimedia.org/wiki/File:Enerpetroli_logo.png
 logo_esso.webp	Esso	Q867662	https://commons.wikimedia.org/wiki/File:Esso_textlogo.svg
 logo_esso_express.webp	Esso Express	Q2350336	https://commons.wikimedia.org/wiki/File:Esso_textlogo.svg
+logo_eurooil.webp	EuroOil	Q110219457	https://commons.wikimedia.org/wiki/File:Logo_EuroOil.png
+logo_galp.webp	Galp	Q1492739	https://commons.wikimedia.org/wiki/File:Galp_Logo_2024.svg
 logo_gulf.webp	Gulf	Q5617505	https://commons.wikimedia.org/wiki/File:Gulf_Oil_logo.svg
+logo_ina.webp	INA	Q1662137	https://commons.wikimedia.org/wiki/File:Ina_logo.svg
 logo_lukoil.webp	Lukoil	Q329347	https://commons.wikimedia.org/wiki/File:Lukoil_company_logo.svg
 logo_migrol.webp	Migrol	Q1747771	https://commons.wikimedia.org/wiki/File:Logo_Migrol.svg
+logo_moeve.webp	Moeve	Q608819	https://commons.wikimedia.org/wiki/File:Moeve_logo.svg
+logo_mol.webp	MOL	Q549181	https://commons.wikimedia.org/wiki/File:MOL_Group.svg
 logo_oil.webp	OIL!	Q2007561	https://commons.wikimedia.org/wiki/File:OIL!_Logo.svg
 logo_ok.webp	OK	Q123472183	https://commons.wikimedia.org/wiki/File:OK_Nederland_Logo.png
 logo_petrol.webp	Petrol	Q174824	https://commons.wikimedia.org/wiki/File:Petrol_Group_logo.svg
+logo_petronor.webp	Petronor	Q1726547	https://commons.wikimedia.org/wiki/File:Petronor_logo_2024.png
+logo_petroprix.webp	Petroprix	Q128327113	https://commons.wikimedia.org/wiki/File:Logo_Petroprix.svg
+logo_prio.webp	Prio	Q62530421	https://commons.wikimedia.org/wiki/File:Prio-logo-cores-2024.svg
 logo_q8.webp	Q8	Q4119207	https://commons.wikimedia.org/wiki/File:Q8_logo.svg
 logo_shell.webp	Shell	Q110716465	https://commons.wikimedia.org/wiki/File:Shell_wordmark_2019.svg
 logo_tamoil.webp	Tamoil	Q706793	https://commons.wikimedia.org/wiki/File:Tamoil.svg

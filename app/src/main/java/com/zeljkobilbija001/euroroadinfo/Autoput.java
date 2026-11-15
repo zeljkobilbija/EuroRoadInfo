@@ -21,11 +21,16 @@ public final class Autoput {
         return "DE".equals(zemlja) ? ref.replaceFirst("^A", "A ") : ref;
     }
 
-    /** Štit kao na tablama: crven u Holandiji, Francuskoj i Švajcarskoj, zelen u Italiji, plav u Nemačkoj, Austriji, Belgiji i Luksemburgu. */
+    /**
+     * Štit kao na tablama: crven u Holandiji, Francuskoj, Švajcarskoj, Češkoj i Poljskoj,
+     * zelen u Italiji, Sloveniji i Hrvatskoj, plav u Nemačkoj, Austriji, Španiji, Belgiji i Luksemburgu.
+     */
     public int stit() {
-        if ("NL".equals(zemlja) || "FR".equals(zemlja) || "CH".equals(zemlja)) return R.drawable.bg_stit;
-        if ("IT".equals(zemlja)) return R.drawable.bg_stit_zeleni;
-        return R.drawable.bg_stit_plavi;
+        switch (zemlja) {
+            case "NL": case "FR": case "CH": case "CZ": case "PL": return R.drawable.bg_stit;
+            case "IT": case "SI": case "HR": return R.drawable.bg_stit_zeleni;
+            default: return R.drawable.bg_stit_plavi;
+        }
     }
 
     public boolean dostupan() {

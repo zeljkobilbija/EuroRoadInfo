@@ -40,6 +40,11 @@
     <string name="zemlja_it">Italia</string>
     <string name="zemlja_at">Austria</string>
     <string name="zemlja_ch">Elveția</string>
+    <string name="zemlja_si">Slovenia</string>
+    <string name="zemlja_hr">Croația</string>
+    <string name="zemlja_cz">Cehia</string>
+    <string name="zemlja_pl">Polonia</string>
+    <string name="zemlja_es">Spania</string>
     <string name="zemlja_nl">Țările de Jos</string>
     <string name="zemlja_be">Belgia</string>
     <string name="zemlja_lu">Luxemburg</string>

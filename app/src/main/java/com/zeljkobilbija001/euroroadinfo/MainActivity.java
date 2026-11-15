@@ -45,8 +45,12 @@ public class MainActivity extends AppCompatActivity {
         String autoputevi = getString(R.string.naslov);
         // mreža od KOLONA kolona: red po red (nepotpun poslednji red se dopunjava praznim mestima)
         LinearLayout red = null;
-        for (int i = 0; i < Autoputevi.ZEMLJE.length; i++) {
-            String z = Autoputevi.ZEMLJE[i];
+        // zemlje po abecedi na jeziku telefona (Collator pravilno ređa č, ö, ł…)
+        String[] poRedu = Autoputevi.ZEMLJE.clone();
+        java.text.Collator abc = java.text.Collator.getInstance(java.util.Locale.getDefault());
+        java.util.Arrays.sort(poRedu, (a, b) -> abc.compare(getString(ZemljaActivity.ime(a)), getString(ZemljaActivity.ime(b))));
+        for (int i = 0; i < poRedu.length; i++) {
+            String z = poRedu[i];
             if (i % KOLONA == 0) {
                 red = new LinearLayout(this);
                 red.setOrientation(LinearLayout.HORIZONTAL);

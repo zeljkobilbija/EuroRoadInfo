@@ -53,9 +53,9 @@ globalThis.AB = (() => {
     'TinQ': 'Tinq', 'Q8 Easy': 'Q8', 'Texaco Express': 'Texaco',
     'Esso Express': 'Esso', 'Agip': 'Eni', 'Eni Station': 'Eni', 'Shell Express': 'Shell', 'BP Express': 'BP' };
   // Ulaz na odmorište ucrtan kao "izlaz" – nije pravi izlaz, odmorište već dolazi iz highway=services
-  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b)|\baire de (repos|services?)\b/i;
+  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b|počivališče\b|odmorište\b|odpočívka\b|odpočívadlo\b|mop\b|área de (servicio|descanso)\b|area de servicio\b)|\baire de (repos|services?)\b/i;
   // Čvorište: veza sa drugom autostradom, obilaznicom ili raskrsnica autostrada
-  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo/i;
+  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo|razcep|čvor|čvorište|křižovatka|węzeł|enlace con/i;
 
   /**
    * Ručne ispravke gde OSM ne daje dobar naziv deonice: d = [[od, do], …] redom po deonicama
@@ -156,7 +156,7 @@ globalThis.AB = (() => {
       const vidjene = [].concat(...deonice);
       const blizu = s => { for (let k = 0; k < vidjene.length; k += 3) if (d(vidjene[k], s) < 400) return true; return false; };
       // najbliži nekorišćeni put u istom smeru, najviše 200 km dalje (A5 ima i zalutale puteve u inostranstvu)
-      let naj = null, nd = 200000;
+      let naj = null, nd = ab.skok || 200000; // ES: AP-7 ima rupe duže od 200 km (A-7 između)
       for (const v of putevi) {
         if (korisceni.has(v.i)) continue;
         const s = v.g[0], e = v.g[v.g.length - 1];
@@ -325,11 +325,16 @@ globalThis.AB = (() => {
 
   // ---------- 2. Glavni tok ----------
   async function preuzmi(ref) {
-    const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway' };
+    const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
+      SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
-    if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (NL, BE, LU, AT ili CH)');
-    const id = delovi[delovi.length - 1]; ref = id; // OSM u Beneluksu: "A2", bez razmaka
+    if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (' + Object.keys(MREZA).join(', ') + ')');
+    // Španija: ref sa crticom (ES-AP-7 → AP-7); Poljska: S-putevi u mreži brzih puteva
+    const id = zemlja === 'ES' ? delovi.slice(1).join('-') : delovi[delovi.length - 1]; ref = id;
+    if (zemlja === 'ES' && id.startsWith('AP-')) MREZA.ES = 'ES:AP-highway';
+    ab.skok = zemlja === 'ES' ? 500000 : 200000;
+    if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway'; // OSM u Beneluksu: "A2", bez razmaka
     const oblast = `area["ISO3166-1"="${zemlja}"][admin_level=2]->.z;`;
     const rel = `rel[route=road][network="${MREZA[zemlja]}"][ref="${ref}"]`;
     // lokalni Geofabrik izvod (alati/osm_lokalno.js) umesto Overpass-a: relacija + putevi po oznaci (ref "A2")
@@ -345,9 +350,9 @@ globalThis.AB = (() => {
     // izvod zemlje sadrži i pogranične strane autoputeve iste oznake (švajcarski A1 kod St. Margrethena u izvodu Austrije):
     // putevi po oznaci samo ako nisu u stranoj mreži i ako su do ~30 km od puteva domaće relacije (kao u AutoroutesInfo)
     const domaci = ws => {
-      const strani = L.uMrezama(new RegExp('^(?!' + zemlja + ':|' + zemlja.toLowerCase() + ':)(BAB|DE:|de:|FR:|IT:|BE:|LU:|NL:|CH:|ch:|AT:|at:|HU:|SI:|SK:|sk:|CZ:|cz:|PL:|LI:)'));
+      const strani = L.uMrezama(new RegExp('^(?!' + zemlja + ':)(BAB|[a-z]{2}:)', 'i'));
       ws = ws.filter(w => !strani.has(w.id));
-      const rel = L.putevi(MREZA[zemlja], ref); if (!rel.length) return ws;
+      const rel = L.putevi(MREZA[zemlja], ref); if (!rel.length || zemlja === 'ES') return ws; // ES: oznake sa crticom su samo španske
       const c = p => Math.round(p.lat * 4) + '_' + Math.round(p.lon * 3), mreza = new Set();
       for (const w of rel) for (const p of w.geometry) { const [a, b] = c(p).split('_').map(Number);
         for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) mreza.add((a + i) + '_' + (b + j)); }
@@ -496,7 +501,7 @@ globalThis.AB = (() => {
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? 'Afrit ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);

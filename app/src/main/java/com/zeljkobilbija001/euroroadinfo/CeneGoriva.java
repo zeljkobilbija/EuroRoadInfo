@@ -81,6 +81,28 @@ public final class CeneGoriva {
     private static final String NL_DAN_URL =
             "https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=Perioden+ge+'%s'";
     private static final String NL_KVARTAL_URL = "https://opendata.cbs.nl/ODataApi/odata/84991NED/TypedDataSet";
+    /** Ime zemlje na fuel-prices.eu. */
+    private static final java.util.Map<String, String> ENGLESKI = new java.util.HashMap<>();
+    /** Nazivi goriva na pumpama: E5, E10, B7 (dizel), LPG. */
+    private static final java.util.Map<String, String[]> GORIVA = new java.util.HashMap<>();
+    static {
+        String[][] z = {
+                {"DE", "Germany", "Super E5", "Super E10", "Diesel", "Autogas (LPG)"},
+                {"AT", "Austria", "Super 95", "Super E10", "Diesel", "Autogas (LPG)"},
+                {"FR", "France", "SP95", "SP95-E10", "Gazole", "GPL"},
+                {"IT", "Italy", "Benzina", "Benzina E10", "Gasolio", "GPL"},
+                {"SI", "Slovenia", "Bencin 95", "Bencin E10", "Dizel", "Avtoplin"},
+                {"HR", "Croatia", "Eurosuper 95", "Eurosuper E10", "Eurodizel", "Autoplin"},
+                {"CZ", "Czechia", "Natural 95", "Natural E10", "Nafta", "LPG"},
+                {"PL", "Poland", "Pb95", "Pb95 E10", "ON (diesel)", "LPG"},
+                {"ES", "Spain", "Gasolina 95", "Gasolina E10", "Gasóleo A", "GLP"},
+                {"LU", "Luxembourg", "Euro 95", "Euro 95 E10", "Diesel", "LPG"}};
+        for (String[] r : z) {
+            ENGLESKI.put(r[0], r[1]);
+            GORIVA.put(r[0], new String[]{r[2], r[3], r[4], r[5]});
+        }
+    }
+
     private static final String EU_NEDELJA_URL = "https://www.fuel-prices.eu/%s/?format=json";
     private static final String LU_NEDELJA_URL = "https://www.fuel-prices.eu/Luxembourg/?format=json";
     private static final String LU_MESEC_API =
@@ -103,8 +125,13 @@ public final class CeneGoriva {
                 case "DE":
                 case "FR":
                 case "AT":
+                case "SI":
+                case "HR":
+                case "CZ":
+                case "PL":
+                case "ES":
                 case "IT": {
-                    String ime = "DE".equals(zemlja) ? "Germany" : "FR".equals(zemlja) ? "France" : "AT".equals(zemlja) ? "Austria" : "Italy";
+                    String ime = ENGLESKI.get(zemlja);
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));
                     break;
                 }
@@ -129,14 +156,12 @@ public final class CeneGoriva {
         });
     }
 
-    /** Naziv po zemlji: Nemačka, Francuska, Italija, ostale. */
-    private static String poZemlji(String zemlja, String de, String fr, String it, String ostalo) {
-        switch (zemlja) {
-            case "DE":
-            case "AT": return de;
-            case "FR": return fr;
-            case "IT": return it;
-            default: return ostalo;
+    /** Oznaka valute kao na pumpi: Kč, zł; ostale ISO kodom. */
+    private static String valuta(String iso) {
+        switch (iso) {
+            case "CZK": return "Kč";
+            case "PLN": return "zł";
+            default: return iso;
         }
     }
 
@@ -259,14 +284,21 @@ public final class CeneGoriva {
                 if (Double.isNaN(v)) continue;
                 String kod = o.optString("fuel_code");
                 String naziv;
+                String[] g = GORIVA.containsKey(zemlja) ? GORIVA.get(zemlja) : GORIVA.get("LU");
                 switch (kod) {
-                    case "E5": naziv = poZemlji(zemlja, "Super E5", "SP95", "Benzina", "Euro 95"); break;
-                    case "E10": naziv = poZemlji(zemlja, "Super E10", "SP95-E10", "Benzina E10", "Euro 95 E10"); break;
-                    case "B7": naziv = poZemlji(zemlja, "Diesel", "Gazole", "Gasolio", "Diesel"); break;
-                    case "LPG": naziv = poZemlji(zemlja, "Autogas (LPG)", "GPL", "GPL", "LPG"); break;
+                    case "E5": naziv = g[0]; break;
+                    case "E10": naziv = g[1]; break;
+                    case "B7": naziv = g[2]; break;
+                    case "LPG": naziv = g[3]; break;
                     default: naziv = o.optString("fuel", kod);
                 }
-                cene.add(new Cena(naziv, 0, v, L));
+                JSONObject lok = o.optJSONObject("local");
+                String valuta = lok != null ? lok.optString("currency", "EUR") : "EUR";
+                if (!"EUR".equals(valuta) && !Double.isNaN(lok.optDouble("value", Double.NaN))) {
+                    cene.add(new Cena(naziv, 0, lok.optDouble("value"), valuta(valuta) + "/L"));
+                } else {
+                    cene.add(new Cena(naziv, 0, v, L));
+                }
             }
             String upd = fp.optString("updated", "");
             Date d = upd.length() >= 10 ? new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(upd.substring(0, 10)) : null;

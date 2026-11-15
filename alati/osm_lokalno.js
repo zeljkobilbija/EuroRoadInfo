@@ -31,6 +31,8 @@ const OBLASTI = {
   NL: ['europe/netherlands', null], BE: ['europe/belgium', null], LU: ['europe/luxembourg', null],
   FR: ['europe/france', null], IT: ['europe/italy', null], DEU: ['europe/germany', null],
   AT: ['europe/austria', null], CH: ['europe/switzerland', null],
+  SI: ['europe/slovenia', null], HR: ['europe/croatia', null], CZ: ['europe/czech-republic', null],
+  PL: ['europe/poland', null], ES: ['europe/spain', null],
 };
 for (const [k, s] of Object.entries(DRZAVE)) OBLASTI[k] = ['north-america/us/' + s, 'ISO3166-2=US-' + k];
 

@@ -40,6 +40,11 @@
     <string name="zemlja_it">Taliansko</string>
     <string name="zemlja_at">Rakúsko</string>
     <string name="zemlja_ch">Švajčiarsko</string>
+    <string name="zemlja_si">Slovinsko</string>
+    <string name="zemlja_hr">Chorvátsko</string>
+    <string name="zemlja_cz">Česko</string>
+    <string name="zemlja_pl">Poľsko</string>
+    <string name="zemlja_es">Španielsko</string>
     <string name="zemlja_nl">Holandsko</string>
     <string name="zemlja_be">Belgicko</string>
     <string name="zemlja_lu">Luxembursko</string>
