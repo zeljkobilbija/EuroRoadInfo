@@ -230,6 +230,43 @@ public final class Autoputevi {
             new Autoput("IT", "A60", "Tangenziale di Varese", "autoputevi/it-a60.json"),
             new Autoput("IT", "A90", "Grande Raccordo Anulare (Roma)", "autoputevi/it-a90.json"),
             new Autoput("IT", "A91", "Roma – Fiumicino", "autoputevi/it-a91.json"),
+            // Austrija
+            new Autoput("AT", "A1", "Wien – Linz – Salzburg", "autoputevi/at-a1.json"),
+            new Autoput("AT", "A2", "Wien – Graz – Klagenfurt – Villach", "autoputevi/at-a2.json"),
+            new Autoput("AT", "A3", "Wien – Eisenstadt", "autoputevi/at-a3.json"),
+            new Autoput("AT", "A4", "Wien – Flughafen – Nickelsdorf", "autoputevi/at-a4.json"),
+            new Autoput("AT", "A5", "Wien – Poysdorf", "autoputevi/at-a5.json"),
+            new Autoput("AT", "A6", "Bruckneudorf – Kittsee", "autoputevi/at-a6.json"),
+            new Autoput("AT", "A7", "Linz – Unterweitersdorf", "autoputevi/at-a7.json"),
+            new Autoput("AT", "A8", "Wels – Ried – Suben", "autoputevi/at-a8.json"),
+            new Autoput("AT", "A9", "Sattledt – Graz – Spielfeld", "autoputevi/at-a9.json"),
+            new Autoput("AT", "A10", "Salzburg – Villach", "autoputevi/at-a10.json"),
+            new Autoput("AT", "A11", "Villach – Karawankentunnel", "autoputevi/at-a11.json"),
+            new Autoput("AT", "A12", "Kufstein – Innsbruck – Landeck", "autoputevi/at-a12.json"),
+            new Autoput("AT", "A13", "Innsbruck – Brenner", "autoputevi/at-a13.json"),
+            new Autoput("AT", "A14", "Hörbranz – Bregenz – Bludenz", "autoputevi/at-a14.json"),
+            new Autoput("AT", "A21", "Wiener Außenring: Steinhäusl – Vösendorf", "autoputevi/at-a21.json"),
+            new Autoput("AT", "A22", "Wien – Stockerau", "autoputevi/at-a22.json"),
+            new Autoput("AT", "A23", "Südosttangente Wien", "autoputevi/at-a23.json"),
+            new Autoput("AT", "A25", "Linz – Wels", "autoputevi/at-a25.json"),
+            // Švajcarska
+            new Autoput("CH", "A1", "Genève – Lausanne – Bern – Zürich – St. Gallen", "autoputevi/ch-a1.json"),
+            new Autoput("CH", "A2", "Basel – Luzern – Gotthard – Chiasso", "autoputevi/ch-a2.json"),
+            new Autoput("CH", "A3", "Basel – Zürich – Sargans", "autoputevi/ch-a3.json"),
+            new Autoput("CH", "A4", "Schaffhausen – Winterthur – Zug – Brunnen", "autoputevi/ch-a4.json"),
+            new Autoput("CH", "A5", "Yverdon – Neuchâtel – Biel – Solothurn", "autoputevi/ch-a5.json"),
+            new Autoput("CH", "A6", "Biel – Bern – Thun – Spiez", "autoputevi/ch-a6.json"),
+            new Autoput("CH", "A7", "Winterthur – Frauenfeld – Kreuzlingen", "autoputevi/ch-a7.json"),
+            new Autoput("CH", "A9", "Lausanne – Montreux – Sion – Brig", "autoputevi/ch-a9.json"),
+            new Autoput("CH", "A12", "Vevey – Fribourg – Bern", "autoputevi/ch-a12.json"),
+            new Autoput("CH", "A13", "St. Margrethen – Chur – San Bernardino – Bellinzona", "autoputevi/ch-a13.json"),
+            new Autoput("CH", "A14", "Luzern – Zug", "autoputevi/ch-a14.json"),
+            new Autoput("CH", "A15", "Zürich – Uster – Rapperswil", "autoputevi/ch-a15.json"),
+            new Autoput("CH", "A16", "Transjurane: Boncourt – Delémont – Biel", "autoputevi/ch-a16.json"),
+            new Autoput("CH", "A18", "Basel – Aesch", "autoputevi/ch-a18.json"),
+            new Autoput("CH", "A20", "Neuchâtel – La Chaux-de-Fonds", "autoputevi/ch-a20.json"),
+            new Autoput("CH", "A22", "Liestal – Pratteln", "autoputevi/ch-a22.json"),
+            new Autoput("CH", "A51", "Zürich-Kloten – Bülach", "autoputevi/ch-a51.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -292,7 +329,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

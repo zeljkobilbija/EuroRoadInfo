@@ -1,12 +1,13 @@
 /*
- * Benelux Road Info – preuzimanje podataka za jedan autoput u Holandiji, Belgiji ili Luksemburgu iz OpenStreetMap-a.
+ * Euro Road Info – preuzimanje podataka za jedan autoput u Holandiji, Belgiji, Luksemburgu, Austriji ili Švajcarskoj iz OpenStreetMap-a.
+ * (DE, FR i IT dolaze iz AutobahnInfo, AutoroutesInfo i AutostradeInfo.)
  * (Prerađeno iz AutoroutesInfo: izlazi imaju brojeve – oba kolovoza se spajaju po broju,
  *  a smer kilometraže se određuje po rastu brojeva izlaza.)
- * Oznaka autoputa je ZEMLJA-REF: NL-A2, BE-A10, LU-A1 (OSM mreže NL:A, BE:A-road, LU:A-road; ref bez razmaka).
+ * Oznaka autoputa je ZEMLJA-REF: NL-A2, BE-A10, LU-A1, AT-A1, CH-A1 (OSM mreže NL:A, BE:A-road, LU:A-road, AT:A-road, CH:motorway).
  *
  * Iz terminala (Node 18+), fajlovi idu pravo u app/src/main/assets/autoputevi/:
- *   node alati/benelux_skripta.js NL-A2 BE-A10 LU-A1
- *   node alati/benelux_skripta.js --suvo NL-A2    → samo izveštaj, ništa ne snima
+ *   node alati/evropa_skripta.js NL-A2 BE-A10 LU-A1
+ *   node alati/evropa_skripta.js --suvo NL-A2    → samo izveštaj, ništa ne snima
  *
  * U pregledaču (na stranici https://overpass-api.de/), kao ranije:
  *   1. Nalepi ceo ovaj fajl u konzolu.
@@ -46,14 +47,15 @@ globalThis.AB = (() => {
 
   const LANCI = ["McDonald's", 'Burger King', 'KFC', 'Starbucks', 'Quick', 'Lunch Garden', 'La Place', 'Marché',
     'Wild Bean Cafe', 'Exki', 'Panos', 'Paul', 'Febo', 'Subway', 'Le Pain Quotidien', 'Carrefour Express',
-    'AH to go', 'Delhaize', 'Kiosk', 'Autogrill', 'Brioche Dorée'];
+    'AH to go', 'Delhaize', 'Kiosk', 'Autogrill', 'Brioche Dorée',
+    'Rosenberger', 'Landzeit', 'Spar', 'Billa', 'Coop', 'Coop Pronto', 'Migros', 'Avec', 'Mövenpick'];
   const GORIVO = { 'Total': 'TotalEnergies', 'Total Access': 'TotalEnergies', 'TotalEnergies Access': 'TotalEnergies',
     'TinQ': 'Tinq', 'Q8 Easy': 'Q8', 'Texaco Express': 'Texaco',
     'Esso Express': 'Esso', 'Agip': 'Eni', 'Eni Station': 'Eni', 'Shell Express': 'Shell', 'BP Express': 'BP' };
   // Ulaz na odmorište ucrtan kao "izlaz" – nije pravi izlaz, odmorište već dolazi iz highway=services
-  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b)|\baire de (repos|services?)\b/i;
+  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b)|\baire de (repos|services?)\b/i;
   // Čvorište: veza sa drugom autostradom, obilaznicom ili raskrsnica autostrada
-  const CVOR = /(^|[\s(\/-])[AE]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute/i;
+  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo/i;
 
   /**
    * Ručne ispravke gde OSM ne daje dobar naziv deonice: d = [[od, do], …] redom po deonicama
@@ -323,10 +325,10 @@ globalThis.AB = (() => {
 
   // ---------- 2. Glavni tok ----------
   async function preuzmi(ref) {
-    const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road' };
+    const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
-    if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (NL, BE ili LU)');
+    if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (NL, BE, LU, AT ili CH)');
     const id = delovi[delovi.length - 1]; ref = id; // OSM u Beneluksu: "A2", bez razmaka
     const oblast = `area["ISO3166-1"="${zemlja}"][admin_level=2]->.z;`;
     const rel = `rel[route=road][network="${MREZA[zemlja]}"][ref="${ref}"]`;
@@ -340,9 +342,20 @@ globalThis.AB = (() => {
     // Izuzeci: BE A15 je u OSM-u samo kao E42 (zbirna relacija A7/A8/A15/A16) → putevi E42 između Monsa i Liègea
     const POSEBNO = { 'BE-A15': { ref: 'E42', lon: [3.85, 5.52] } };
     const pos = L && POSEBNO[zemlja + '-' + ref];
+    // izvod zemlje sadrži i pogranične strane autoputeve iste oznake (švajcarski A1 kod St. Margrethena u izvodu Austrije):
+    // putevi po oznaci samo ako nisu u stranoj mreži i ako su do ~30 km od puteva domaće relacije (kao u AutoroutesInfo)
+    const domaci = ws => {
+      const strani = L.uMrezama(new RegExp('^(?!' + zemlja + ':|' + zemlja.toLowerCase() + ':)(BAB|DE:|de:|FR:|IT:|BE:|LU:|NL:|CH:|ch:|AT:|at:|HU:|SI:|SK:|sk:|CZ:|cz:|PL:|LI:)'));
+      ws = ws.filter(w => !strani.has(w.id));
+      const rel = L.putevi(MREZA[zemlja], ref); if (!rel.length) return ws;
+      const c = p => Math.round(p.lat * 4) + '_' + Math.round(p.lon * 3), mreza = new Set();
+      for (const w of rel) for (const p of w.geometry) { const [a, b] = c(p).split('_').map(Number);
+        for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) mreza.add((a + i) + '_' + (b + j)); }
+      return ws.filter(w => w.geometry.some(p => mreza.has(c(p))));
+    };
     const geo = L ? { elements: kaoRelacija(wL = pos
         ? L.poOznaci(pos.ref).filter(w => w.geometry.every(p => p.lon >= pos.lon[0] && p.lon <= pos.lon[1]))
-        : sjedini(L.putevi(MREZA[zemlja], ref), L.poOznaci(ref))) }
+        : sjedini(L.putevi(MREZA[zemlja], ref), domaci(L.poOznaci(ref)))) }
       : await upit(`[out:json][timeout:240];${rel}->.r;(.r;rel(r.r););out geom;`);
     const postaviCos = elementi => { let s = 0, n = 0; for (const el of elementi) for (const m of el.members || [])
       if (m.geometry) for (const p of m.geometry) { s += p.lat; n++; } cosLat = Math.cos((n ? s / n : 50) * RAD); };
@@ -626,7 +639,7 @@ if (typeof window === 'undefined' && typeof require !== 'undefined' && require.m
   const arg = process.argv.slice(2), suvo = arg.includes('--suvo');
   const lokalno = !arg.includes('--overpass'), osvezi = arg.includes('--osvezi');
   const refs = arg.filter(a => !a.startsWith('--')).map(a => a.toUpperCase().replace(/\s+/g, ''));
-  if (!refs.length) { console.error('Upotreba: node alati/benelux_skripta.js [--suvo] NL-A2 BE-A10 LU-A1 …'); process.exit(1); }
+  if (!refs.length) { console.error('Upotreba: node alati/evropa_skripta.js [--suvo] NL-A2 BE-A10 LU-A1 …'); process.exit(1); }
   const cilj = path.join(__dirname, '..', 'app', 'src', 'main', 'assets', 'autoputevi');
   let greske = 0;
   if (lokalno) { // Geofabrik izvod zemlje, jednom preuzet i obrađen (alati/osm/)

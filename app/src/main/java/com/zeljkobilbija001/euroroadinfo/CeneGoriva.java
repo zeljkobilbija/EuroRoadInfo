@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 /**
  * Cene goriva i punjenja po zemlji, iz otvorenih izvora. Svaka zemlja daje jedan ili dva bloka:
  * <ul>
- *   <li>DE, FR, IT: nedeljni nacionalni prosek (EU Weekly Oil Bulletin, preko fuel-prices.eu, CC BY 4.0);</li>
+ *   <li>DE, FR, IT, AT: nedeljni nacionalni prosek (EU Weekly Oil Bulletin, preko fuel-prices.eu, CC BY 4.0);</li>
  *   <li>BE: zvanične maksimalne cene (FOD Economie, be.STAT/Statbel, CSV), skoro svakog dana;</li>
  *   <li>NL: dnevni prosek (CBS 80416ned, kasni ~nedelju dana) + kvartalni prosek sa CNG i punjenjem (CBS 84991NED);</li>
  *   <li>LU: nedeljni prosek (EU Weekly Oil Bulletin, preko fuel-prices.eu, CC BY 4.0)
@@ -102,8 +102,9 @@ public final class CeneGoriva {
             switch (zemlja) {
                 case "DE":
                 case "FR":
+                case "AT":
                 case "IT": {
-                    String ime = "DE".equals(zemlja) ? "Germany" : "FR".equals(zemlja) ? "France" : "Italy";
+                    String ime = "DE".equals(zemlja) ? "Germany" : "FR".equals(zemlja) ? "France" : "AT".equals(zemlja) ? "Austria" : "Italy";
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));
                     break;
                 }
@@ -118,6 +119,8 @@ public final class CeneGoriva {
                     dodaj(l, holandijaKvartal(tekst(p, "NL_KV", NL_KVARTAL_URL)));
                     break;
                 }
+                case "CH": // nije u EU Weekly Oil Bulletin-u
+                    break;
                 default:
                     dodaj(l, nedelja(tekst(p, "LU", LU_NEDELJA_URL), "LU", LU_NEDELJA));
                     dodaj(l, luksemburgMesec(tekst(p, "LU_MES", null)));
@@ -129,7 +132,8 @@ public final class CeneGoriva {
     /** Naziv po zemlji: Nemačka, Francuska, Italija, ostale. */
     private static String poZemlji(String zemlja, String de, String fr, String it, String ostalo) {
         switch (zemlja) {
-            case "DE": return de;
+            case "DE":
+            case "AT": return de;
             case "FR": return fr;
             case "IT": return it;
             default: return ostalo;

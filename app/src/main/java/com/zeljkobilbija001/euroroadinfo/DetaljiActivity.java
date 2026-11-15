@@ -111,7 +111,7 @@ public class DetaljiActivity extends AppCompatActivity {
                 else bezLoga.add(marka);
             }
             if (!bezLoga.isEmpty()) cipovi(g, bezLoga, R.color.cip_gorivo, R.color.cip_gorivo_tekst);
-            cene(g);
+            if (!"CH".equals(autoput.zemlja)) cene(g); // Švajcarska: nema otvorenog izvora cena
         }
 
         // Hrana

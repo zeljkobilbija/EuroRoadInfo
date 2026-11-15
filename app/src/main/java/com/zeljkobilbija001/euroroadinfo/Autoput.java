@@ -21,9 +21,9 @@ public final class Autoput {
         return "DE".equals(zemlja) ? ref.replaceFirst("^A", "A ") : ref;
     }
 
-    /** Štit kao na tablama: crven u Holandiji i Francuskoj, zelen u Italiji, plav u Nemačkoj, Belgiji i Luksemburgu. */
+    /** Štit kao na tablama: crven u Holandiji, Francuskoj i Švajcarskoj, zelen u Italiji, plav u Nemačkoj, Austriji, Belgiji i Luksemburgu. */
     public int stit() {
-        if ("NL".equals(zemlja) || "FR".equals(zemlja)) return R.drawable.bg_stit;
+        if ("NL".equals(zemlja) || "FR".equals(zemlja) || "CH".equals(zemlja)) return R.drawable.bg_stit;
         if ("IT".equals(zemlja)) return R.drawable.bg_stit_zeleni;
         return R.drawable.bg_stit_plavi;
     }
