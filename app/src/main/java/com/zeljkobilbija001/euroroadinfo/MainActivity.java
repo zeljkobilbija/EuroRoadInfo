@@ -21,6 +21,9 @@ import androidx.core.view.WindowInsetsCompat;
 /** Početni ekran: izbor zemlje (kartice sa zastavom). */
 public class MainActivity extends AppCompatActivity {
 
+    /** Broj kartica zemalja u jednom redu. */
+    private static final int KOLONA = 3;
+
     private ImageButton dugmePrivatnosti;
 
     @Override
@@ -40,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup zemlje = findViewById(R.id.zemlje);
         LayoutInflater inflater = LayoutInflater.from(this);
         String autoputevi = getString(R.string.naslov);
-        // mreža od dve kolone: red po red, svaki sa dve kartice (neparna poslednja ostaje na pola širine)
+        // mreža od KOLONA kolona: red po red (nepotpun poslednji red se dopunjava praznim mestima)
         LinearLayout red = null;
         for (int i = 0; i < Autoputevi.ZEMLJE.length; i++) {
             String z = Autoputevi.ZEMLJE[i];
-            if (i % 2 == 0) {
+            if (i % KOLONA == 0) {
                 red = new LinearLayout(this);
                 red.setOrientation(LinearLayout.HORIZONTAL);
                 zemlje.addView(red);
@@ -59,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
             k.setOnClickListener(v -> startActivity(ZemljaActivity.namera(this, z)));
             red.addView(k);
         }
-        if (Autoputevi.ZEMLJE.length % 2 == 1) {
-            View prazno = new View(this);
-            red.addView(prazno, new LinearLayout.LayoutParams(0, 0, 1));
+        for (int i = Autoputevi.ZEMLJE.length % KOLONA; i > 0 && i < KOLONA; i++) {
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, 0, 1);
+            int m = Izgled.dp(this, 5); // kao layout_margin kartice
+            lp.setMargins(m, m, m, m);
+            red.addView(new View(this), lp);
         }
 
         findViewById(R.id.dugmePodeli).setOnClickListener(v -> podeliAplikaciju(this));

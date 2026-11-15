@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Kartica zemlje na početnom ekranu (mreža od dve kolone): velika zastava, ispod ime i broj autoputeva -->
+<!-- Kartica zemlje na početnom ekranu (mreža od tri kolone): velika zastava, ispod ime i broj autoputeva -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_margin="5dp"
     android:layout_weight="1"
     android:clickable="true"
     android:focusable="true"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="14dp">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/zastava"
@@ -33,13 +33,16 @@
         <TextView
             android:id="@+id/imeZemlje"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed"
             android:maxLines="1"
             android:textColor="@color/tekst"
-            android:textSize="22sp"
+            android:textSize="17sp"
+            app:autoSizeMaxTextSize="17sp"
+            app:autoSizeMinTextSize="11sp"
+            app:autoSizeTextType="uniform"
             android:textStyle="bold"
             tools:text="Deutschland" />
 
@@ -48,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/plava_tekst"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             tools:text="Autobahnen · 116" />
     </LinearLayout>
