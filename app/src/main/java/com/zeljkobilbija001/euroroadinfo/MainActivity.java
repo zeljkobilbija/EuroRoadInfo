@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -39,8 +40,16 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup zemlje = findViewById(R.id.zemlje);
         LayoutInflater inflater = LayoutInflater.from(this);
         String autoputevi = getString(R.string.naslov);
-        for (String z : Autoputevi.ZEMLJE) {
-            View k = inflater.inflate(R.layout.item_zemlja, zemlje, false);
+        // mreža od dve kolone: red po red, svaki sa dve kartice (neparna poslednja ostaje na pola širine)
+        LinearLayout red = null;
+        for (int i = 0; i < Autoputevi.ZEMLJE.length; i++) {
+            String z = Autoputevi.ZEMLJE[i];
+            if (i % 2 == 0) {
+                red = new LinearLayout(this);
+                red.setOrientation(LinearLayout.HORIZONTAL);
+                zemlje.addView(red);
+            }
+            View k = inflater.inflate(R.layout.item_zemlja, red, false);
             String ime = getString(ZemljaActivity.ime(z));
             int broj = Autoputevi.zaZemlju(z).size();
             ((ImageView) k.findViewById(R.id.zastava)).setImageResource(ZemljaActivity.zastava(z));
@@ -48,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) k.findViewById(R.id.brojAutoputeva)).setText(autoputevi + " · " + broj);
             k.setContentDescription(ime + ", " + autoputevi + " " + broj);
             k.setOnClickListener(v -> startActivity(ZemljaActivity.namera(this, z)));
-            zemlje.addView(k);
+            red.addView(k);
+        }
+        if (Autoputevi.ZEMLJE.length % 2 == 1) {
+            View prazno = new View(this);
+            red.addView(prazno, new LinearLayout.LayoutParams(0, 0, 1));
         }
 
         findViewById(R.id.dugmePodeli).setOnClickListener(v -> podeliAplikaciju(this));
