@@ -54,6 +54,8 @@ public class ZemljaActivity extends AppCompatActivity {
             case "GR": return R.string.zemlja_gr;
             case "BG": return R.string.zemlja_bg;
             case "RO": return R.string.zemlja_ro;
+            case "DK": return R.string.zemlja_dk;
+            case "SE": return R.string.zemlja_se;
             case "PT": return R.string.zemlja_pt;
             case "BE": return R.string.zemlja_be;
             case "LU": return R.string.zemlja_lu;
@@ -80,6 +82,8 @@ public class ZemljaActivity extends AppCompatActivity {
             case "GR": return R.drawable.zastava_gr;
             case "BG": return R.drawable.zastava_bg;
             case "RO": return R.drawable.zastava_ro;
+            case "DK": return R.drawable.zastava_dk;
+            case "SE": return R.drawable.zastava_se;
             case "PT": return R.drawable.zastava_pt;
             case "BE": return R.drawable.zastava_be;
             case "LU": return R.drawable.zastava_lu;

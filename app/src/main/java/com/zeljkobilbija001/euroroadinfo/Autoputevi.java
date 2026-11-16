@@ -447,6 +447,22 @@ public final class Autoputevi {
             new Autoput("RO", "A4", "Constanța (centura)", "autoputevi/ro-a4.json"),
             new Autoput("RO", "A7", "Ploiești – Buzău – Focșani – Bacău", "autoputevi/ro-a7.json"),
             new Autoput("RO", "A10", "Sebeș – Alba Iulia – Turda", "autoputevi/ro-a10.json"),
+            new Autoput("DK", "E20", "København – Odense – Kolding – Esbjerg", "autoputevi/dk-e20.json"),
+            new Autoput("DK", "E45", "Frederikshavn – Aalborg – Aarhus – Kolding – Padborg", "autoputevi/dk-e45.json"),
+            new Autoput("DK", "E47", "Helsingør – København – Rødbyhavn", "autoputevi/dk-e47.json"),
+            new Autoput("DK", "E55", "Helsingør – København – Vordingborg – Gedser", "autoputevi/dk-e55.json"),
+            new Autoput("DK", "E39", "Hirtshals – Hjørring – Aalborg", "autoputevi/dk-e39.json"),
+            new Autoput("DK", "15", "Aarhus – Herning", "autoputevi/dk-15.json"),
+            new Autoput("DK", "18", "Vejle – Herning – Holstebro", "autoputevi/dk-18.json"),
+            new Autoput("DK", "21", "København – Holbæk", "autoputevi/dk-21.json"),
+            new Autoput("SE", "E4", "Helsingborg – Jönköping – Stockholm – Gävle – Umeå – Haparanda", "autoputevi/se-e4.json"),
+            new Autoput("SE", "E6", "Trelleborg – Malmö – Helsingborg – Göteborg – Svinesund", "autoputevi/se-e6.json"),
+            new Autoput("SE", "E18", "Karlstad – Örebro – Västerås – Stockholm", "autoputevi/se-e18.json"),
+            new Autoput("SE", "E20", "Malmö – Göteborg – Örebro – Stockholm", "autoputevi/se-e20.json"),
+            new Autoput("SE", "E22", "Malmö – Lund – Kristianstad – Kalmar", "autoputevi/se-e22.json"),
+            new Autoput("SE", "E45", "Göteborg – Trollhättan", "autoputevi/se-e45.json"),
+            new Autoput("SE", "40", "Göteborg – Borås – Jönköping", "autoputevi/se-40.json"),
+            new Autoput("SE", "73", "Stockholm – Nynäshamn", "autoputevi/se-73.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -509,7 +525,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "DK", "SE", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

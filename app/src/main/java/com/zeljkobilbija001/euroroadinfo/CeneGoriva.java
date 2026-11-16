@@ -98,6 +98,8 @@ public final class CeneGoriva {
                 {"GR", "Greece", "Amolyvdi 95", "Amolyvdi E10", "Diesel", "Autogas"},
                 {"BG", "Bulgaria", "A95", "A95 E10", "Dizel", "Propan-butan"},
                 {"RO", "Romania", "Benzină 95", "Benzină E10", "Motorină", "GPL"},
+                {"DK", "Denmark", "Blyfri 95", "Blyfri 95 E10", "Diesel", "Autogas"},
+                {"SE", "Sweden", "Bensin 95", "Bensin 95 E10", "Diesel", "Fordonsgas"},
                 {"PT", "Portugal", "Gasolina 95", "Gasolina E10", "Gasóleo", "GPL Auto"},
                 {"SK", "Slovakia", "Natural 95", "Natural E10", "Nafta", "LPG"},
                 {"HU", "Hungary", "95-ös benzin", "E10 benzin", "Gázolaj", "Autógáz"},
@@ -142,6 +144,8 @@ public final class CeneGoriva {
                 case "GR":
                 case "BG":
                 case "RO":
+                case "DK":
+                case "SE":
                 case "IT": {
                     String ime = ENGLESKI.get(zemlja);
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));
@@ -176,6 +180,8 @@ public final class CeneGoriva {
             case "PLN": return "zł";
             case "HUF": return "Ft";
             case "RON": return "lei";
+            case "DKK":
+            case "SEK": return "kr";
             case "BGN": return "лв";
             default: return iso;
         }
