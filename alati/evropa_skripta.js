@@ -370,6 +370,10 @@ globalThis.AB = (() => {
     const rel = `rel[route=road][network="${MREZA[zemlja]}"][ref="${ref}"]`;
     // lokalni Geofabrik izvod (alati/osm_lokalno.js) umesto Overpass-a: relacija + putevi po oznaci (ref "A2")
     const L = ab.lokalno ? ab.lokalno(zemlja) : null;
+    // brzi putevi koji su u OSM-u (delom) highway=trunk, a ne motorway – samo za njih se uzimaju i trunk putevi
+    const BRZI = ['AT-S3', 'AT-S4', 'AT-S7', 'AT-S8', 'AT-S16', 'AT-S18', 'AT-S37', 'HU-M0', 'HU-M2', 'HU-M8', 'HU-M19', 'HU-M44', 'HU-M85', 'HU-M86',
+      'SK-R1A', 'SK-R3', 'SK-R5', 'SK-R6', 'SI-H3', 'SI-H4', 'PT-A36', 'RS-A6', 'RS-A9', 'RS-A10', 'RS-A12', 'CH-A21', 'CH-A23', 'NI-M5', 'NI-A8M'];
+    if (L) L.trunk = BRZI.includes(zemlja + '-' + id);
     const sjedini = (a, b) => { const ids = new Set(a.map(w => w.id)); return a.concat(b.filter(w => !ids.has(w.id))); };
     const kaoRelacija = w => [{ type: 'relation', tags: { type: 'route' }, members: w.map(x => ({ type: 'way', role: '', geometry: x.geometry })) }];
     let wL = [];
