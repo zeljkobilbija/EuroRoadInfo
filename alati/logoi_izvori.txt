@@ -7,12 +7,14 @@ logo_benzina.webp	Benzina	Q11130894	https://commons.wikimedia.org/wiki/File:Benz
 logo_bp.webp	BP	Q152057	https://commons.wikimedia.org/wiki/File:Bp_textlogo.svg
 logo_circle_k.webp	Circle K	Q3268010	https://commons.wikimedia.org/wiki/File:Circle_K_logo_2015.svg
 logo_costantin.webp	Costantin	Q48800790	https://commons.wikimedia.org/wiki/File:Logo_Costantin.svg
+logo_eko.webp	EKO	Q3045934	https://commons.wikimedia.org/wiki/File:Logoeko.jpg
 logo_enercoop.webp	Enercoop	Q24936353	https://commons.wikimedia.org/wiki/File:Logo_EnerCoop.png
 logo_enerpetroli.webp	Enerpetroli	Q114647217	https://commons.wikimedia.org/wiki/File:Enerpetroli_logo.png
 logo_esso.webp	Esso	Q867662	https://commons.wikimedia.org/wiki/File:Esso_textlogo.svg
 logo_esso_express.webp	Esso Express	Q2350336	https://commons.wikimedia.org/wiki/File:Esso_textlogo.svg
 logo_eurooil.webp	EuroOil	Q110219457	https://commons.wikimedia.org/wiki/File:Logo_EuroOil.png
 logo_galp.webp	Galp	Q1492739	https://commons.wikimedia.org/wiki/File:Galp_Logo_2024.svg
+logo_gazprom.webp	Gazprom	Q102673	https://commons.wikimedia.org/wiki/File:Gazprom_logo.svg
 logo_gulf.webp	Gulf	Q5617505	https://commons.wikimedia.org/wiki/File:Gulf_Oil_logo.svg
 logo_ina.webp	INA	Q1662137	https://commons.wikimedia.org/wiki/File:Ina_logo.svg
 logo_lukoil.webp	Lukoil	Q329347	https://commons.wikimedia.org/wiki/File:Lukoil_company_logo.svg

@@ -416,6 +416,11 @@ public final class Autoputevi {
             new Autoput("SK", "R2", "Zvolen – Lučenec", "autoputevi/sk-r2.json"),
             new Autoput("SK", "R4", "Košice – Milhosť; Prešov", "autoputevi/sk-r4.json"),
             new Autoput("SK", "R7", "Bratislava – Šamorín", "autoputevi/sk-r7.json"),
+            new Autoput("RS", "A1", "Horgoš – Novi Sad – Beograd – Niš – Preševo", "autoputevi/rs-a1.json"),
+            new Autoput("RS", "A2", "Beograd – Obrenovac – Ljig – Preljina", "autoputevi/rs-a2.json"),
+            new Autoput("RS", "A3", "Batrovci – Sremska Mitrovica – Beograd", "autoputevi/rs-a3.json"),
+            new Autoput("RS", "A4", "Niš – Pirot – Dimitrovgrad", "autoputevi/rs-a4.json"),
+            new Autoput("RS", "A5", "Pojate – Kruševac – Kraljevo – Preljina", "autoputevi/rs-a5.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -478,7 +483,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

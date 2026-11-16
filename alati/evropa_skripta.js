@@ -53,9 +53,9 @@ globalThis.AB = (() => {
     'TinQ': 'Tinq', 'Q8 Easy': 'Q8', 'Texaco Express': 'Texaco',
     'Esso Express': 'Esso', 'Agip': 'Eni', 'Eni Station': 'Eni', 'Shell Express': 'Shell', 'BP Express': 'BP' };
   // Ulaz na odmorište ucrtan kao "izlaz" – nije pravi izlaz, odmorište već dolazi iz highway=services
-  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b|počivališče\b|odmorište\b|odpočívka\b|odpočívadlo\b|mop\b|área de (servicio|descanso)\b|area de servicio\b|pihenőhely\b|pihenő\b|área de serviço\b|area de serviço\b)|\baire de (repos|services?)\b/i;
+  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b|počivališče\b|odmorište\b|odpočívka\b|odpočívadlo\b|mop\b|área de (servicio|descanso)\b|area de servicio\b|pihenőhely\b|pihenő\b|área de serviço\b|area de serviço\b|odmorište\b|одмориште\b)|\baire de (repos|services?)\b/i;
   // Čvorište: veza sa drugom autostradom, obilaznicom ili raskrsnica autostrada
-  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo|razcep|čvor|čvorište|křižovatka|węzeł|enlace con|csomópont|križovatka|nó /i;
+  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo|razcep|čvor|čvorište|křižovatka|węzeł|enlace con|csomópont|križovatka|nó |petlja|петља/i;
 
   /**
    * Ručne ispravke gde OSM ne daje dobar naziv deonice: d = [[od, do], …] redom po deonicama
@@ -323,10 +323,24 @@ globalThis.AB = (() => {
     return rez;
   }
 
+  /** Naziv bezimene pumpe i odmorišta na jeziku zemlje (NL i BE: holandski). */
+  const IME_MESTA = {'AT':['Tankstelle', 'Rastplatz'],
+     'CH':['Tankstelle', 'Rastplatz'],
+     'SI':['Bencinski servis', 'Počivališče'],
+     'HR':['Benzinska postaja', 'Odmorište'],
+     'CZ':['Čerpací stanice', 'Odpočívka'],
+     'PL':['Stacja paliw', 'MOP'],
+     'ES':['Gasolinera', 'Área de descanso'],
+     'PT':['Posto de combustível', 'Área de repouso'],
+     'HU':['Benzinkút', 'Pihenőhely'],
+     'SK':['Čerpacia stanica', 'Odpočívadlo'],
+     'RS':['Benzinska stanica', 'Odmorište'],
+     'LU':['Station-service', 'Aire']};
+
   // ---------- 2. Glavni tok ----------
   async function preuzmi(ref) {
     const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
-      SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway', SK: 'sk:national', PT: 'PT:national' };
+      SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway', SK: 'sk:national', PT: 'PT:national', RS: 'RS:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
     if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (' + Object.keys(MREZA).join(', ') + ')');
@@ -362,7 +376,9 @@ globalThis.AB = (() => {
     };
     const geo = L ? { elements: kaoRelacija(wL = pos
         ? L.poOznaci(pos.ref).filter(w => w.geometry.every(p => p.lon >= pos.lon[0] && p.lon <= pos.lon[1]))
-        : sjedini(L.putevi(MREZA[zemlja], ref), domaci(L.poOznaci(ref)))) }
+        // Srbija: deo puteva ima ćirilično „А2“
+        : sjedini(L.putevi(MREZA[zemlja], ref), domaci(L.poOznaci(ref)
+          .concat(zemlja === 'RS' ? L.poOznaci(ref.replace(/^A/, 'А')) : [])))) }
       : await upit(`[out:json][timeout:240];${rel}->.r;(.r;rel(r.r););out geom;`);
     const postaviCos = elementi => { let s = 0, n = 0; for (const el of elementi) for (const m of el.members || [])
       if (m.geometry) for (const p of m.geometry) { s += p.lat; n++; } cosLat = Math.cos((n ? s / n : 50) * RAD); };
@@ -471,7 +487,7 @@ globalThis.AB = (() => {
       const ime = (t.brand || t.name || '').trim();
       const kk = kontakt(t), kg = t.amenity === 'fuel' ? 'konF' : 'konX'; // pumpa ima prednost
       if (kk && !s[kg]) s[kg] = kk;
-      if (t.amenity === 'fuel') s.f.add(/^total/i.test(ime) ? 'TotalEnergies' : GORIVO[ime] || ime || 'Tankstation');
+      if (t.amenity === 'fuel') s.f.add(/^total/i.test(ime) ? 'TotalEnergies' : GORIVO[ime] || ime || (IME_MESTA[zemlja] || ['Tankstation'])[0]);
       else if (/^(fast_food|restaurant|cafe)$/.test(t.amenity)) {
         const lanac = /serways/i.test(ime) ? 'Serways' : /^axxe/i.test(ime) ? 'Axxe' : ime;
         if (LANCI.includes(lanac)) s.h.add(lanac); else s.re = true;
@@ -503,7 +519,7 @@ globalThis.AB = (() => {
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída' }[zemlja] || 'Afrit') + ' ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);
@@ -536,7 +552,7 @@ globalThis.AB = (() => {
     const prefiks = /^(Aire de [Ss]ervices? de |Aire de [Rr]epos de |Aire de [Ss]ervices? |Aire de [Rr]epos |Aire de )/;
     for (const s of sv) {
       let n = (s.tag.name || '').trim(), t = s.t;
-      if (!n) n = s.f.size ? 'Tankstation' : 'Verzorgingsplaats';
+      if (!n) { const ii = IME_MESTA[zemlja] || ['Tankstation', 'Verzorgingsplaats']; n = s.f.size ? ii[0] : ii[1]; }
       for (let i = 0; i < 2; i++) n = n.replace(prefiks, '') || n;
       const o = { t, si: s.pr.si, km: +s.pr.km.toFixed(1), s: s.s, n };
       if (s.f.size > 1) s.f.delete('Station-service'); // opšti naziv samo kad nema marke

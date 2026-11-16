@@ -153,6 +153,7 @@ public final class CeneGoriva {
                     break;
                 }
                 case "CH": // nije u EU Weekly Oil Bulletin-u
+                case "RS":
                     break;
                 default:
                     dodaj(l, nedelja(tekst(p, "LU", LU_NEDELJA_URL), "LU", LU_NEDELJA));

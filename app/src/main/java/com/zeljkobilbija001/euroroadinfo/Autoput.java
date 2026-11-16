@@ -23,12 +23,12 @@ public final class Autoput {
 
     /**
      * Štit kao na tablama: crven u Holandiji, Francuskoj, Švajcarskoj, Češkoj, Slovačkoj i Poljskoj,
-     * zelen u Italiji, Sloveniji i Hrvatskoj, plav u Nemačkoj, Austriji, Španiji, Belgiji i Luksemburgu.
+     * zelen u Italiji, Sloveniji, Hrvatskoj i Srbiji, plav u Nemačkoj, Austriji, Španiji, Belgiji i Luksemburgu.
      */
     public int stit() {
         switch (zemlja) {
             case "NL": case "FR": case "CH": case "CZ": case "SK": case "PL": return R.drawable.bg_stit;
-            case "IT": case "SI": case "HR": return R.drawable.bg_stit_zeleni;
+            case "IT": case "SI": case "HR": case "RS": return R.drawable.bg_stit_zeleni;
             default: return R.drawable.bg_stit_plavi;
         }
     }
