@@ -95,6 +95,7 @@ public final class CeneGoriva {
                 {"HR", "Croatia", "Eurosuper 95", "Eurosuper E10", "Eurodizel", "Autoplin"},
                 {"CZ", "Czechia", "Natural 95", "Natural E10", "Nafta", "LPG"},
                 {"PL", "Poland", "Pb95", "Pb95 E10", "ON (diesel)", "LPG"},
+                {"HU", "Hungary", "95-ös benzin", "E10 benzin", "Gázolaj", "Autógáz"},
                 {"ES", "Spain", "Gasolina 95", "Gasolina E10", "Gasóleo A", "GLP"},
                 {"LU", "Luxembourg", "Euro 95", "Euro 95 E10", "Diesel", "LPG"}};
         for (String[] r : z) {
@@ -130,6 +131,7 @@ public final class CeneGoriva {
                 case "CZ":
                 case "PL":
                 case "ES":
+                case "HU":
                 case "IT": {
                     String ime = ENGLESKI.get(zemlja);
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));
@@ -161,6 +163,7 @@ public final class CeneGoriva {
         switch (iso) {
             case "CZK": return "Kč";
             case "PLN": return "zł";
+            case "HUF": return "Ft";
             default: return iso;
         }
     }

@@ -53,9 +53,9 @@ globalThis.AB = (() => {
     'TinQ': 'Tinq', 'Q8 Easy': 'Q8', 'Texaco Express': 'Texaco',
     'Esso Express': 'Esso', 'Agip': 'Eni', 'Eni Station': 'Eni', 'Shell Express': 'Shell', 'BP Express': 'BP' };
   // Ulaz na odmorište ucrtan kao "izlaz" – nije pravi izlaz, odmorište već dolazi iz highway=services
-  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b|počivališče\b|odmorište\b|odpočívka\b|odpočívadlo\b|mop\b|área de (servicio|descanso)\b|area de servicio\b)|\baire de (repos|services?)\b/i;
+  const NIJE_IZLAZ = /^(aire\b|parking\b|verzorgingsplaats\b|parkeerplaats\b|rustplaats\b|rastplatz\b|raststation\b|raststätte\b|parkplatz\b|area di servizio\b|počivališče\b|odmorište\b|odpočívka\b|odpočívadlo\b|mop\b|área de (servicio|descanso)\b|area de servicio\b|pihenőhely\b|pihenő\b)|\baire de (repos|services?)\b/i;
   // Čvorište: veza sa drugom autostradom, obilaznicom ili raskrsnica autostrada
-  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo|razcep|čvor|čvorište|křižovatka|węzeł|enlace con/i;
+  const CVOR = /(^|[\s(\/-])[AES]\s?\d{1,3}\b|knooppunt|verkeerswisselaar|klaverblad|échangeur|echangeur|\bring\b|autosnelweg|autoroute|knoten|verzweigung|dreieck|autobahnkreuz|jonction|svincolo|raccordo|razcep|čvor|čvorište|křižovatka|węzeł|enlace con|csomópont/i;
 
   /**
    * Ručne ispravke gde OSM ne daje dobar naziv deonice: d = [[od, do], …] redom po deonicama
@@ -326,7 +326,7 @@ globalThis.AB = (() => {
   // ---------- 2. Glavni tok ----------
   async function preuzmi(ref) {
     const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
-      SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road' };
+      SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
     if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (' + Object.keys(MREZA).join(', ') + ')');
@@ -334,7 +334,8 @@ globalThis.AB = (() => {
     const id = zemlja === 'ES' ? delovi.slice(1).join('-') : delovi[delovi.length - 1]; ref = id;
     if (zemlja === 'ES' && id.startsWith('AP-')) MREZA.ES = 'ES:AP-highway';
     ab.skok = zemlja === 'ES' ? 500000 : 200000;
-    if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway'; // OSM u Beneluksu: "A2", bez razmaka
+    if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway';
+    if (zemlja === 'AT' && id.startsWith('S')) MREZA.AT = 'AT:S-road'; // OSM u Beneluksu: "A2", bez razmaka
     const oblast = `area["ISO3166-1"="${zemlja}"][admin_level=2]->.z;`;
     const rel = `rel[route=road][network="${MREZA[zemlja]}"][ref="${ref}"]`;
     // lokalni Geofabrik izvod (alati/osm_lokalno.js) umesto Overpass-a: relacija + putevi po oznaci (ref "A2")
@@ -501,7 +502,7 @@ globalThis.AB = (() => {
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida' }[zemlja] || 'Afrit') + ' ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);

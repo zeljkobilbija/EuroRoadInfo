@@ -249,6 +249,15 @@ public final class Autoputevi {
             new Autoput("AT", "A22", "Wien – Stockerau", "autoputevi/at-a22.json"),
             new Autoput("AT", "A23", "Südosttangente Wien", "autoputevi/at-a23.json"),
             new Autoput("AT", "A25", "Linz – Wels", "autoputevi/at-a25.json"),
+            new Autoput("AT", "S1", "Wiener Außenring Schnellstraße", "autoputevi/at-s1.json"),
+            new Autoput("AT", "S2", "Wiener Nordrand Schnellstraße", "autoputevi/at-s2.json"),
+            new Autoput("AT", "S5", "Stockerau – Krems", "autoputevi/at-s5.json"),
+            new Autoput("AT", "S6", "Semmering Schnellstraße (Seebenstein – St. Michael)", "autoputevi/at-s6.json"),
+            new Autoput("AT", "S10", "Mühlviertler Schnellstraße (Linz – Freistadt)", "autoputevi/at-s10.json"),
+            new Autoput("AT", "S31", "Burgenland Schnellstraße (Eisenstadt)", "autoputevi/at-s31.json"),
+            new Autoput("AT", "S33", "Kremser Schnellstraße (St. Pölten – Traismauer)", "autoputevi/at-s33.json"),
+            new Autoput("AT", "S35", "Brucker Schnellstraße (Bruck – Graz)", "autoputevi/at-s35.json"),
+            new Autoput("AT", "S36", "Murtal Schnellstraße (St. Michael – Judenburg)", "autoputevi/at-s36.json"),
             // Švajcarska
             new Autoput("CH", "A1", "Genève – Lausanne – Bern – Zürich – St. Gallen", "autoputevi/ch-a1.json"),
             new Autoput("CH", "A2", "Basel – Luzern – Gotthard – Chiasso", "autoputevi/ch-a2.json"),
@@ -358,6 +367,19 @@ public final class Autoputevi {
             new Autoput("ES", "A-67", "Palencia – Santander", "autoputevi/es-a-67.json"),
             new Autoput("ES", "A-68", "Bilbao – Logroño – Zaragoza", "autoputevi/es-a-68.json"),
             new Autoput("ES", "A-92", "Sevilla – Granada – Almería", "autoputevi/es-a-92.json"),
+            new Autoput("HU", "M1", "Budapest – Győr – Hegyeshalom", "autoputevi/hu-m1.json"),
+            new Autoput("HU", "M3", "Budapest – Miskolc – Nyíregyháza – Vaja", "autoputevi/hu-m3.json"),
+            new Autoput("HU", "M4", "Berettyóújfalu – Nagykereki", "autoputevi/hu-m4.json"),
+            new Autoput("HU", "M5", "Budapest – Kecskemét – Szeged – Röszke", "autoputevi/hu-m5.json"),
+            new Autoput("HU", "M6", "Budapest – Dunaújváros – Szekszárd – Pécs", "autoputevi/hu-m6.json"),
+            new Autoput("HU", "M7", "Budapest – Székesfehérvár – Siófok – Letenye", "autoputevi/hu-m7.json"),
+            new Autoput("HU", "M15", "Levél – Rajka", "autoputevi/hu-m15.json"),
+            new Autoput("HU", "M30", "Miskolc – Tornyosnémeti", "autoputevi/hu-m30.json"),
+            new Autoput("HU", "M31", "M0 – Gödöllő", "autoputevi/hu-m31.json"),
+            new Autoput("HU", "M35", "Polgár – Debrecen – Berettyóújfalu", "autoputevi/hu-m35.json"),
+            new Autoput("HU", "M43", "Szeged – Makó – Csanádpalota", "autoputevi/hu-m43.json"),
+            new Autoput("HU", "M60", "Bóly – Pécs", "autoputevi/hu-m60.json"),
+            new Autoput("HU", "M70", "Letenye – Tornyiszentmiklós", "autoputevi/hu-m70.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -420,7 +442,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "HU", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {
