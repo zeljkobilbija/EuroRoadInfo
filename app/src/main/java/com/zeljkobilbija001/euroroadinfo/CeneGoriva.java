@@ -100,6 +100,7 @@ public final class CeneGoriva {
                 {"RO", "Romania", "Benzină 95", "Benzină E10", "Motorină", "GPL"},
                 {"DK", "Denmark", "Blyfri 95", "Blyfri 95 E10", "Diesel", "Autogas"},
                 {"SE", "Sweden", "Bensin 95", "Bensin 95 E10", "Diesel", "Fordonsgas"},
+                {"IE", "Ireland", "Unleaded 95", "Unleaded E10", "Diesel", "Autogas"},
                 {"PT", "Portugal", "Gasolina 95", "Gasolina E10", "Gasóleo", "GPL Auto"},
                 {"SK", "Slovakia", "Natural 95", "Natural E10", "Nafta", "LPG"},
                 {"HU", "Hungary", "95-ös benzin", "E10 benzin", "Gázolaj", "Autógáz"},
@@ -146,6 +147,7 @@ public final class CeneGoriva {
                 case "RO":
                 case "DK":
                 case "SE":
+                case "IE":
                 case "IT": {
                     String ime = ENGLESKI.get(zemlja);
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));
@@ -164,6 +166,7 @@ public final class CeneGoriva {
                 }
                 case "CH": // nije u EU Weekly Oil Bulletin-u
                 case "RS":
+                case "GB":
                     break;
                 default:
                     dodaj(l, nedelja(tekst(p, "LU", LU_NEDELJA_URL), "LU", LU_NEDELJA));

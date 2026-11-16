@@ -463,6 +463,47 @@ public final class Autoputevi {
             new Autoput("SE", "E45", "Göteborg – Trollhättan", "autoputevi/se-e45.json"),
             new Autoput("SE", "40", "Göteborg – Borås – Jönköping", "autoputevi/se-40.json"),
             new Autoput("SE", "73", "Stockholm – Nynäshamn", "autoputevi/se-73.json"),
+            new Autoput("GB", "M1", "London – Leicester – Sheffield – Leeds", "autoputevi/gb-m1.json"),
+            new Autoput("GB", "M2", "Rochester – Faversham", "autoputevi/gb-m2.json"),
+            new Autoput("GB", "M3", "London – Basingstoke – Southampton", "autoputevi/gb-m3.json"),
+            new Autoput("GB", "M4", "London – Reading – Bristol – Cardiff – Swansea", "autoputevi/gb-m4.json"),
+            new Autoput("GB", "M5", "Birmingham – Bristol – Exeter", "autoputevi/gb-m5.json"),
+            new Autoput("GB", "M6", "Rugby – Birmingham – Manchester – Preston – Carlisle", "autoputevi/gb-m6.json"),
+            new Autoput("GB", "M8", "Edinburgh – Glasgow – Greenock", "autoputevi/gb-m8.json"),
+            new Autoput("GB", "M9", "Edinburgh – Stirling", "autoputevi/gb-m9.json"),
+            new Autoput("GB", "M11", "London – Cambridge", "autoputevi/gb-m11.json"),
+            new Autoput("GB", "M18", "Rotherham – Doncaster – Goole", "autoputevi/gb-m18.json"),
+            new Autoput("GB", "M20", "London – Maidstone – Folkestone", "autoputevi/gb-m20.json"),
+            new Autoput("GB", "M23", "London – Gatwick – Crawley", "autoputevi/gb-m23.json"),
+            new Autoput("GB", "M25", "London Orbital", "autoputevi/gb-m25.json"),
+            new Autoput("GB", "M27", "Southampton – Portsmouth", "autoputevi/gb-m27.json"),
+            new Autoput("GB", "M40", "London – Oxford – Birmingham", "autoputevi/gb-m40.json"),
+            new Autoput("GB", "M42", "Bromsgrove – Birmingham – Tamworth", "autoputevi/gb-m42.json"),
+            new Autoput("GB", "M50", "Ross Spur", "autoputevi/gb-m50.json"),
+            new Autoput("GB", "M53", "Wirral – Chester", "autoputevi/gb-m53.json"),
+            new Autoput("GB", "M54", "Wolverhampton – Telford", "autoputevi/gb-m54.json"),
+            new Autoput("GB", "M56", "Manchester – Chester", "autoputevi/gb-m56.json"),
+            new Autoput("GB", "M60", "Manchester Outer Ring", "autoputevi/gb-m60.json"),
+            new Autoput("GB", "M61", "Manchester – Preston", "autoputevi/gb-m61.json"),
+            new Autoput("GB", "M62", "Liverpool – Manchester – Leeds – Hull", "autoputevi/gb-m62.json"),
+            new Autoput("GB", "M65", "Preston – Blackburn – Burnley – Colne", "autoputevi/gb-m65.json"),
+            new Autoput("GB", "M74", "Glasgow – Abington", "autoputevi/gb-m74.json"),
+            new Autoput("GB", "M77", "Glasgow – Kilmarnock", "autoputevi/gb-m77.json"),
+            new Autoput("GB", "M80", "Glasgow – Stirling", "autoputevi/gb-m80.json"),
+            new Autoput("GB", "M90", "Edinburgh – Perth", "autoputevi/gb-m90.json"),
+            new Autoput("GB", "A1(M)", "London – Peterborough; Doncaster – Newcastle", "autoputevi/gb-a1m.json"),
+            new Autoput("GB", "A74(M)", "Abington – Gretna", "autoputevi/gb-a74m.json"),
+            new Autoput("IE", "M1", "Dublin – Drogheda – Dundalk", "autoputevi/ie-m1.json"),
+            new Autoput("IE", "M3", "Dublin – Navan – Kells", "autoputevi/ie-m3.json"),
+            new Autoput("IE", "M4", "Dublin – Kinnegad", "autoputevi/ie-m4.json"),
+            new Autoput("IE", "M6", "Kinnegad – Athlone – Galway", "autoputevi/ie-m6.json"),
+            new Autoput("IE", "M7", "Dublin – Portlaoise – Limerick", "autoputevi/ie-m7.json"),
+            new Autoput("IE", "M8", "Portlaoise – Cashel – Cork", "autoputevi/ie-m8.json"),
+            new Autoput("IE", "M9", "Kildare – Kilkenny – Waterford", "autoputevi/ie-m9.json"),
+            new Autoput("IE", "M11", "Dublin – Wexford", "autoputevi/ie-m11.json"),
+            new Autoput("IE", "M17", "Galway – Tuam", "autoputevi/ie-m17.json"),
+            new Autoput("IE", "M18", "Limerick – Ennis – Gort", "autoputevi/ie-m18.json"),
+            new Autoput("IE", "M50", "Dublin Ring", "autoputevi/ie-m50.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -525,7 +566,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "DK", "SE", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "DK", "SE", "GB", "IE", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

@@ -1,6 +1,8 @@
 logo_aegean.webp	Aegean	Q28146598	https://commons.wikimedia.org/wiki/File:Aegean-Oil-logo.svg
 logo_air_liquide.webp	Air Liquide	Q407448	https://commons.wikimedia.org/wiki/File:Air_Liquide_-_logo_(France%2C_1991).svg
 logo_alves_bandeira.webp	Alves Bandeira	Q109012157	https://commons.wikimedia.org/wiki/File:Alves_Bandeira_logo.png
+logo_applegreen.webp	Applegreen	Q7178908	https://commons.wikimedia.org/wiki/File:Applegreen_Logo.png
+logo_asda.webp	Asda	Q297410	https://commons.wikimedia.org/wiki/File:ASDA_logo.svg
 logo_avia.webp	AVIA	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
 logo_avia_xpress.webp	AVIA XPress	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
 logo_ballenoil.webp	Ballenoil	Q110743569	https://commons.wikimedia.org/wiki/File:Logo_Ballenoil.svg
@@ -20,6 +22,7 @@ logo_gulf.webp	Gulf	Q5617505	https://commons.wikimedia.org/wiki/File:Gulf_Oil_lo
 logo_ina.webp	INA	Q1662137	https://commons.wikimedia.org/wiki/File:Ina_logo.svg
 logo_ingo.webp	Ingo	Q17048617	https://commons.wikimedia.org/wiki/File:Ingo_logo.svg
 logo_lukoil.webp	Lukoil	Q329347	https://commons.wikimedia.org/wiki/File:Lukoil_company_logo.svg
+logo_maxol.webp	Maxol	Q3302837	https://commons.wikimedia.org/wiki/File:Maxol_Logo.jpg
 logo_migrol.webp	Migrol	Q1747771	https://commons.wikimedia.org/wiki/File:Logo_Migrol.svg
 logo_moeve.webp	Moeve	Q608819	https://commons.wikimedia.org/wiki/File:Moeve_logo.svg
 logo_mol.webp	MOL	Q549181	https://commons.wikimedia.org/wiki/File:MOL_Group.svg
@@ -37,8 +40,10 @@ logo_slovnaft.webp	Slovnaft	Q1587563	https://commons.wikimedia.org/wiki/File:%D0
 logo_st1.webp	St1	Q7592214	https://commons.wikimedia.org/wiki/File:St1_logo.svg
 logo_tamoil.webp	Tamoil	Q706793	https://commons.wikimedia.org/wiki/File:Tamoil.svg
 logo_tango.webp	Tango	Q125867683	https://commons.wikimedia.org/wiki/File:Tango_tankstations_logo.png
+logo_tesco.webp	Tesco	Q487494	https://commons.wikimedia.org/wiki/File:Tesco_logo.png
 logo_texaco.webp	Texaco	Q775060	https://commons.wikimedia.org/wiki/File:Texaco_logo.svg
 logo_tinq.webp	Tinq	Q2132028	https://commons.wikimedia.org/wiki/File:TinQ_logo_01.gif
+logo_top.webp	Top	Q7693933	https://commons.wikimedia.org/wiki/File:TOP_Oil_Ireland_logo.png
 logo_totalenergies.webp	TotalEnergies	Q154037	https://commons.wikimedia.org/wiki/File:Total_wordmark_(2003-2021).svg
 logo_turm_l.webp	Turmöl	Q1473279	https://commons.wikimedia.org/wiki/File:Logo_turmoel_hoch.png
 logo_uno_x.webp	Uno-X	Q3362746	https://commons.wikimedia.org/wiki/File:Uno_X_logo_1999.svg

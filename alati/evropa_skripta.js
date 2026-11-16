@@ -324,7 +324,7 @@ globalThis.AB = (() => {
   }
 
   /** Naziv bezimene pumpe i odmorišta na jeziku zemlje (NL i BE: holandski). */
-  const IME_MESTA = {'DK':['Tankstation', 'Rasteplads'], 'SE':['Bensinstation', 'Rastplats'], 'GR':['Pratirio kafsimon', 'Choros stathmefsis'], 'BG':['Benzinostantsiya', 'Pochivka'], 'RO':['Benzinărie', 'Parcare'],
+  const IME_MESTA = {'GB':['Petrol station', 'Services'], 'IE':['Petrol station', 'Services'], 'DK':['Tankstation', 'Rasteplads'], 'SE':['Bensinstation', 'Rastplats'], 'GR':['Pratirio kafsimon', 'Choros stathmefsis'], 'BG':['Benzinostantsiya', 'Pochivka'], 'RO':['Benzinărie', 'Parcare'],
     'AT':['Tankstelle', 'Rastplatz'],
      'CH':['Tankstelle', 'Rastplatz'],
      'SI':['Bencinski servis', 'Počivališče'],
@@ -342,7 +342,7 @@ globalThis.AB = (() => {
   async function preuzmi(ref) {
     const MREZA = { GR: 'GR:motorway', BG: 'bg:motorway', RO: 'RO:A', NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
       SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway', SK: 'sk:national', PT: 'PT:national', RS: 'RS:motorway',
-      DK: 'e-road', SE: 'e-road' };
+      DK: 'e-road', SE: 'e-road', GB: 'UK:motorway', IE: 'IE:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
     if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (' + Object.keys(MREZA).join(', ') + ')');
@@ -356,6 +356,10 @@ globalThis.AB = (() => {
       ref = id.replace(/^E(\d)/, 'E $1');
       MREZA[zemlja] = id.startsWith('E') ? 'e-road' : zemlja === 'DK' ? 'DK:national' : 'SE:RV';
     }
+    // Britanija: "A1(M)" → fajl gb-a1m; autoputevi uglavnom bez relacija (samo M23, M25 u UK:motorway)
+    if (zemlja === 'GB') ref = id.replace(/^(A\d+)M$/, '$1(M)');
+    // oznaka druge autoceste na rampi (destination:ref): u Britaniji M1 ili A1(M), drugde A1
+    const AUTOPUT = zemlja === 'GB' ? /^(M\d{1,3}|A\d{1,3}\(M\))$/ : /^A\d{1,3}$/;
     ab.skok = zemlja === 'ES' ? 500000 : zemlja === 'SE' ? 700000 : 200000;
     if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway';
     if (zemlja === 'AT' && id.startsWith('S')) MREZA.AT = 'AT:S-road'; // OSM u Beneluksu: "A2", bez razmaka
@@ -374,7 +378,9 @@ globalThis.AB = (() => {
     // izvod zemlje sadrži i pogranične strane autoputeve iste oznake (švajcarski A1 kod St. Margrethena u izvodu Austrije):
     // putevi po oznaci samo ako nisu u stranoj mreži i ako su do ~30 km od puteva domaće relacije (kao u AutoroutesInfo)
     const domaci = ws => {
-      const strani = L.uMrezama(new RegExp('^(?!' + zemlja + ':)(BAB|[a-z]{2}:)', 'i'));
+      // GB: domaće su GB: i UK:, ali ne GB:NIR (Severna Irska ima svoj M1, M2…)
+      const strani = L.uMrezama(zemlja === 'GB' ? /^(?!GB:(?!NIR)|UK:)(BAB|[a-z]{2}:)/i
+        : new RegExp('^(?!' + zemlja + ':)(BAB|[a-z]{2}:)', 'i'));
       ws = ws.filter(w => !strani.has(w.id));
       const rel = L.putevi(MREZA[zemlja], ref); if (!rel.length || zemlja === 'ES') return ws; // ES: oznake sa crticom su samo španske
       const c = p => Math.round(p.lat * 4) + '_' + Math.round(p.lon * 3), mreza = new Set();
@@ -520,14 +526,14 @@ globalThis.AB = (() => {
       const t = e.tags, r = rampa[e.nodes[0]] = rampa[e.nodes[0]] || { dest: [], dref: [] };
       for (const v of (t.destination || '').split(';')) if (v.trim() && !r.dest.includes(v.trim())) r.dest.push(v.trim());
       for (const v of (t['destination:ref'] || '').split(';')) { const x = v.replace(/\s+/g, '');
-        if (/^A\d{1,3}$/.test(x) && x !== id && !r.dref.includes(x)) r.dref.push(x); }
+        if (AUTOPUT.test(x) && x !== id && x !== ref && !r.dref.includes(x)) r.dref.push(x); }
     }
     for (const e of osnova.elements) {
       const t = e.tags || {};
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz', GR: 'Exodos', BG: 'Izhod', RO: 'Ieșire', DK: 'Frakørsel', SE: 'Trafikplats' }[zemlja] || 'Afrit') + ' ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz', GR: 'Exodos', BG: 'Izhod', RO: 'Ieșire', DK: 'Frakørsel', SE: 'Trafikplats', GB: 'Junction', IE: 'Junction' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);
@@ -547,8 +553,11 @@ globalThis.AB = (() => {
       // oznaka druge autostrade u nazivu (A22, A1dir…) ide na znak čvorišta; sopstvena se ne računa
       const nA = n.replace(/\bA\s+(\d)/g, 'A$1'); // "A 10" → "A10"
       // druga autoroute: iz naziva ili sa rampe (destination:ref "A 77")
-      const druge = [...dref, ...(nA.match(/\bA\d{1,3}\b/g) || [])].filter((r, i, v) => r !== id && v.indexOf(r) === i);
-      const cvor = dref.length > 0 || CVOR.test(nA.replace(new RegExp('\\b' + id + '\\b', 'g'), ''));
+      const druge = [...dref, ...(nA.match(zemlja === 'GB' ? /\bM\d{1,3}\b/g : /\bA\d{1,3}\b/g) || [])].filter((r, i, v) => r !== id && v.indexOf(r) === i);
+      // Britanija: A-putevi nisu autoputevi; čvor je samo prema M-putu ili A(M)
+      const cvor = dref.length > 0 || (zemlja === 'GB'
+        ? /(^|[\s(\/-])M\s?\d{1,3}\b|\bA\d{1,3}\(M\)/.test(nA.replace(new RegExp('\\b' + id + '\\b', 'g'), ''))
+        : CVOR.test(nA.replace(new RegExp('\\b' + id + '\\b', 'g'), '')));
       const o = { t: cvor ? 'K' : 'A', si: a[0].pr.si, km: +km.toFixed(1), n, la: +la.toFixed(5), lo: +lo.toFixed(5) };
       if (cvor && druge.length) o.ref = druge[0];
       else if (broj && !cvor) o.ref = broj; // broj izlaza na znaku (Sortie 12)
