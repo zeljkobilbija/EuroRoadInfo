@@ -116,6 +116,8 @@ public class ZemljaActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.imeZemlje)).setText(ime(zemlja));
         ((ImageView) findViewById(R.id.zastava)).setImageResource(zastava(zemlja));
         findViewById(R.id.nazad).setOnClickListener(v -> finish());
+        // jedna zemlja: ovo je početni ekran, nema nazad
+        if (Autoputevi.ZEMLJE.length == 1) findViewById(R.id.nazad).setVisibility(android.view.View.GONE);
 
         RecyclerView lista = findViewById(R.id.listaAutoputeva);
         lista.setLayoutManager(new GridLayoutManager(this, 2));

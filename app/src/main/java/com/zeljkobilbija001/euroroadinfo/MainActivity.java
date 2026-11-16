@@ -31,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         // Splash mora pre super.onCreate()
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+        // Aplikacija za jednu zemlju (AustriaRoadInfo, MotorwayInfo…): odmah spisak autoputeva te zemlje
+        if (Autoputevi.ZEMLJE.length == 1) {
+            startActivity(ZemljaActivity.namera(this, Autoputevi.ZEMLJE[0]));
+            overridePendingTransition(0, 0);
+            finish();
+            return;
+        }
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
