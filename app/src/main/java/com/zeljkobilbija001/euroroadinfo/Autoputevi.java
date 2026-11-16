@@ -421,6 +421,32 @@ public final class Autoputevi {
             new Autoput("RS", "A3", "Batrovci – Sremska Mitrovica – Beograd", "autoputevi/rs-a3.json"),
             new Autoput("RS", "A4", "Niš – Pirot – Dimitrovgrad", "autoputevi/rs-a4.json"),
             new Autoput("RS", "A5", "Pojate – Kruševac – Kraljevo – Preljina", "autoputevi/rs-a5.json"),
+            new Autoput("GR", "A1", "Athína – Lamía – Lárisa – Thessaloníki – Evzoni", "autoputevi/gr-a1.json"),
+            new Autoput("GR", "A2", "Egnatia: Igoumenitsa – Ioannina – Thessaloníki – Kipoi", "autoputevi/gr-a2.json"),
+            new Autoput("GR", "A3", "Lamía – Trikala – Ioannina (Kentriki Odos)", "autoputevi/gr-a3.json"),
+            new Autoput("GR", "A5", "Ionia Odos: Ioannina – Antirrio; Patra – Pyrgos", "autoputevi/gr-a5.json"),
+            new Autoput("GR", "A6", "Attiki Odos (Athína)", "autoputevi/gr-a6.json"),
+            new Autoput("GR", "A7", "Korinthos – Tripoli – Kalamata", "autoputevi/gr-a7.json"),
+            new Autoput("GR", "A8", "Athína – Korinthos – Patra", "autoputevi/gr-a8.json"),
+            new Autoput("GR", "A25", "Thessaloníki – Serres – Promachonas", "autoputevi/gr-a25.json"),
+            new Autoput("GR", "A27", "Kozani – Ptolemaida – Florina", "autoputevi/gr-a27.json"),
+            new Autoput("GR", "A29", "Siatista – Kastoria", "autoputevi/gr-a29.json"),
+            new Autoput("GR", "A52", "Aktio – Amvrakia", "autoputevi/gr-a52.json"),
+            new Autoput("GR", "A62", "Ymittos (Athína)", "autoputevi/gr-a62.json"),
+            new Autoput("GR", "A71", "Lefktro – Sparti", "autoputevi/gr-a71.json"),
+            new Autoput("GR", "A90", "Kriti: Chania – Kastelli", "autoputevi/gr-a90.json"),
+            new Autoput("BG", "A1", "Trakia: Sofiya – Plovdiv – Stara Zagora – Burgas", "autoputevi/bg-a1.json"),
+            new Autoput("BG", "A2", "Hemus: Sofiya – Yablanitsa; Shumen – Varna", "autoputevi/bg-a2.json"),
+            new Autoput("BG", "A3", "Struma: Sofiya – Blagoevgrad – Kulata", "autoputevi/bg-a3.json"),
+            new Autoput("BG", "A4", "Maritsa: Orizovo – Kapitan Andreevo", "autoputevi/bg-a4.json"),
+            new Autoput("BG", "A6", "Evropa: Kalotina – Sofiya", "autoputevi/bg-a6.json"),
+            new Autoput("RO", "A0", "București (centura)", "autoputevi/ro-a0.json"),
+            new Autoput("RO", "A1", "București – Pitești – Sibiu – Deva – Arad – Nădlac", "autoputevi/ro-a1.json"),
+            new Autoput("RO", "A2", "București – Fetești – Constanța", "autoputevi/ro-a2.json"),
+            new Autoput("RO", "A3", "București – Ploiești; Cluj-Napoca – Târgu Mureș", "autoputevi/ro-a3.json"),
+            new Autoput("RO", "A4", "Constanța (centura)", "autoputevi/ro-a4.json"),
+            new Autoput("RO", "A7", "Ploiești – Buzău – Focșani – Bacău", "autoputevi/ro-a7.json"),
+            new Autoput("RO", "A10", "Sebeș – Alba Iulia – Turda", "autoputevi/ro-a10.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -483,7 +509,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

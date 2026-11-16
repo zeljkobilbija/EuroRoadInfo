@@ -324,7 +324,8 @@ globalThis.AB = (() => {
   }
 
   /** Naziv bezimene pumpe i odmorišta na jeziku zemlje (NL i BE: holandski). */
-  const IME_MESTA = {'AT':['Tankstelle', 'Rastplatz'],
+  const IME_MESTA = {'GR':['Pratirio kafsimon', 'Choros stathmefsis'], 'BG':['Benzinostantsiya', 'Pochivka'], 'RO':['Benzinărie', 'Parcare'],
+    'AT':['Tankstelle', 'Rastplatz'],
      'CH':['Tankstelle', 'Rastplatz'],
      'SI':['Bencinski servis', 'Počivališče'],
      'HR':['Benzinska postaja', 'Odmorište'],
@@ -339,7 +340,7 @@ globalThis.AB = (() => {
 
   // ---------- 2. Glavni tok ----------
   async function preuzmi(ref) {
-    const MREZA = { NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
+    const MREZA = { GR: 'GR:motorway', BG: 'bg:motorway', RO: 'RO:A', NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
       SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway', SK: 'sk:national', PT: 'PT:national', RS: 'RS:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
@@ -347,7 +348,8 @@ globalThis.AB = (() => {
     // Španija: ref sa crticom (ES-AP-7 → AP-7); Poljska: S-putevi u mreži brzih puteva
     const id = zemlja === 'ES' ? delovi.slice(1).join('-') : delovi[delovi.length - 1]; ref = id;
     if (zemlja === 'ES' && id.startsWith('AP-')) MREZA.ES = 'ES:AP-highway';
-    if (zemlja === 'PT') ref = id.replace(/^([A-Z]+)(\d)/, '$1 $2'); // OSM u Portugalu: "A 1"
+    if (zemlja === 'PT' || zemlja === 'BG') ref = id.replace(/^([A-Z]+)(\d)/, '$1 $2'); // OSM u Portugalu i Bugarskoj: "A 1"
+    if (zemlja === 'GR') ref = id.replace(/^A/, 'Α'); // Grčka: grčko alfa, "Α1"
     ab.skok = zemlja === 'ES' ? 500000 : 200000;
     if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway';
     if (zemlja === 'AT' && id.startsWith('S')) MREZA.AT = 'AT:S-road'; // OSM u Beneluksu: "A2", bez razmaka
@@ -378,7 +380,7 @@ globalThis.AB = (() => {
         ? L.poOznaci(pos.ref).filter(w => w.geometry.every(p => p.lon >= pos.lon[0] && p.lon <= pos.lon[1]))
         // Srbija: deo puteva ima ćirilično „А2“
         : sjedini(L.putevi(MREZA[zemlja], ref), domaci(L.poOznaci(ref)
-          .concat(zemlja === 'RS' ? L.poOznaci(ref.replace(/^A/, 'А')) : [])))) }
+          .concat(zemlja === 'RS' ? L.poOznaci(ref.replace(/^A/, 'А')) : zemlja === 'BG' ? L.poOznaci(id) : [])))) }
       : await upit(`[out:json][timeout:240];${rel}->.r;(.r;rel(r.r););out geom;`);
     const postaviCos = elementi => { let s = 0, n = 0; for (const el of elementi) for (const m of el.members || [])
       if (m.geometry) for (const p of m.geometry) { s += p.lat; n++; } cosLat = Math.cos((n ? s / n : 50) * RAD); };
@@ -519,7 +521,7 @@ globalThis.AB = (() => {
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz' }[zemlja] || 'Afrit') + ' ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz', GR: 'Exodos', BG: 'Izhod', RO: 'Ieșire' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);
@@ -656,6 +658,23 @@ globalThis.AB = (() => {
   return ab;
 })();
 
+// ---------- Latinica za Srbiju, Bugarsku i Grčku (strani vozači ne čitaju ćirilicu i grčki) ----------
+const PISMA = {
+  RS: [['Lj', 'Љ'], ['Nj', 'Њ'], ['Dž', 'Џ'], ['lj', 'љ'], ['nj', 'њ'], ['dž', 'џ'], ...'AАBБVВGГDДĐЂEЕŽЖZЗIИJЈKКLЛMМNНOОPПRРSСTТĆЋUУFФHХCЦČЧŠШaаbбvвgгdдđђeеžжzзiиjјkкlлmмnнoоpпrрsсtтćћuуfфhхcцčчšш'.match(/../g).map(p => [p[0], p[1]])],
+  BG: [['Zh', 'Ж'], ['Ts', 'Ц'], ['Ch', 'Ч'], ['Sht', 'Щ'], ['Sh', 'Ш'], ['Yu', 'Ю'], ['Ya', 'Я'], ['zh', 'ж'], ['ts', 'ц'], ['ch', 'ч'], ['sht', 'щ'], ['sh', 'ш'], ['yu', 'ю'], ['ya', 'я'],
+    ...'AАBБVВGГDДEЕZЗIИYЙKКLЛMМNНOОPПRРSСTТUУFФHХAЪYЬaаbбvвgгdдeеzзiиyйkкlлmмnнoоpпrрsсtтuуfфhхaъyь'.match(/../g).map(p => [p[0], p[1]])],
+  GR: [['Ou', 'Ου'], ['ou', 'ου'], ['ou', 'ού'], ['Th', 'Θ'], ['Ch', 'Χ'], ['Ps', 'Ψ'], ['th', 'θ'], ['ch', 'χ'], ['ps', 'ψ'],
+    ...'AΑAΆBΒGΓDΔEΕEΈZΖIΗIΉIΙIΊKΚLΛMΜNΝXΞOΟOΌPΠRΡSΣTΤYΥYΎFΦOΩOΏaαaάvβgγdδeεeέzζiηiήiιiίiϊiΐkκlλmμnνxξoοoόpπrρsσsςtτyυyύyϋfφoωoώ'.match(/../g).map(p => [p[0], p[1]]).map(([l, c]) => [l === 'B' ? 'V' : l, c])]
+};
+function latinica(rez) {
+  const tab = PISMA[String(rez.id).split('-')[0]];
+  if (!tab) return rez;
+  const t = x => { for (const [l, c] of tab) x = x.split(c).join(l); return x; };
+  const obidji = o => typeof o === 'string' ? t(o) : Array.isArray(o) ? o.map(obidji)
+    : o && typeof o === 'object' ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, obidji(v)])) : o;
+  return obidji(rez);
+}
+
 // ---------- Pokretanje iz terminala ----------
 if (typeof window === 'undefined' && typeof require !== 'undefined' && require.main === module) (async () => {
   const fs = require('fs'), path = require('path');
@@ -676,7 +695,7 @@ if (typeof window === 'undefined' && typeof require !== 'undefined' && require.m
     while (!/^(gotovo|greška)/.test(AB.stanje)) await new Promise(ok => setTimeout(ok, 1000));
     if (AB.stanje === 'gotovo') {
       const ime = AB.rezultat.id.toLowerCase() + '.json';
-      if (!suvo) fs.writeFileSync(path.join(cilj, ime), JSON.stringify(AB.rezultat));
+      if (!suvo) fs.writeFileSync(path.join(cilj, ime), JSON.stringify(latinica(AB.rezultat)));
       console.log((suvo ? '' : ime + ' ← ') + AB.sazetak + ' | van reda: ' + AB.provera());
     } else { console.log(r + ': ' + AB.stanje); greske++; }
     if (!lokalno && i < refs.length - 1) await new Promise(ok => setTimeout(ok, 5000));
