@@ -372,7 +372,7 @@ globalThis.AB = (() => {
     const L = ab.lokalno ? ab.lokalno(zemlja) : null;
     // brzi putevi koji su u OSM-u (delom) highway=trunk, a ne motorway – samo za njih se uzimaju i trunk putevi
     const BRZI = ['AT-S3', 'AT-S4', 'AT-S7', 'AT-S8', 'AT-S16', 'AT-S18', 'AT-S37', 'HU-M0', 'HU-M2', 'HU-M8', 'HU-M19', 'HU-M44', 'HU-M85', 'HU-M86',
-      'SK-R1A', 'SK-R3', 'SK-R5', 'SK-R6', 'SI-H3', 'SI-H4', 'PT-A36', 'RS-A6', 'RS-A9', 'RS-A10', 'RS-A12', 'CH-A21', 'CH-A23', 'NI-M5', 'NI-A8M', 'BE-A11', 'BE-A12'];
+      'SK-R1A', 'SK-R3', 'SK-R5', 'SK-R6', 'SI-H3', 'SI-H4', 'PT-A36', 'RS-A6', 'RS-A9', 'RS-A10', 'RS-A12', 'CH-A21', 'CH-A23', 'NI-M5', 'NI-A8M', 'BE-A11', 'BE-A12', 'HR-A7'];
     if (L) L.trunk = BRZI.includes(zemlja + '-' + id);
     const sjedini = (a, b) => { const ids = new Set(a.map(w => w.id)); return a.concat(b.filter(w => !ids.has(w.id))); };
     const kaoRelacija = w => [{ type: 'relation', tags: { type: 'route' }, members: w.map(x => ({ type: 'way', role: '', geometry: x.geometry })) }];
@@ -690,6 +690,31 @@ const PISMA = {
   GR: [['Ou', 'Ου'], ['ou', 'ου'], ['ou', 'ού'], ['Th', 'Θ'], ['Ch', 'Χ'], ['Ps', 'Ψ'], ['th', 'θ'], ['ch', 'χ'], ['ps', 'ψ'],
     ...'AΑAΆBΒGΓDΔEΕEΈZΖIΗIΉIΙIΊKΚLΛMΜNΝXΞOΟOΌPΠRΡSΣTΤYΥYΎFΦOΩOΏaαaάvβgγdδeεeέzζiηiήiιiίiϊiΐkκlλmμnνxξoοoόpπrρsσsςtτyυyύyϋfφoωoώ'.match(/../g).map(p => [p[0], p[1]]).map(([l, c]) => [l === 'B' ? 'V' : l, c])]
 };
+
+// ---------- Ručne ispravke posle obrade (da prežive ponovno pokretanje skripte) ----------
+/** Zadrži samo date deonice (indeksi), ostale izbaci i prenumeriši. */
+function samoDeonice(rez, zadrzi) {
+  const nova = new Map(zadrzi.map((si, i) => [si, i]));
+  rez.sekcije = zadrzi.map(si => rez.sekcije[si]);
+  rez.stavke = rez.stavke.filter(x => nova.has(x.si)).map(x => ({ ...x, si: nova.get(x.si) }));
+  return rez;
+}
+/** Zameni naziv svuda (deonice i stavke). */
+function preimenuj(rez, staro, novo) {
+  const t = s => typeof s === 'string' ? s.split(staro).join(novo) : s;
+  rez.sekcije = rez.sekcije.map(s => Object.fromEntries(Object.entries(s).map(([k, v]) => [k, t(v)])));
+  rez.stavke.forEach(x => { x.n = t(x.n); });
+  return rez;
+}
+const ISPRAVKE = {
+  // granični prelaz na mađarskoj strani nosi mađarsko ime
+  'AT-A4': r => preimenuj(r, 'Országhatár Hegyeshalom-Miklóshalma', 'Grenze Nickelsdorf / Hegyeshalom'),
+  // druga deonica (Prager Straße – Donaufeld, 4 km) ponavlja deo glavne
+  'AT-A22': r => r.sekcije.length > 1 ? samoDeonice(r, [0]) : r,
+  // prva deonica (Zgorzelec – Balice) je deo druge, koja pokriva ceo A4 (Korczowa – Zgorzelec)
+  'PL-A4': r => r.sekcije.length > 1 ? samoDeonice(r, [r.sekcije.length - 1]) : r,
+};
+function ispravi_rucno(rez) { const f = ISPRAVKE[rez.id]; return f ? f(rez) : rez; }
 function latinica(rez) {
   const tab = PISMA[String(rez.id).split('-')[0]];
   if (!tab) return rez;
@@ -719,7 +744,7 @@ if (typeof window === 'undefined' && typeof require !== 'undefined' && require.m
     while (!/^(gotovo|greška)/.test(AB.stanje)) await new Promise(ok => setTimeout(ok, 1000));
     if (AB.stanje === 'gotovo') {
       const ime = AB.rezultat.id.toLowerCase() + '.json';
-      if (!suvo) fs.writeFileSync(path.join(cilj, ime), JSON.stringify(latinica(AB.rezultat)));
+      if (!suvo) fs.writeFileSync(path.join(cilj, ime), JSON.stringify(ispravi_rucno(latinica(AB.rezultat))));
       console.log((suvo ? '' : ime + ' ← ') + AB.sazetak + ' | van reda: ' + AB.provera());
     } else { console.log(r + ': ' + AB.stanje); greske++; }
     if (!lokalno && i < refs.length - 1) await new Promise(ok => setTimeout(ok, 5000));

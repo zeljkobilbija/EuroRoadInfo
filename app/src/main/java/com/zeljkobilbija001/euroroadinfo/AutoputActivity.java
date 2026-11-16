@@ -87,6 +87,7 @@ public class AutoputActivity extends AppCompatActivity {
         TextView stit = findViewById(R.id.stit);
         stit.setText(a.oznaka());
         stit.setBackgroundResource(a.stit());
+        stit.setTextColor(a.bojaTeksta());
         ((TextView) findViewById(R.id.ruta)).setText(a.ruta);
         podnaslov = findViewById(R.id.podnaslov);
         prazno = findViewById(R.id.prazno);

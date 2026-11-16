@@ -72,6 +72,7 @@ public class DetaljiActivity extends AppCompatActivity {
         TextView stit = findViewById(R.id.stit);
         stit.setText(autoput.oznaka());
         stit.setBackgroundResource(autoput.stit());
+        stit.setTextColor(autoput.bojaTeksta());
         ((TextView) findViewById(R.id.naziv)).setText(StavkaAdapter.naziv(this, s));
         ((TextView) findViewById(R.id.opis)).setText(StavkaAdapter.opis(this, s));
 

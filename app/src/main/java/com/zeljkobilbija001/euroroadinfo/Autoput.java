@@ -25,7 +25,19 @@ public final class Autoput {
      * Štit kao na tablama: crven u Holandiji, Francuskoj, Švajcarskoj, Češkoj, Slovačkoj i Poljskoj,
      * zelen u Italiji, Sloveniji, Hrvatskoj, Srbiji, Grčkoj, Bugarskoj, Rumuniji, Danskoj, Švedskoj, Norveškoj i Finskoj (E-putevi), plav u Nemačkoj, Austriji, Španiji, Belgiji i Luksemburgu.
      */
+    /** Domaći put sa brojem (DK 15, SE 40), a ne E-put. */
+    private boolean domaciBroj() {
+        return ("DK".equals(zemlja) || "SE".equals(zemlja)) && !ref.isEmpty() && Character.isDigit(ref.charAt(0));
+    }
+
+    /** Boja teksta na štitu: crna na žutom danskom, inače bela. */
+    public int bojaTeksta() {
+        return domaciBroj() && "DK".equals(zemlja) ? 0xFF000000 : 0xFFFFFFFF;
+    }
+
     public int stit() {
+        // domaći putevi: u Danskoj žuti, u Švedskoj plavi (E-putevi su zeleni)
+        if (domaciBroj()) return "DK".equals(zemlja) ? R.drawable.bg_stit_zuti : R.drawable.bg_stit_plavi;
         switch (zemlja) {
             case "NL": case "FR": case "CH": case "CZ": case "SK": case "PL": return R.drawable.bg_stit;
             case "IT": case "SI": case "HR": case "RS": case "GR": case "BG": case "RO": case "DK": case "SE": case "NO": case "FI": case "TR": return R.drawable.bg_stit_zeleni;
