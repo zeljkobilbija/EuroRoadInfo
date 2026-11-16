@@ -28,7 +28,7 @@ public final class Autoput {
     public int stit() {
         switch (zemlja) {
             case "NL": case "FR": case "CH": case "CZ": case "SK": case "PL": return R.drawable.bg_stit;
-            case "IT": case "SI": case "HR": case "RS": case "GR": case "BG": case "RO": case "DK": case "SE": case "NO": case "FI": return R.drawable.bg_stit_zeleni;
+            case "IT": case "SI": case "HR": case "RS": case "GR": case "BG": case "RO": case "DK": case "SE": case "NO": case "FI": case "TR": return R.drawable.bg_stit_zeleni;
             default: return R.drawable.bg_stit_plavi;
         }
     }

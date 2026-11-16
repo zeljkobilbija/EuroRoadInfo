@@ -32,7 +32,7 @@ const OBLASTI = {
   FR: ['europe/france', null], IT: ['europe/italy', null], DEU: ['europe/germany', null],
   AT: ['europe/austria', null], CH: ['europe/switzerland', null],
   SI: ['europe/slovenia', null], HR: ['europe/croatia', null], CZ: ['europe/czech-republic', null],
-  PL: ['europe/poland', null], ES: ['europe/spain', null], HU: ['europe/hungary', null], SK: ['europe/slovakia', null], PT: ['europe/portugal', null], RS: ['europe/serbia', null], GR: ['europe/greece', null], BG: ['europe/bulgaria', null], RO: ['europe/romania', null], DK: ['europe/denmark', null], SE: ['europe/sweden', null], GB: ['europe/united-kingdom', null], IE: ['europe/ireland-and-northern-ireland', null], NI: ['europe/ireland-and-northern-ireland', null], NO: ['europe/norway', null], FI: ['europe/finland', null],
+  PL: ['europe/poland', null], ES: ['europe/spain', null], HU: ['europe/hungary', null], SK: ['europe/slovakia', null], PT: ['europe/portugal', null], RS: ['europe/serbia', null], GR: ['europe/greece', null], BG: ['europe/bulgaria', null], RO: ['europe/romania', null], DK: ['europe/denmark', null], SE: ['europe/sweden', null], GB: ['europe/united-kingdom', null], IE: ['europe/ireland-and-northern-ireland', null], NI: ['europe/ireland-and-northern-ireland', null], TR: ['europe/turkey', null], NO: ['europe/norway', null], FI: ['europe/finland', null],
 };
 for (const [k, s] of Object.entries(DRZAVE)) OBLASTI[k] = ['north-america/us/' + s, 'ISO3166-2=US-' + k];
 

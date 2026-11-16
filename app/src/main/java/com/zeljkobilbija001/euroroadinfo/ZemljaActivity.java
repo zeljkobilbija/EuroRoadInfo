@@ -60,6 +60,7 @@ public class ZemljaActivity extends AppCompatActivity {
             case "IE": return R.string.zemlja_ie;
             case "NO": return R.string.zemlja_no;
             case "FI": return R.string.zemlja_fi;
+            case "TR": return R.string.zemlja_tr;
             case "PT": return R.string.zemlja_pt;
             case "BE": return R.string.zemlja_be;
             case "LU": return R.string.zemlja_lu;
@@ -92,6 +93,7 @@ public class ZemljaActivity extends AppCompatActivity {
             case "IE": return R.drawable.zastava_ie;
             case "NO": return R.drawable.zastava_no;
             case "FI": return R.drawable.zastava_fi;
+            case "TR": return R.drawable.zastava_tr;
             case "PT": return R.drawable.zastava_pt;
             case "BE": return R.drawable.zastava_be;
             case "LU": return R.drawable.zastava_lu;

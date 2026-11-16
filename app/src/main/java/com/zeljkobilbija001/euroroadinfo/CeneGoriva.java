@@ -170,6 +170,7 @@ public final class CeneGoriva {
                 case "RS":
                 case "GB":
                 case "NO":
+                case "TR":
                     break;
                 default:
                     dodaj(l, nedelja(tekst(p, "LU", LU_NEDELJA_URL), "LU", LU_NEDELJA));
