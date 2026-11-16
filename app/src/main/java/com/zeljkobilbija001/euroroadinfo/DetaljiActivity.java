@@ -111,7 +111,8 @@ public class DetaljiActivity extends AppCompatActivity {
                 else bezLoga.add(marka);
             }
             if (!bezLoga.isEmpty()) cipovi(g, bezLoga, R.color.cip_gorivo, R.color.cip_gorivo_tekst);
-            if (!"CH".equals(autoput.zemlja) && !"RS".equals(autoput.zemlja) && !"GB".equals(autoput.zemlja)) cene(g); // Švajcarska, Srbija i Britanija: nema otvorenog izvora cena
+            if (!"CH".equals(autoput.zemlja) && !"RS".equals(autoput.zemlja) && !"GB".equals(autoput.zemlja)
+                && !"NO".equals(autoput.zemlja)) cene(g); // Švajcarska, Srbija, Britanija i Norveška: nema otvorenog izvora cena
         }
 
         // Hrana

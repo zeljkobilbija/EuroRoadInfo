@@ -504,6 +504,17 @@ public final class Autoputevi {
             new Autoput("IE", "M17", "Galway – Tuam", "autoputevi/ie-m17.json"),
             new Autoput("IE", "M18", "Limerick – Ennis – Gort", "autoputevi/ie-m18.json"),
             new Autoput("IE", "M50", "Dublin Ring", "autoputevi/ie-m50.json"),
+            new Autoput("NO", "E6", "Svinesund – Oslo – Gardermoen – Hamar – Lillehammer", "autoputevi/no-e6.json"),
+            new Autoput("NO", "E18", "Oslo – Drammen – Larvik – Porsgrunn – Kristiansand", "autoputevi/no-e18.json"),
+            new Autoput("NO", "E39", "Kristiansand – Mandal; Stavanger", "autoputevi/no-e39.json"),
+            new Autoput("NO", "E16", "Sandvika – Hønefoss; Kløfta", "autoputevi/no-e16.json"),
+            new Autoput("FI", "1", "Helsinki – Lohja – Salo – Turku", "autoputevi/fi-1.json"),
+            new Autoput("FI", "3", "Helsinki – Hämeenlinna – Tampere", "autoputevi/fi-3.json"),
+            new Autoput("FI", "4", "Helsinki – Lahti – Heinola; Jyväskylä; Oulu", "autoputevi/fi-4.json"),
+            new Autoput("FI", "5", "Mikkeli – Kuopio", "autoputevi/fi-5.json"),
+            new Autoput("FI", "7", "Helsinki – Porvoo – Kotka – Vaalimaa", "autoputevi/fi-7.json"),
+            new Autoput("FI", "9", "Turku – Tampere – Jyväskylä", "autoputevi/fi-9.json"),
+            new Autoput("FI", "51", "Helsinki – Espoo – Kirkkonummi", "autoputevi/fi-51.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -566,7 +577,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "DK", "SE", "GB", "IE", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "RS", "GR", "BG", "RO", "DK", "SE", "GB", "IE", "NO", "FI", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {
