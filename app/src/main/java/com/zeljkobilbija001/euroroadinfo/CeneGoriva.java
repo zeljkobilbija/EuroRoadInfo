@@ -95,6 +95,8 @@ public final class CeneGoriva {
                 {"HR", "Croatia", "Eurosuper 95", "Eurosuper E10", "Eurodizel", "Autoplin"},
                 {"CZ", "Czechia", "Natural 95", "Natural E10", "Nafta", "LPG"},
                 {"PL", "Poland", "Pb95", "Pb95 E10", "ON (diesel)", "LPG"},
+                {"PT", "Portugal", "Gasolina 95", "Gasolina E10", "Gasóleo", "GPL Auto"},
+                {"SK", "Slovakia", "Natural 95", "Natural E10", "Nafta", "LPG"},
                 {"HU", "Hungary", "95-ös benzin", "E10 benzin", "Gázolaj", "Autógáz"},
                 {"ES", "Spain", "Gasolina 95", "Gasolina E10", "Gasóleo A", "GLP"},
                 {"LU", "Luxembourg", "Euro 95", "Euro 95 E10", "Diesel", "LPG"}};
@@ -132,6 +134,8 @@ public final class CeneGoriva {
                 case "PL":
                 case "ES":
                 case "HU":
+                case "SK":
+                case "PT":
                 case "IT": {
                     String ime = ENGLESKI.get(zemlja);
                     dodaj(l, nedelja(tekst(p, zemlja, String.format(Locale.US, EU_NEDELJA_URL, ime)), zemlja, EU_NEDELJA));

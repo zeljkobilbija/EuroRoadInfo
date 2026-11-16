@@ -367,6 +367,34 @@ public final class Autoputevi {
             new Autoput("ES", "A-67", "Palencia – Santander", "autoputevi/es-a-67.json"),
             new Autoput("ES", "A-68", "Bilbao – Logroño – Zaragoza", "autoputevi/es-a-68.json"),
             new Autoput("ES", "A-92", "Sevilla – Granada – Almería", "autoputevi/es-a-92.json"),
+            new Autoput("PT", "A1", "Lisboa – Santarém – Coimbra – Porto", "autoputevi/pt-a1.json"),
+            new Autoput("PT", "A2", "Lisboa – Setúbal – Albufeira", "autoputevi/pt-a2.json"),
+            new Autoput("PT", "A3", "Porto – Braga – Valença", "autoputevi/pt-a3.json"),
+            new Autoput("PT", "A4", "Porto – Amarante – Vila Real – Bragança", "autoputevi/pt-a4.json"),
+            new Autoput("PT", "A5", "Lisboa – Cascais", "autoputevi/pt-a5.json"),
+            new Autoput("PT", "A6", "Marateca – Évora – Elvas – Caia", "autoputevi/pt-a6.json"),
+            new Autoput("PT", "A7", "Póvoa de Varzim – Guimarães – Vila Pouca de Aguiar", "autoputevi/pt-a7.json"),
+            new Autoput("PT", "A8", "Lisboa – Torres Vedras – Leiria", "autoputevi/pt-a8.json"),
+            new Autoput("PT", "A9", "CREL (Lisboa)", "autoputevi/pt-a9.json"),
+            new Autoput("PT", "A10", "Bucelas – Benavente", "autoputevi/pt-a10.json"),
+            new Autoput("PT", "A11", "Esposende – Braga – Guimarães", "autoputevi/pt-a11.json"),
+            new Autoput("PT", "A13", "Almeirim – Tomar – Coimbra", "autoputevi/pt-a13.json"),
+            new Autoput("PT", "A14", "Figueira da Foz – Coimbra", "autoputevi/pt-a14.json"),
+            new Autoput("PT", "A15", "Caldas da Rainha – Santarém", "autoputevi/pt-a15.json"),
+            new Autoput("PT", "A16", "Cascais – Lisboa", "autoputevi/pt-a16.json"),
+            new Autoput("PT", "A17", "Marinha Grande – Aveiro", "autoputevi/pt-a17.json"),
+            new Autoput("PT", "A19", "Batalha – Leiria", "autoputevi/pt-a19.json"),
+            new Autoput("PT", "A20", "Porto (VCI)", "autoputevi/pt-a20.json"),
+            new Autoput("PT", "A22", "Lagos – Faro – Vila Real de Santo António", "autoputevi/pt-a22.json"),
+            new Autoput("PT", "A23", "Torres Novas – Castelo Branco – Guarda", "autoputevi/pt-a23.json"),
+            new Autoput("PT", "A24", "Viseu – Vila Real – Chaves", "autoputevi/pt-a24.json"),
+            new Autoput("PT", "A25", "Aveiro – Viseu – Guarda – Vilar Formoso", "autoputevi/pt-a25.json"),
+            new Autoput("PT", "A27", "Viana do Castelo – Ponte de Lima", "autoputevi/pt-a27.json"),
+            new Autoput("PT", "A28", "Porto – Viana do Castelo – Caminha", "autoputevi/pt-a28.json"),
+            new Autoput("PT", "A29", "Estarreja – Vila Nova de Gaia", "autoputevi/pt-a29.json"),
+            new Autoput("PT", "A32", "Oliveira de Azeméis – Gaia", "autoputevi/pt-a32.json"),
+            new Autoput("PT", "A33", "Montijo – Almada", "autoputevi/pt-a33.json"),
+            new Autoput("PT", "A41", "Porto (CREP)", "autoputevi/pt-a41.json"),
             new Autoput("HU", "M1", "Budapest – Győr – Hegyeshalom", "autoputevi/hu-m1.json"),
             new Autoput("HU", "M3", "Budapest – Miskolc – Nyíregyháza – Vaja", "autoputevi/hu-m3.json"),
             new Autoput("HU", "M4", "Berettyóújfalu – Nagykereki", "autoputevi/hu-m4.json"),
@@ -380,6 +408,14 @@ public final class Autoputevi {
             new Autoput("HU", "M43", "Szeged – Makó – Csanádpalota", "autoputevi/hu-m43.json"),
             new Autoput("HU", "M60", "Bóly – Pécs", "autoputevi/hu-m60.json"),
             new Autoput("HU", "M70", "Letenye – Tornyiszentmiklós", "autoputevi/hu-m70.json"),
+            new Autoput("SK", "D1", "Bratislava – Trnava – Žilina – Poprad – Prešov – Košice", "autoputevi/sk-d1.json"),
+            new Autoput("SK", "D2", "Kúty – Bratislava – Čunovo", "autoputevi/sk-d2.json"),
+            new Autoput("SK", "D3", "Žilina – Čadca – Svrčinovec", "autoputevi/sk-d3.json"),
+            new Autoput("SK", "D4", "Bratislava (obchvat)", "autoputevi/sk-d4.json"),
+            new Autoput("SK", "R1", "Trnava – Nitra – Zvolen – Banská Bystrica", "autoputevi/sk-r1.json"),
+            new Autoput("SK", "R2", "Zvolen – Lučenec", "autoputevi/sk-r2.json"),
+            new Autoput("SK", "R4", "Košice – Milhosť; Prešov", "autoputevi/sk-r4.json"),
+            new Autoput("SK", "R7", "Bratislava – Šamorín", "autoputevi/sk-r7.json"),
             // Holandija
             new Autoput("NL", "A1", "Amsterdam – Amersfoort – Deventer – Oldenzaal", "autoputevi/nl-a1.json"),
             new Autoput("NL", "A2", "Amsterdam – Utrecht – Eindhoven – Maastricht", "autoputevi/nl-a2.json"),
@@ -442,7 +478,7 @@ public final class Autoputevi {
     );
 
     /** Redosled zemalja na početnom ekranu. */
-    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "HU", "NL", "BE", "LU"};
+    public static final String[] ZEMLJE = {"DE", "FR", "IT", "AT", "CH", "SI", "HR", "CZ", "PL", "ES", "PT", "HU", "SK", "NL", "BE", "LU"};
 
     /** Autoputevi jedne zemlje ("NL", "BE" ili "LU"), redom kao u spisku. */
     public static List<Autoput> zaZemlju(String zemlja) {

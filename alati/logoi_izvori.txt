@@ -1,4 +1,5 @@
 logo_air_liquide.webp	Air Liquide	Q407448	https://commons.wikimedia.org/wiki/File:Air_Liquide_-_logo_(France%2C_1991).svg
+logo_alves_bandeira.webp	Alves Bandeira	Q109012157	https://commons.wikimedia.org/wiki/File:Alves_Bandeira_logo.png
 logo_avia.webp	AVIA	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
 logo_avia_xpress.webp	AVIA XPress	Q300147	https://commons.wikimedia.org/wiki/File:AVIA_International_logo.svg
 logo_ballenoil.webp	Ballenoil	Q110743569	https://commons.wikimedia.org/wiki/File:Logo_Ballenoil.svg
@@ -20,12 +21,14 @@ logo_moeve.webp	Moeve	Q608819	https://commons.wikimedia.org/wiki/File:Moeve_logo
 logo_mol.webp	MOL	Q549181	https://commons.wikimedia.org/wiki/File:MOL_Group.svg
 logo_oil.webp	OIL!	Q2007561	https://commons.wikimedia.org/wiki/File:OIL!_Logo.svg
 logo_ok.webp	OK	Q123472183	https://commons.wikimedia.org/wiki/File:OK_Nederland_Logo.png
+logo_orlen_express.webp	Orlen express	Q971649	https://commons.wikimedia.org/wiki/File:Orlen_wordmark_logo.svg
 logo_petrol.webp	Petrol	Q174824	https://commons.wikimedia.org/wiki/File:Petrol_Group_logo.svg
 logo_petronor.webp	Petronor	Q1726547	https://commons.wikimedia.org/wiki/File:Petronor_logo_2024.png
 logo_petroprix.webp	Petroprix	Q128327113	https://commons.wikimedia.org/wiki/File:Logo_Petroprix.svg
 logo_prio.webp	Prio	Q62530421	https://commons.wikimedia.org/wiki/File:Prio-logo-cores-2024.svg
 logo_q8.webp	Q8	Q4119207	https://commons.wikimedia.org/wiki/File:Q8_logo.svg
 logo_shell.webp	Shell	Q110716465	https://commons.wikimedia.org/wiki/File:Shell_wordmark_2019.svg
+logo_slovnaft.webp	Slovnaft	Q1587563	https://commons.wikimedia.org/wiki/File:%D0%A1%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0%D1%84%D1%82.jpg
 logo_tamoil.webp	Tamoil	Q706793	https://commons.wikimedia.org/wiki/File:Tamoil.svg
 logo_tango.webp	Tango	Q125867683	https://commons.wikimedia.org/wiki/File:Tango_tankstations_logo.png
 logo_texaco.webp	Texaco	Q775060	https://commons.wikimedia.org/wiki/File:Texaco_logo.svg
