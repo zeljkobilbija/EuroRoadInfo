@@ -324,7 +324,7 @@ globalThis.AB = (() => {
   }
 
   /** Naziv bezimene pumpe i odmorišta na jeziku zemlje (NL i BE: holandski). */
-  const IME_MESTA = {'NO':['Bensinstasjon', 'Rasteplass'], 'FI':['Huoltoasema', 'Levähdysalue'], 'GB':['Petrol station', 'Services'], 'IE':['Petrol station', 'Services'], 'DK':['Tankstation', 'Rasteplads'], 'SE':['Bensinstation', 'Rastplats'], 'GR':['Pratirio kafsimon', 'Choros stathmefsis'], 'BG':['Benzinostantsiya', 'Pochivka'], 'RO':['Benzinărie', 'Parcare'],
+  const IME_MESTA = {'NI':['Petrol station', 'Services'], 'NO':['Bensinstasjon', 'Rasteplass'], 'FI':['Huoltoasema', 'Levähdysalue'], 'GB':['Petrol station', 'Services'], 'IE':['Petrol station', 'Services'], 'DK':['Tankstation', 'Rasteplads'], 'SE':['Bensinstation', 'Rastplats'], 'GR':['Pratirio kafsimon', 'Choros stathmefsis'], 'BG':['Benzinostantsiya', 'Pochivka'], 'RO':['Benzinărie', 'Parcare'],
     'AT':['Tankstelle', 'Rastplatz'],
      'CH':['Tankstelle', 'Rastplatz'],
      'SI':['Bencinski servis', 'Počivališče'],
@@ -343,7 +343,7 @@ globalThis.AB = (() => {
     const MREZA = { GR: 'GR:motorway', BG: 'bg:motorway', RO: 'RO:A', NL: 'NL:A', BE: 'BE:A-road', LU: 'LU:A-road', AT: 'AT:A-road', CH: 'CH:motorway',
       SI: 'SI:AC', HR: 'HR:Autoceste', CZ: 'CZ:national', PL: 'PL:motorway', ES: 'ES:A-road', HU: 'HU:motorway', SK: 'sk:national', PT: 'PT:national', RS: 'RS:motorway',
       DK: 'e-road', SE: 'e-road', GB: 'UK:motorway', IE: 'IE:motorway',
-      NO: 'e-road', FI: 'fi:national' };
+      NO: 'e-road', FI: 'fi:national', NI: 'GB:NIR:motorway' };
     const delovi = ref.toUpperCase().replace(/\s+/g, '').split('-');
     const zemlja = delovi.length > 1 ? delovi[0] : 'NL';
     if (!MREZA[zemlja]) throw new Error('nepoznata zemlja ' + zemlja + ' (' + Object.keys(MREZA).join(', ') + ')');
@@ -362,7 +362,7 @@ globalThis.AB = (() => {
     // Britanija: "A1(M)" → fajl gb-a1m; autoputevi uglavnom bez relacija (samo M23, M25 u UK:motorway)
     if (zemlja === 'GB') ref = id.replace(/^(A\d+)M$/, '$1(M)');
     // oznaka druge autoceste na rampi (destination:ref): u Britaniji M1 ili A1(M), drugde A1
-    const AUTOPUT = zemlja === 'GB' ? /^(M\d{1,3}|A\d{1,3}\(M\))$/ : /^A\d{1,3}$/;
+    const AUTOPUT = zemlja === 'GB' || zemlja === 'NI' ? /^(M\d{1,3}|A\d{1,3}\(M\))$/ : /^A\d{1,3}$/;
     ab.skok = zemlja === 'ES' ? 500000 : ['SE', 'NO', 'FI'].includes(zemlja) ? 700000 : 200000;
     if (zemlja === 'PL' && id.startsWith('S')) MREZA.PL = 'PL:expressway';
     if (zemlja === 'AT' && id.startsWith('S')) MREZA.AT = 'AT:S-road'; // OSM u Beneluksu: "A2", bez razmaka
@@ -383,6 +383,7 @@ globalThis.AB = (() => {
     const domaci = ws => {
       // GB: domaće su GB: i UK:, ali ne GB:NIR (Severna Irska ima svoj M1, M2…)
       const strani = L.uMrezama(zemlja === 'GB' ? /^(?!GB:(?!NIR)|UK:)(BAB|[a-z]{2}:)/i
+        : zemlja === 'NI' ? /^(?!GB:NIR)(BAB|[a-z]{2}:)/i // Severna Irska (izvod ostrva Irske): irski M1 je stran
         : new RegExp('^(?!' + zemlja + ':)(BAB|[a-z]{2}:)', 'i'));
       ws = ws.filter(w => !strani.has(w.id));
       const rel = L.putevi(MREZA[zemlja], ref); if (!rel.length || ['ES', 'SE', 'NO', 'FI'].includes(zemlja)) return ws;
@@ -537,7 +538,7 @@ globalThis.AB = (() => {
       if (t.highway !== 'motorway_junction' || e.lat == null) continue;
       const broj = (t.ref || '').split(';')[0].trim();
       const L = rampa[e.id] || { dest: [], dref: [] };
-      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz', GR: 'Exodos', BG: 'Izhod', RO: 'Ieșire', DK: 'Frakørsel', SE: 'Trafikplats', GB: 'Junction', IE: 'Junction', NO: 'Avkjøring', FI: 'Liittymä' }[zemlja] || 'Afrit') + ' ' + broj : '');
+      const n = imeIzlaza(t) || L.dest.slice(0, 2).join(', ') || (broj ? ({ LU: 'Sortie', AT: 'Ausfahrt', CH: 'Ausfahrt', SI: 'Izvoz', HR: 'Izlaz', CZ: 'Exit', PL: 'Węzeł', ES: 'Salida', HU: 'Kijárat', SK: 'Výjazd', PT: 'Saída', RS: 'Izlaz', GR: 'Exodos', BG: 'Izhod', RO: 'Ieșire', DK: 'Frakørsel', SE: 'Trafikplats', GB: 'Junction', IE: 'Junction', NI: 'Junction', NO: 'Avkjøring', FI: 'Liittymä' }[zemlja] || 'Afrit') + ' ' + broj : '');
       if (!n) { bezImena++; continue; }
       if (NIJE_IZLAZ.test(n) || /area\s+(di\s+)?servizio/i.test(n)) { odmorista++; continue; }
       const q = xy(e.lat, e.lon), pr = projekcija(linija, q);

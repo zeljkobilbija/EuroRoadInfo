@@ -493,6 +493,8 @@ public final class Autoputevi {
             new Autoput("GB", "M90", "Edinburgh – Perth", "autoputevi/gb-m90.json"),
             new Autoput("GB", "A1(M)", "London – Peterborough; Doncaster – Newcastle", "autoputevi/gb-a1m.json"),
             new Autoput("GB", "A74(M)", "Abington – Gretna", "autoputevi/gb-a74m.json"),
+            new Autoput("GB", "M1", "Northern Ireland: Belfast – Lisburn – Dungannon", "autoputevi/ni-m1.json"),
+            new Autoput("GB", "M2", "Northern Ireland: Belfast – Antrim", "autoputevi/ni-m2.json"),
             new Autoput("IE", "M1", "Dublin – Drogheda – Dundalk", "autoputevi/ie-m1.json"),
             new Autoput("IE", "M3", "Dublin – Navan – Kells", "autoputevi/ie-m3.json"),
             new Autoput("IE", "M4", "Dublin – Kinnegad", "autoputevi/ie-m4.json"),
