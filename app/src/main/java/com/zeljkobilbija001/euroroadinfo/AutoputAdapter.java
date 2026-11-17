@@ -39,8 +39,9 @@ public class AutoputAdapter extends RecyclerView.Adapter<AutoputAdapter.Drzac> {
         boolean ima = a.dostupan();
 
         d.stit.setText(a.oznaka());
-        d.stit.setBackgroundResource(ima ? a.stit() : R.drawable.bg_stit_sivi);
-        d.stit.setTextColor(ima ? a.bojaTeksta() : 0xFFFFFFFF);
+        boolean ovde = ima && a.id.equals(VoznjaService.sadAutoput);
+        d.stit.setBackgroundResource(ovde ? R.drawable.bg_stit_ovde : ima ? a.stit() : R.drawable.bg_stit_sivi);
+        d.stit.setTextColor(ima && !ovde ? a.bojaTeksta() : 0xFFFFFFFF);
         d.ruta.setText(a.ruta);
 
         if (ima) {
