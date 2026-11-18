@@ -77,7 +77,10 @@ public class StanjeActivity extends AppCompatActivity {
             return insets;
         });
 
-        ((TextView) findViewById(R.id.stit)).setText(autoput.oznaka());
+        TextView stit = findViewById(R.id.stit); // štit po zemlji (DE plavi), a ne podrazumevani iz layouta
+        stit.setText(autoput.oznaka());
+        stit.setBackgroundResource(autoput.stit());
+        stit.setTextColor(autoput.bojaTeksta());
         ((TextView) findViewById(R.id.obavestenjaOpis)).setText(
                 getString(R.string.stanje_obavestenja_opis, Obavestenja.MINUTA));
         podnaslov = findViewById(R.id.podnaslov);
