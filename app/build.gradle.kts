@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.ump)
     implementation(libs.play.services.location)
     implementation(libs.billing)
+    implementation(libs.work.runtime)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

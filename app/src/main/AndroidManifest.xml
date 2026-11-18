@@ -53,6 +53,11 @@
             android:exported="false" />
 
         <!-- Režim "Vožnja": korisnik ga sam uključi, lokacija samo dok traje -->
+        <activity
+            android:name=".StanjeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
         <service
             android:name=".VoznjaService"
             android:exported="false"
