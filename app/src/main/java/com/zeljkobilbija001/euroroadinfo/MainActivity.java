@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 Reklame.prikaziPodesavanjaPrivatnosti(this, this::posleSaglasnosti));
         Reklame.prikupiSaglasnost(this, this::posleSaglasnosti);
         // provera stanja na praćenim (nemačkim) autoputevima, ako ih ima, ostaje zakazana
-        Obavestenja.zakazi(this);
+        Obavestenja.otvorena(this, savedInstanceState == null); // i posle potpunog zatvaranja: aktuelne vesti nazad
 
         voznja = new VoznjaKartica(this);
         VoznjaKartica.bezReklama(this);
