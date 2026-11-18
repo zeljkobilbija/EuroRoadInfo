@@ -117,6 +117,7 @@
     <string name="obav_kanal">Dopravné upozornenia</string>
     <string name="obav_naslov_vise">%1$s: nové dopravné informácie (%2$d)</string>
     <string name="stanje_dozvola">Upozornenia sú pre túto aplikáciu vypnuté.</string>
+    <string name="stanje_dozvola_poruka">Ak chcete dostávať správy o nehodách, kolónach a uzávierkach, povoľte oznámenia pre túto aplikáciu v nastaveniach telefónu. Ťuknite na Nastavenia a oznámenia zapnite.</string>
     <string name="stanje_greska">Dopravné informácie momentálne nie sú dostupné.</string>
     <string name="stanje_iskljuceno">Oznámenia sú vypnuté. Zapnite ich a uvidíte dopravné správy.</string>
     <string name="stanje_izvor">Dopravné údaje: Autobahn GmbH des Bundes (verkehr.autobahn.de). Ťuknite na správu pre celý text (v nemčine).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Uzavretý pruh</string>
     <string name="vrsta_udes">Nehoda</string>
     <string name="vrsta_zatvoreno">Uzavreté</string>
+    <string name="voznja_trazim_smer">%s: zisťujem vašu polohu na diaľnici…</string>
+    <string name="voznja_bez_lokacije">Poloha je vypnutá – zapnite ju v nastaveniach telefónu</string>
+    <string name="voznja_bez_interneta">Bez internetu – dopravné správy neprichádzajú</string>
+    <string name="voznja_ne_moze_naslov">Režim jazdy sa nedá spustiť</string>
+    <string name="voznja_bez_dozvole_poruka">Režim jazdy potrebuje vašu presnú polohu. Otvorte Nastavenia → Povolenia → Poloha, zvoľte „Povoliť iba pri používaní aplikácie“ a zapnite „Používať presnú polohu“.</string>
+    <string name="voznja_gps_iskljucen_poruka">Poloha je v telefóne vypnutá. Zapnite ju, aby režim jazdy našiel diaľnicu, na ktorej ste.</string>
 </resources>

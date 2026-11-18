@@ -117,6 +117,7 @@
     <string name="obav_kanal">Avvisi sul traffico</string>
     <string name="obav_naslov_vise">%1$s: %2$d nuove notizie sul traffico</string>
     <string name="stanje_dozvola">Le notifiche sono disattivate per questa app.</string>
+    <string name="stanje_dozvola_poruka">Per ricevere notizie su incidenti, code e chiusure, consenti le notifiche per questa app nelle impostazioni del telefono. Tocca Impostazioni e attiva le notifiche.</string>
     <string name="stanje_greska">Le notizie sul traffico non sono disponibili ora.</string>
     <string name="stanje_iskljuceno">Le notifiche sono disattivate. Attivale per vedere le notizie sul traffico.</string>
     <string name="stanje_izvor">Dati sul traffico: Autobahn GmbH des Bundes (verkehr.autobahn.de). Tocca una notizia per il testo completo (in tedesco).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Corsia chiusa</string>
     <string name="vrsta_udes">Incidente</string>
     <string name="vrsta_zatvoreno">Chiuso</string>
+    <string name="voznja_trazim_smer">%s: cerco la tua posizione sull\'autostrada…</string>
+    <string name="voznja_bez_lokacije">La posizione è disattivata – attivala nelle impostazioni del telefono</string>
+    <string name="voznja_bez_interneta">Nessuna connessione – le notizie sul traffico non arrivano</string>
+    <string name="voznja_ne_moze_naslov">La modalità guida non può partire</string>
+    <string name="voznja_bez_dozvole_poruka">La modalità guida ha bisogno della tua posizione precisa. Apri Impostazioni → Autorizzazioni → Posizione, scegli «Consenti solo mentre l\'app è in uso» e attiva «Usa posizione precisa».</string>
+    <string name="voznja_gps_iskljucen_poruka">La posizione è disattivata sul telefono. Attivala perché la modalità guida possa trovare l\'autostrada in cui ti trovi.</string>
 </resources>

@@ -117,6 +117,7 @@
     <string name="obav_kanal">Verkehrswarnungen</string>
     <string name="obav_naslov_vise">%1$s: %2$d neue Verkehrsmeldungen</string>
     <string name="stanje_dozvola">Benachrichtigungen sind für diese App ausgeschaltet.</string>
+    <string name="stanje_dozvola_poruka">Um Meldungen über Unfälle, Staus und Sperrungen zu erhalten, erlauben Sie Benachrichtigungen für diese App in den Telefoneinstellungen. Tippen Sie auf Einstellungen und schalten Sie sie ein.</string>
     <string name="stanje_greska">Verkehrsmeldungen sind gerade nicht verfügbar.</string>
     <string name="stanje_iskljuceno">Benachrichtigungen sind aus. Schalten Sie sie ein, um Verkehrsmeldungen zu sehen.</string>
     <string name="stanje_izvor">Verkehrsdaten: Autobahn GmbH des Bundes (verkehr.autobahn.de). Meldung antippen für den vollständigen Text.</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Fahrstreifen gesperrt</string>
     <string name="vrsta_udes">Unfall</string>
     <string name="vrsta_zatvoreno">Gesperrt</string>
+    <string name="voznja_trazim_smer">%s: ermittle Ihre Position auf der Autobahn…</string>
+    <string name="voznja_bez_lokacije">Standort ist aus – bitte in den Telefoneinstellungen einschalten</string>
+    <string name="voznja_bez_interneta">Kein Internet – Verkehrsmeldungen kommen nicht an</string>
+    <string name="voznja_ne_moze_naslov">Fahrmodus kann nicht starten</string>
+    <string name="voznja_bez_dozvole_poruka">Der Fahrmodus braucht Ihren genauen Standort. Öffnen Sie Einstellungen → Berechtigungen → Standort, wählen Sie „Nur während der Nutzung der App zulassen“ und schalten Sie „Genauen Standort verwenden“ ein.</string>
+    <string name="voznja_gps_iskljucen_poruka">Der Standort ist auf Ihrem Telefon ausgeschaltet. Schalten Sie ihn ein, damit der Fahrmodus die Autobahn finden kann.</string>
 </resources>

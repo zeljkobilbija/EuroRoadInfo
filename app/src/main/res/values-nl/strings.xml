@@ -117,6 +117,7 @@
     <string name="obav_kanal">Verkeersmeldingen</string>
     <string name="obav_naslov_vise">%1$s: %2$d nieuwe verkeersberichten</string>
     <string name="stanje_dozvola">Meldingen staan uit voor deze app.</string>
+    <string name="stanje_dozvola_poruka">Om berichten over ongevallen, files en afsluitingen te ontvangen, sta meldingen voor deze app toe in de telefooninstellingen. Tik op Instellingen en zet meldingen aan.</string>
     <string name="stanje_greska">Verkeersberichten zijn nu niet beschikbaar.</string>
     <string name="stanje_iskljuceno">Meldingen staan uit. Zet ze aan om verkeersberichten te zien.</string>
     <string name="stanje_izvor">Verkeersgegevens: Autobahn GmbH des Bundes (verkehr.autobahn.de). Tik op een bericht voor de volledige tekst (in het Duits).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Rijstrook dicht</string>
     <string name="vrsta_udes">Ongeval</string>
     <string name="vrsta_zatvoreno">Afgesloten</string>
+    <string name="voznja_trazim_smer">%s: zoek uw positie op de snelweg…</string>
+    <string name="voznja_bez_lokacije">Locatie staat uit – zet deze aan in de telefooninstellingen</string>
+    <string name="voznja_bez_interneta">Geen internet – verkeersberichten komen niet binnen</string>
+    <string name="voznja_ne_moze_naslov">Rijmodus kan niet starten</string>
+    <string name="voznja_bez_dozvole_poruka">De rijmodus heeft uw precieze locatie nodig. Open Instellingen → Rechten → Locatie, kies „Alleen toestaan tijdens gebruik van de app” en zet „Precieze locatie gebruiken” aan.</string>
+    <string name="voznja_gps_iskljucen_poruka">Locatie staat uit op uw telefoon. Zet deze aan zodat de rijmodus de snelweg kan vinden waarop u rijdt.</string>
 </resources>

@@ -117,6 +117,7 @@
     <string name="obav_kanal">Alerty drogowe</string>
     <string name="obav_naslov_vise">%1$s: nowe komunikaty drogowe (%2$d)</string>
     <string name="stanje_dozvola">Powiadomienia są wyłączone dla tej aplikacji.</string>
+    <string name="stanje_dozvola_poruka">Aby otrzymywać informacje o wypadkach, korkach i zamknięciach, zezwól na powiadomienia tej aplikacji w ustawieniach telefonu. Dotknij Ustawienia i włącz powiadomienia.</string>
     <string name="stanje_greska">Komunikaty drogowe są teraz niedostępne.</string>
     <string name="stanje_iskljuceno">Powiadomienia są wyłączone. Włącz je, aby zobaczyć informacje drogowe.</string>
     <string name="stanje_izvor">Dane o ruchu: Autobahn GmbH des Bundes (verkehr.autobahn.de). Dotknij komunikatu, aby zobaczyć pełny tekst (po niemiecku).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Zamknięty pas</string>
     <string name="vrsta_udes">Wypadek</string>
     <string name="vrsta_zatvoreno">Zamknięte</string>
+    <string name="voznja_trazim_smer">%s: ustalam twoje położenie na autostradzie…</string>
+    <string name="voznja_bez_lokacije">Lokalizacja jest wyłączona – włącz ją w ustawieniach telefonu</string>
+    <string name="voznja_bez_interneta">Brak internetu – informacje drogowe nie docierają</string>
+    <string name="voznja_ne_moze_naslov">Nie można uruchomić trybu jazdy</string>
+    <string name="voznja_bez_dozvole_poruka">Tryb jazdy potrzebuje dokładnej lokalizacji. Otwórz Ustawienia → Uprawnienia → Lokalizacja, wybierz „Zezwalaj tylko podczas używania aplikacji” i włącz „Używaj dokładnej lokalizacji”.</string>
+    <string name="voznja_gps_iskljucen_poruka">Lokalizacja w telefonie jest wyłączona. Włącz ją, aby tryb jazdy mógł znaleźć autostradę, na której jesteś.</string>
 </resources>

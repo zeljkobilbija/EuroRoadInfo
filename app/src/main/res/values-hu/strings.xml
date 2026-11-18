@@ -117,6 +117,7 @@
     <string name="obav_kanal">Forgalmi értesítések</string>
     <string name="obav_naslov_vise">%1$s: %2$d új forgalmi hír</string>
     <string name="stanje_dozvola">Az értesítések ki vannak kapcsolva ennél az alkalmazásnál.</string>
+    <string name="stanje_dozvola_poruka">Ha híreket szeretne kapni balesetekről, torlódásokról és lezárásokról, engedélyezze az alkalmazás értesítéseit a telefon beállításaiban. Koppintson a Beállítások gombra, és kapcsolja be őket.</string>
     <string name="stanje_greska">A forgalmi hírek most nem érhetők el.</string>
     <string name="stanje_iskljuceno">Az értesítések ki vannak kapcsolva. Kapcsolja be őket a forgalmi hírekhez.</string>
     <string name="stanje_izvor">Forgalmi adatok: Autobahn GmbH des Bundes (verkehr.autobahn.de). Koppintson egy hírre a teljes szövegért (németül).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Lezárt sáv</string>
     <string name="vrsta_udes">Baleset</string>
     <string name="vrsta_zatvoreno">Lezárva</string>
+    <string name="voznja_trazim_smer">%s: keresem a helyzetét az autópályán…</string>
+    <string name="voznja_bez_lokacije">A helymeghatározás ki van kapcsolva – kapcsolja be a telefon beállításaiban</string>
+    <string name="voznja_bez_interneta">Nincs internet – a forgalmi hírek nem érkeznek meg</string>
+    <string name="voznja_ne_moze_naslov">A vezetési mód nem indítható</string>
+    <string name="voznja_bez_dozvole_poruka">A vezetési módnak szüksége van a pontos helyére. Nyissa meg a Beállítások → Engedélyek → Hely menüt, válassza a „Csak az alkalmazás használata közben” lehetőséget, és kapcsolja be a „Pontos hely használata” opciót.</string>
+    <string name="voznja_gps_iskljucen_poruka">A helymeghatározás ki van kapcsolva a telefonon. Kapcsolja be, hogy a vezetési mód megtalálja az autópályát.</string>
 </resources>

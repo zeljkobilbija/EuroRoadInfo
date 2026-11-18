@@ -117,6 +117,7 @@
     <string name="obav_kanal">Stanje na cesti</string>
     <string name="obav_naslov_vise">%1$s: novih prometnih informacij: %2$d</string>
     <string name="stanje_dozvola">Obvestila so za to aplikacijo izklopljena.</string>
+    <string name="stanje_dozvola_poruka">Če želite prejemati novice o nesrečah, zastojih in zaporah, dovolite obvestila za to aplikacijo v nastavitvah telefona. Tapnite Nastavitve in vklopite obvestila.</string>
     <string name="stanje_greska">Prometne informacije trenutno niso na voljo.</string>
     <string name="stanje_iskljuceno">Obvestila so izklopljena. Vklopite jih, da vidite prometne novice.</string>
     <string name="stanje_izvor">Prometni podatki: Autobahn GmbH des Bundes (verkehr.autobahn.de). Tapnite obvestilo za celotno besedilo (v nemščini).</string>
@@ -140,4 +141,10 @@
     <string name="vrsta_traka">Zaprt pas</string>
     <string name="vrsta_udes">Nesreča</string>
     <string name="vrsta_zatvoreno">Zaprto</string>
+    <string name="voznja_trazim_smer">%s: iščem vaš položaj na avtocesti…</string>
+    <string name="voznja_bez_lokacije">Lokacija je izklopljena – vklopite jo v nastavitvah telefona</string>
+    <string name="voznja_bez_interneta">Ni interneta – prometne novice ne prihajajo</string>
+    <string name="voznja_ne_moze_naslov">Vožnje ni mogoče zagnati</string>
+    <string name="voznja_bez_dozvole_poruka">Način vožnje potrebuje vašo natančno lokacijo. Odprite Nastavitve → Dovoljenja → Lokacija, izberite »Dovoli samo med uporabo aplikacije« in vklopite »Uporabi natančno lokacijo«.</string>
+    <string name="voznja_gps_iskljucen_poruka">Lokacija je na telefonu izklopljena. Vklopite jo, da bo vožnja lahko našla avtocesto, na kateri ste.</string>
 </resources>
