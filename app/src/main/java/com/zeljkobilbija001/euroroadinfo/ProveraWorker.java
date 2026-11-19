@@ -24,6 +24,11 @@ public class ProveraWorker extends Worker {
         }
         for (String id : Obavestenja.praceni(c)) {
             if (isStopped()) break;
+            // Vožnja zna autoput i smer vozača: ona javlja samo ono ispred u njegovom smeru
+            if (VoznjaService.radi && id.equals(VoznjaService.sadAutoput) && VoznjaService.sadSmer != '?') {
+                Dnevnik.upisi(c, "PRAĆENJE " + id + ": prepušteno Vožnji");
+                continue;
+            }
             try {
                 java.util.List<Dogadjaj> l = StanjeNaPutu.preuzmi(id);
                 int vaznih = 0;
