@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Чтобы получать новости об авариях, пробках и перекрытиях, разрешите уведомления для этого приложения в настройках телефона. Нажмите «Настройки» и включите уведомления.</string>
     <string name="stanje_greska">Дорожные сообщения сейчас недоступны.</string>
     <string name="stanje_iskljuceno">Уведомления выключены. Включите их, чтобы видеть дорожные новости.</string>
-    <string name="stanje_izvor">Данные о движении: Autobahn GmbH des Bundes (verkehr.autobahn.de). Нажмите на сообщение, чтобы увидеть полный текст (на немецком).</string>
+    <string name="stanje_izvor">Данные о движении: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG). Нажмите на сообщение, чтобы увидеть полный текст (на немецком).</string>
     <string name="stanje_kasnjenje">+%d мин</string>
     <string name="stanje_na_mapi">Показать на карте</string>
     <string name="stanje_naslov">Дорожная обстановка</string>

@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Um Meldungen über Unfälle, Staus und Sperrungen zu erhalten, erlauben Sie Benachrichtigungen für diese App in den Telefoneinstellungen. Tippen Sie auf Einstellungen und schalten Sie sie ein.</string>
     <string name="stanje_greska">Verkehrsmeldungen sind gerade nicht verfügbar.</string>
     <string name="stanje_iskljuceno">Benachrichtigungen sind aus. Schalten Sie sie ein, um Verkehrsmeldungen zu sehen.</string>
-    <string name="stanje_izvor">Verkehrsdaten: Autobahn GmbH des Bundes (verkehr.autobahn.de). Meldung antippen für den vollständigen Text.</string>
+    <string name="stanje_izvor">Verkehrsdaten: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG). Meldung antippen für den vollständigen Text.</string>
     <string name="stanje_kasnjenje">+%d Min.</string>
     <string name="stanje_na_mapi">Auf Karte zeigen</string>
     <string name="stanje_naslov">Verkehrslage</string>

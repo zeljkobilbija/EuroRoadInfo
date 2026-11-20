@@ -26,13 +26,15 @@ public final class StanjeNaPutu {
     }
 
     private static final String API = "https://verkehr.autobahn.de/o/autobahn/";
+    /** Austrija: EVIS.AT / ASFINAG (CC BY 4.0) preko našeg posrednika – lični EVIS ključ je samo na serveru. */
+    private static final String EVIS = "https://evis-posrednik.zeljkobilbija.workers.dev/vesti?put=";
     private static final ExecutorService NIT = Executors.newSingleThreadExecutor();
 
     private StanjeNaPutu() { }
 
-    /** Izvor postoji samo za Nemačku (Autobahn GmbH); ostale zemlje dolaze kasnije, svaka sa svojim izvorom. */
+    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG); ostale zemlje kasnije. */
     public static boolean podrzan(String autoputId) {
-        return autoputId != null && autoputId.startsWith("DE-");
+        return autoputId != null && (autoputId.startsWith("DE-") || autoputId.startsWith("AT-"));
     }
 
     public static void ucitaj(String autoput, Odgovor odgovor) {
@@ -55,10 +57,14 @@ public final class StanjeNaPutu {
      */
     public static List<Dogadjaj> preuzmi(String autoput) throws Exception {
         if (!podrzan(autoput)) return new ArrayList<>();
-        String ref = autoput.substring(3); // "DE-A8" -> "A8", kako ga zove verkehr.autobahn.de
+        String ref = autoput.substring(3); // "DE-A8" -> "A8", "AT-S6" -> "S6"
         List<Dogadjaj> l = new ArrayList<>();
-        l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/warning"), "warning"));
-        l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/closure"), "closure"));
+        if (autoput.startsWith("AT-")) {
+            l.addAll(Dogadjaj.izEvis(get(EVIS + ref)));
+        } else {
+            l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/warning"), "warning"));
+            l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/closure"), "closure"));
+        }
         Collections.sort(l, (a, b) -> a.pocetak != b.pocetak ? Long.compare(b.pocetak, a.pocetak)
                 : Integer.compare(a.vrsta, b.vrsta));
         return l;

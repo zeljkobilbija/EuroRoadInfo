@@ -29,6 +29,7 @@ public final class Dogadjaj {
     public final long pocetak;     // ms, 0 = nepoznato
     public final double lat, lon;  // početak; NaN ako nema
     public final double lat2, lon2; // kraj (iz geometrije, u smeru vožnje); NaN ako nema
+    private boolean bezObavestenja;  // npr. vozilo u kvaru (Austrija): samo u listi
 
     private Dogadjaj(String id, int vrsta, String deonica, String smer, String opis,
                      int kasnjenjeMin, long pocetak, double lat, double lon, double lat2, double lon2) {
@@ -47,6 +48,7 @@ public final class Dogadjaj {
 
     /** Da li zbog ove poruke vredi poslati obaveštenje (udes, kolona, zatvoren put, opasnost). */
     public boolean zaObavestenje() {
+        if (bezObavestenja) return false;
         switch (vrsta) {
             case ZATVORENO:
             case UDES:
@@ -61,6 +63,57 @@ public final class Dogadjaj {
 
     public boolean imaKoordinate() {
         return !Double.isNaN(lat) && !Double.isNaN(lon);
+    }
+
+    // ---------- Austrija: EVIS.AT / ASFINAG preko našeg posrednika (Cloudflare Worker) ----------
+
+    /**
+     * Odgovor posrednika evis-posrednik.zeljkobilbija.workers.dev: {"dogadjaji":[{id, p, t, d, st, en, o, m, s, a, b, man}]}
+     * (t = vrste zapisa DATEX II: Accident, AbnormalTraffic, RoadOrCarriagewayOrLaneManagement…; d = podvrste).
+     */
+    static List<Dogadjaj> izEvis(String json) throws Exception {
+        List<Dogadjaj> l = new ArrayList<>();
+        JSONArray a = new JSONObject(json).optJSONArray("dogadjaji");
+        if (a == null) return l;
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.optJSONObject(i);
+            if (o == null) continue;
+            JSONArray t = o.optJSONArray("t"), d = o.optJSONArray("d");
+            String tipovi = t == null ? "" : t.toString(), podtipovi = d == null ? "" : d.toString();
+            int vrsta = vrstaEvis(tipovi, podtipovi);
+            String opis = o.optString("o", "");
+            // "A9 Pyhrn Autobahn, Graz Richtung Maribor (SLO), zwischen Übelbach (km 157.1) und Peggau (km 165.2), …"
+            String deonica = "";
+            String[] delovi = opis.split(", ");
+            if (delovi.length >= 3) {
+                deonica = delovi[2].replaceFirst("^zwischen ", "").replace(" und ", " – ")
+                        .replaceAll(" \\(km [\\d.,]+\\)", "");
+            }
+            String smer = o.optString("s", "");
+            JSONArray p1 = o.optJSONArray("a"), p2 = o.optJSONArray("b");
+            Dogadjaj x = new Dogadjaj(o.optString("id"), vrsta, deonica, smer.isEmpty() ? "" : "→ " + smer, opis, 0,
+                    o.optLong("st", 0),
+                    p1 != null ? p1.optDouble(0) : Double.NaN, p1 != null ? p1.optDouble(1) : Double.NaN,
+                    p2 != null ? p2.optDouble(0) : Double.NaN, p2 != null ? p2.optDouble(1) : Double.NaN);
+            x.bezObavestenja = tipovi.contains("VehicleObstruction") && podtipovi.contains("brokenDownVehicle")
+                    && !tipovi.contains("Accident");
+            l.add(x);
+        }
+        return l;
+    }
+
+    static int vrstaEvis(String t, String d) {
+        if (t.contains("Accident")) return UDES;
+        if (t.contains("RoadOrCarriagewayOrLaneManagement") && (d.contains("roadClosed") || d.contains("carriagewayClosures"))) {
+            return d.contains("slipRoads") && !d.contains("mainCarriageway") ? PRILAZ : ZATVORENO;
+        }
+        if (t.contains("AbnormalTraffic")) return d.contains("slowTraffic") || d.contains("heavyTraffic") ? SPORO : KOLONA;
+        if (t.contains("Obstruction") || t.contains("PoorEnvironment") || t.contains("WeatherRelated")
+                || t.contains("NonWeatherRelated")) return OPASNOST;
+        if (t.contains("RoadOrCarriagewayOrLaneManagement") || t.contains("MaintenanceWorks")
+                || t.contains("ConstructionWorks")) return TRAKA;
+        if (t.contains("SpeedManagement")) return SPORO;
+        return OSTALO;
     }
 
     // ---------- Čitanje JSON-a ----------
