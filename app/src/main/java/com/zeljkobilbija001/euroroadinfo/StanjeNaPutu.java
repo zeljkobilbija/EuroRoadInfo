@@ -39,7 +39,7 @@ public final class StanjeNaPutu {
     private static final String NI = "https://rss.trafficwatchni.com/trafficwatchni_incidents_rss.xml";
     /** Škotski autoputevi – Traffic Scotland još nije uključen (čeka se dozvola). */
     private static final java.util.Set<String> SKOTSKA = new java.util.HashSet<>(java.util.Arrays.asList(
-            "GB-M8", "GB-M9", "GB-M73", "GB-M74", "GB-M77", "GB-M80", "GB-M90", "GB-A74(M)"));
+            "GB-M8", "GB-M9", "GB-M73", "GB-M74", "GB-M77", "GB-M80", "GB-M90", "GB-A74M"));
 
     /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Velika Britanija bez Škotske; ostale zemlje kasnije. */
     public static boolean podrzan(String autoputId) {
