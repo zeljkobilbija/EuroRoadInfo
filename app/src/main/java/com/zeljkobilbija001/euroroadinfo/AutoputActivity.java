@@ -124,6 +124,7 @@ public class AutoputActivity extends AppCompatActivity {
         autoput = a;
         if (a != null) Obavestenja.izabran(this, a.id); // obaveštenja prate i autoput izabran u aplikaciji
         podaci = Podaci.za(this, a);
+        StavkaAdapter.milje = Podaci.milje(a.id);
         if (podaci == null || podaci.deonice.isEmpty()) {
             android.widget.Toast.makeText(this, R.string.greska_podaci, android.widget.Toast.LENGTH_SHORT).show();
             finish();
@@ -275,8 +276,8 @@ public class AutoputActivity extends AppCompatActivity {
         Deonica d = podaci.deonice.get(deonica);
         String kmTekst = String.format(Locale.getDefault(), "%.1f", d.kmZaPrikaz(km));
         String poruka = noviSmer == '+' || noviSmer == '-'
-                ? getString(R.string.lokacija_ovde_smer, kmTekst, smer == '+' ? d.plus : d.minus)
-                : getString(R.string.lokacija_ovde, kmTekst);
+                ? getString(podaci.milje ? R.string.lokacija_ovde_smer_mi : R.string.lokacija_ovde_smer, kmTekst, smer == '+' ? d.plus : d.minus)
+                : getString(podaci.milje ? R.string.lokacija_ovde_mi : R.string.lokacija_ovde, kmTekst);
         Toast.makeText(this, poruka, Toast.LENGTH_LONG).show();
     }
 

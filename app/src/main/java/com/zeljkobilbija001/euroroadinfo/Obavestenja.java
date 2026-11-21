@@ -283,7 +283,7 @@ public final class Obavestenja {
         long sad = System.currentTimeMillis();
         for (int i = 0; i < novi.size(); i++) stiglo.put(novi.get(i).id, sad - i); // u istoj proveri: po redu liste
         sacuvaj(c, autoputId, vidjeno, stiglo);
-        for (Dogadjaj d : novi) Dnevnik.upisi(c, "OBAVEŠTENJE " + autoputId + ": " + red(c, d, udaljenosti));
+        for (Dogadjaj d : novi) Dnevnik.upisi(c, "OBAVEŠTENJE " + autoputId + ": " + red(c, d, udaljenosti, Podaci.milje(autoputId)));
         if (!novi.isEmpty() && !smeDaObavesti(c)) Dnevnik.upisi(c, "   (obaveštenja nisu dozvoljena – nije prikazano)");
         if (novi.isEmpty()) return;
         // u obaveštenju sve javljene poruke koje još važe, poslednja stigla na vrhu (ne po važnosti)
@@ -303,7 +303,7 @@ public final class Obavestenja {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.InboxStyle stil = new NotificationCompat.InboxStyle();
-        for (Dogadjaj d : novi) stil.addLine(red(c, d, udaljenosti));
+        for (Dogadjaj d : novi) stil.addLine(red(c, d, udaljenosti, Podaci.milje(autoputId)));
         Dogadjaj prvi = novi.get(0);
         String naslov = novi.size() == 1
                 ? oznaka + " · " + c.getString(DogadjajAdapter.naziv(prvi.vrsta))
@@ -313,7 +313,7 @@ public final class Obavestenja {
                 .setSmallIcon(R.drawable.ic_obavestenje)
                 .setColor(Izgled.boja(c, R.color.plava))
                 .setContentTitle(naslov)
-                .setContentText(red(c, prvi, udaljenosti))
+                .setContentText(red(c, prvi, udaljenosti, Podaci.milje(autoputId)))
                 .setStyle(stil)
                 .setContentIntent(pi)
                 .setAutoCancel(true)
@@ -324,10 +324,10 @@ public final class Obavestenja {
     }
 
     /** "Unfall · za 12 km · Köln → Frankfurt · Idstein – Wiesbadener Kreuz · +11 min" */
-    private static String red(Context c, Dogadjaj d, Map<String, Integer> udaljenosti) {
+    private static String red(Context c, Dogadjaj d, Map<String, Integer> udaljenosti, boolean milje) {
         StringBuilder sb = new StringBuilder(c.getString(DogadjajAdapter.naziv(d.vrsta)));
         Integer km = udaljenosti != null ? udaljenosti.get(d.id) : null;
-        if (km != null) sb.append(" · ").append(c.getString(R.string.voznja_za_km, Math.max(0, km)));
+        if (km != null) sb.append(" · ").append(c.getString(milje ? R.string.voznja_za_km_mi : R.string.voznja_za_km, Math.max(0, km)));
         if (!d.smer.isEmpty()) sb.append(" · ").append(d.smer);
         if (!d.deonica.isEmpty()) sb.append(" · ").append(d.deonica);
         if (d.kasnjenjeMin > 0) sb.append(" · ").append(c.getString(R.string.stanje_kasnjenje, d.kasnjenjeMin));

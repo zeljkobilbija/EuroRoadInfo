@@ -46,7 +46,7 @@ public class AutoputAdapter extends RecyclerView.Adapter<AutoputAdapter.Drzac> {
 
         if (ima) {
             Podaci p = Podaci.za(v.getContext(), a);
-            d.status.setText(p == null ? "" : v.getContext().getString(R.string.broj_tacaka,
+            d.status.setText(p == null ? "" : v.getContext().getString(p.milje ? R.string.broj_tacaka_mi : R.string.broj_tacaka,
                     p.stavke.size(), p.duzinaKm()));
             d.status.setTextColor(Izgled.boja(v.getContext(), R.color.plava_tekst));
         } else {

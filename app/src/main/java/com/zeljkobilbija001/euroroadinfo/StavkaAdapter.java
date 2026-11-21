@@ -36,6 +36,9 @@ public class StavkaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private final Klik klik;
 
+    /** Britanski autoputevi: „mi“ umesto „km“. */
+    public static boolean milje;
+
     public StavkaAdapter(Klik klik) {
         this.klik = klik;
     }
@@ -178,6 +181,8 @@ public class StavkaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void povezi(Stavka s) {
             Context c = itemView.getContext();
             km.setText(String.format(Locale.getDefault(), "%.1f", s.kmPrikaz()));
+            TextView jed = itemView.findViewById(R.id.jedinica);
+            if (jed != null) jed.setText(milje ? R.string.km_mi : R.string.km);
 
             // Znak na šini: strelica izlaza, oznaka druge autostrade (čvorište), P, pumpa ili pribor za jelo
             boolean pumpa = !s.jeIzlaz() && s.tip != Stavka.PARKING && !s.gorivo.isEmpty();

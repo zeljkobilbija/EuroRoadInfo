@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">Tryb jazdy potrzebuje dokładnej lokalizacji. Otwórz Ustawienia → Uprawnienia → Lokalizacja, wybierz „Zezwalaj tylko podczas używania aplikacji” i włącz „Używaj dokładnej lokalizacji”.</string>
     <string name="voznja_gps_iskljucen_poruka">Lokalizacja w telefonie jest wyłączona. Włącz ją, aby tryb jazdy mógł znaleźć autostradę, na której jesteś.</string>
     <string name="lokacija_pravac">kierunek %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">Punkty: %1$d · %2$d mi</string>
+    <string name="det_kilometar_mi">Mila</string>
+    <string name="lokacija_ovde_mi">Jesteś tutaj: mi %s</string>
+    <string name="lokacija_ovde_smer_mi">Jesteś tutaj: mi %1$s, w kierunku %2$s</string>
+    <string name="voznja_za_km_mi">za %d mi</string>
+    <string name="podnaslov_mi">Miejsca obsługi podróżnych, stacje paliw, zjazdy i parkingi – według mil</string>
+    <string name="km_mi">mi</string>
 </resources>

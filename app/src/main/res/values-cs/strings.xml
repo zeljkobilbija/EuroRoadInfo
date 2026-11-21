@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">Režim jízdy potřebuje vaši přesnou polohu. Otevřete Nastavení → Oprávnění → Poloha, zvolte „Povolit jen při používání aplikace“ a zapněte „Používat přesnou polohu“.</string>
     <string name="voznja_gps_iskljucen_poruka">Poloha je v telefonu vypnutá. Zapněte ji, aby režim jízdy našel dálnici, na které jste.</string>
     <string name="lokacija_pravac">směr %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">Míst: %1$d · %2$d mi</string>
+    <string name="det_kilometar_mi">Míle</string>
+    <string name="lokacija_ovde_mi">Jste zde: mi %s</string>
+    <string name="lokacija_ovde_smer_mi">Jste zde: mi %1$s, směr %2$s</string>
+    <string name="voznja_za_km_mi">za %d mi</string>
+    <string name="podnaslov_mi">Odpočívadla, čerpací stanice, sjezdy a parkoviště – podle mílí</string>
+    <string name="km_mi">mi</string>
 </resources>

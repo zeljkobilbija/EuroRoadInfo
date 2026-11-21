@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">A vezetési módnak szüksége van a pontos helyére. Nyissa meg a Beállítások → Engedélyek → Hely menüt, válassza a „Csak az alkalmazás használata közben” lehetőséget, és kapcsolja be a „Pontos hely használata” opciót.</string>
     <string name="voznja_gps_iskljucen_poruka">A helymeghatározás ki van kapcsolva a telefonon. Kapcsolja be, hogy a vezetési mód megtalálja az autópályát.</string>
     <string name="lokacija_pravac">%s irányába</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">%1$d hely · %2$d mi</string>
+    <string name="det_kilometar_mi">Mérföld</string>
+    <string name="lokacija_ovde_mi">Itt van: %s. mi</string>
+    <string name="lokacija_ovde_smer_mi">Itt van: %1$s. mi, %2$s felé</string>
+    <string name="voznja_za_km_mi">%d km múlva</string>
+    <string name="podnaslov_mi">Pihenőhelyek, benzinkutak, lehajtók és parkolók – mérföld szerint</string>
+    <string name="km_mi">mi</string>
 </resources>

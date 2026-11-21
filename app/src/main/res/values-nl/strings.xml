@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">De rijmodus heeft uw precieze locatie nodig. Open Instellingen → Rechten → Locatie, kies „Alleen toestaan tijdens gebruik van de app” en zet „Precieze locatie gebruiken” aan.</string>
     <string name="voznja_gps_iskljucen_poruka">Locatie staat uit op uw telefoon. Zet deze aan zodat de rijmodus de snelweg kan vinden waarop u rijdt.</string>
     <string name="lokacija_pravac">richting %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">%1$d plaatsen · %2$d mi</string>
+    <string name="det_kilometar_mi">Mijl</string>
+    <string name="lokacija_ovde_mi">U bent hier: mi %s</string>
+    <string name="lokacija_ovde_smer_mi">U bent hier: mi %1$s, richting %2$s</string>
+    <string name="voznja_za_km_mi">over %d mi</string>
+    <string name="podnaslov_mi">Verzorgingsplaatsen, tankstations, afritten en parkeerplaatsen – per mijl</string>
+    <string name="km_mi">mi</string>
 </resources>

@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">La modalità guida ha bisogno della tua posizione precisa. Apri Impostazioni → Autorizzazioni → Posizione, scegli «Consenti solo mentre l\'app è in uso» e attiva «Usa posizione precisa».</string>
     <string name="voznja_gps_iskljucen_poruka">La posizione è disattivata sul telefono. Attivala perché la modalità guida possa trovare l\'autostrada in cui ti trovi.</string>
     <string name="lokacija_pravac">direzione %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">%1$d punti · %2$d mi</string>
+    <string name="det_kilometar_mi">Miglio</string>
+    <string name="lokacija_ovde_mi">Sei qui: mi %s</string>
+    <string name="lokacija_ovde_smer_mi">Sei qui: mi %1$s, verso %2$s</string>
+    <string name="voznja_za_km_mi">tra %d mi</string>
+    <string name="podnaslov_mi">Aree di servizio, distributori, uscite e parcheggi – in ordine di miglio</string>
+    <string name="km_mi">mi</string>
 </resources>

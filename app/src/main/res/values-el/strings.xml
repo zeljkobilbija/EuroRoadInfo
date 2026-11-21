@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">Η λειτουργία οδήγησης χρειάζεται την ακριβή τοποθεσία σας. Ανοίξτε Ρυθμίσεις → Άδειες → Τοποθεσία, επιλέξτε «Να επιτρέπεται μόνο κατά τη χρήση της εφαρμογής» και ενεργοποιήστε την «Ακριβή τοποθεσία».</string>
     <string name="voznja_gps_iskljucen_poruka">Η τοποθεσία είναι απενεργοποιημένη στο τηλέφωνο. Ενεργοποιήστε τη για να βρει η λειτουργία οδήγησης τον αυτοκινητόδρομο.</string>
     <string name="lokacija_pravac">κατεύθυνση %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">Σημεία: %1$d · %2$d μίλ.</string>
+    <string name="det_kilometar_mi">Μίλι</string>
+    <string name="lokacija_ovde_mi">Βρίσκεστε εδώ: μίλι %s</string>
+    <string name="lokacija_ovde_smer_mi">Βρίσκεστε εδώ: μίλι %1$s, προς %2$s</string>
+    <string name="voznja_za_km_mi">σε %d χλμ.</string>
+    <string name="podnaslov_mi">Χώροι στάθμευσης και ανάπαυσης, πρατήρια, έξοδοι – ανά μίλι</string>
+    <string name="km_mi">μίλ.</string>
 </resources>

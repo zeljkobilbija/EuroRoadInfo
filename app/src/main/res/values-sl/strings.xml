@@ -148,4 +148,12 @@
     <string name="voznja_bez_dozvole_poruka">Način vožnje potrebuje vašo natančno lokacijo. Odprite Nastavitve → Dovoljenja → Lokacija, izberite »Dovoli samo med uporabo aplikacije« in vklopite »Uporabi natančno lokacijo«.</string>
     <string name="voznja_gps_iskljucen_poruka">Lokacija je na telefonu izklopljena. Vklopite jo, da bo vožnja lahko našla avtocesto, na kateri ste.</string>
     <string name="lokacija_pravac">smer %s</string>
+    <!-- Velika Britanija: milje (iz MotorwayInfo) -->
+    <string name="broj_tacaka_mi">Točke: %1$d · %2$d mi</string>
+    <string name="det_kilometar_mi">Milja</string>
+    <string name="lokacija_ovde_mi">Tukaj ste: mi %s</string>
+    <string name="lokacija_ovde_smer_mi">Tukaj ste: mi %1$s, proti %2$s</string>
+    <string name="voznja_za_km_mi">čez %d mi</string>
+    <string name="podnaslov_mi">Počivališča, bencinski servisi, izvozi in parkirišča – po miljah</string>
+    <string name="km_mi">mi</string>
 </resources>

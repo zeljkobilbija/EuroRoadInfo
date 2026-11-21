@@ -17,6 +17,16 @@ import java.util.Map;
 /** Učitava podatke jednog autoputa iz assets/autoputevi/*.json (jednom, pa čuva u memoriji). */
 public final class Podaci {
 
+    /** 1 km u miljama: Velika Britanija i Severna Irska prikazuju milje, kao table pored puta (kao MotorwayInfo). */
+    private static final double MILJA = 0.621371;
+    /** true za britanske autoputeve: sve razdaljine u ovim podacima su u miljama. */
+    public boolean milje;
+
+    /** Britanski autoputevi (GB-, NI-) se prikazuju u miljama. */
+    public static boolean milje(String autoputId) {
+        return autoputId != null && (autoputId.startsWith("GB-") || autoputId.startsWith("NI-"));
+    }
+
     public final List<Deonica> deonice = new ArrayList<>();
     public final List<Stavka> stavke = new ArrayList<>();
 
@@ -29,7 +39,7 @@ public final class Podaci {
         Podaci p = KES.get(a.id);
         if (p == null) {
             try {
-                p = ucitaj(c, a.datoteka);
+                p = ucitaj(c, a.datoteka, milje(a.id));
                 KES.put(a.id, p);
             } catch (Exception e) {
                 return null;
@@ -38,9 +48,11 @@ public final class Podaci {
         return p;
     }
 
-    private static Podaci ucitaj(Context c, String datoteka) throws Exception {
+    private static Podaci ucitaj(Context c, String datoteka, boolean milje) throws Exception {
         JSONObject koren = new JSONObject(procitaj(c, datoteka));
         Podaci p = new Podaci();
+        p.milje = milje;
+        double f = milje ? MILJA : 1;
 
         JSONArray sek = koren.getJSONArray("sekcije");
         for (int i = 0; i < sek.length(); i++) {
@@ -55,8 +67,8 @@ public final class Podaci {
                 d.kalSmer = new int[n];
                 for (int j = 0; j < n; j++) {
                     JSONArray q = kal.getJSONArray(j);
-                    d.kalNas[j] = q.getDouble(0);
-                    d.kalTabla[j] = q.getDouble(1);
+                    d.kalNas[j] = q.getDouble(0) * f;
+                    d.kalTabla[j] = q.getDouble(1) * f; // milje i za table (britanske table pokazuju km)
                     d.kalSmer[j] = q.getInt(2);
                 }
             }
@@ -66,8 +78,8 @@ public final class Podaci {
                 d.prekidOd = new double[prek.length()];
                 d.prekidDo = new double[prek.length()];
                 for (int j = 0; j < prek.length(); j++) {
-                    d.prekidOd[j] = prek.getJSONArray(j).getDouble(0);
-                    d.prekidDo[j] = prek.getJSONArray(j).getDouble(1);
+                    d.prekidOd[j] = prek.getJSONArray(j).getDouble(0) * f;
+                    d.prekidDo[j] = prek.getJSONArray(j).getDouble(1) * f;
                 }
             }
             p.deonice.add(d);
@@ -79,7 +91,7 @@ public final class Podaci {
             Stavka s = new Stavka();
             s.tip = o.getString("t").charAt(0);
             s.deonica = o.getInt("si");
-            s.km = o.getDouble("km");
+            s.km = o.getDouble("km") * f;
             if (s.deonica >= 0 && s.deonica < p.deonice.size()) s.kmTabla = p.deonice.get(s.deonica).kmTabla(s.km);
             String strana = o.optString("s", "+");
             s.strana = strana.isEmpty() ? '+' : strana.charAt(0);
