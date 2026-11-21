@@ -32,9 +32,20 @@ public final class StanjeNaPutu {
 
     private StanjeNaPutu() { }
 
-    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG); ostale zemlje kasnije. */
+    /** Velika Britanija: Engleska – National Highways preko našeg posrednika (ključ samo na serveru, isti oblik kao EVIS);
+     *  Vels – Traffic Wales RSS (M4); Severna Irska – TrafficWatchNI RSS. */
+    private static final String NH = "https://evis-posrednik.zeljkobilbija.workers.dev/uk?put=";
+    private static final String WALES = "https://traffic.wales/feeds/";
+    private static final String NI = "https://rss.trafficwatchni.com/trafficwatchni_incidents_rss.xml";
+    /** Škotski autoputevi – Traffic Scotland još nije uključen (čeka se dozvola). */
+    private static final java.util.Set<String> SKOTSKA = new java.util.HashSet<>(java.util.Arrays.asList(
+            "GB-M8", "GB-M9", "GB-M73", "GB-M74", "GB-M77", "GB-M80", "GB-M90", "GB-A74(M)"));
+
+    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Velika Britanija bez Škotske; ostale zemlje kasnije. */
     public static boolean podrzan(String autoputId) {
-        return autoputId != null && (autoputId.startsWith("DE-") || autoputId.startsWith("AT-"));
+        if (autoputId == null) return false;
+        return autoputId.startsWith("DE-") || autoputId.startsWith("AT-") || autoputId.startsWith("NI-")
+                || (autoputId.startsWith("GB-") && !SKOTSKA.contains(autoputId));
     }
 
     public static void ucitaj(String autoput, Odgovor odgovor) {
@@ -61,6 +72,14 @@ public final class StanjeNaPutu {
         List<Dogadjaj> l = new ArrayList<>();
         if (autoput.startsWith("AT-")) {
             l.addAll(Dogadjaj.izEvis(get(EVIS + ref)));
+        } else if (autoput.startsWith("NI-")) {
+            l.addAll(Dogadjaj.izNi(get(NI), ref));
+        } else if (autoput.startsWith("GB-")) {
+            l.addAll(Dogadjaj.izEvis(get(NH + java.net.URLEncoder.encode(ref, "UTF-8"))));
+            if ("M4".equals(ref)) { // M4 ide i kroz Vels
+                l.addAll(Dogadjaj.izWales(get(WALES + "incidents-events/rss.xml"), ref, false));
+                l.addAll(Dogadjaj.izWales(get(WALES + "roadworks/rss.xml"), ref, true));
+            }
         } else {
             l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/warning"), "warning"));
             l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/closure"), "closure"));
@@ -75,7 +94,7 @@ public final class StanjeNaPutu {
         v.setConnectTimeout(10000);
         v.setReadTimeout(20000);
         v.setRequestProperty("User-Agent", "AutobahnInfo-Android");
-        v.setRequestProperty("Accept", "application/json");
+        v.setRequestProperty("Accept", "*/*");
         try {
             if (v.getResponseCode() != 200) throw new Exception("HTTP " + v.getResponseCode());
             StringBuilder sb = new StringBuilder();

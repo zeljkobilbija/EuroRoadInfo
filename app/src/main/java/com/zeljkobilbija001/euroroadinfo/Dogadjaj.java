@@ -65,6 +65,113 @@ public final class Dogadjaj {
         return !Double.isNaN(lat) && !Double.isNaN(lon);
     }
 
+    // ---------- Velika Britanija: Traffic Wales i TrafficWatchNI (javni RSS, bez ključa) ----------
+
+    private static final java.util.regex.Pattern RSS_ITEM = java.util.regex.Pattern.compile("<item>(.*?)</item>",
+            java.util.regex.Pattern.DOTALL);
+
+    private static String tag(String xml, String ime) {
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("<" + ime + "[^>]*>(.*?)</" + ime + ">",
+                java.util.regex.Pattern.DOTALL).matcher(xml);
+        if (!m.find()) return "";
+        return m.group(1).replace("<![CDATA[", "").replace("]]>", "").replace("&amp;", "&")
+                .replace("&#039;", "'").replace("&apos;", "'").replace("&quot;", "\"").trim();
+    }
+
+    /** "M4", "A1(M)" … iz oznake autoputa "GB-M4" (poređenje bez razmaka, velikim slovima). */
+    private static boolean istiPut(String put, String ref) {
+        return put.replace(" ", "").equalsIgnoreCase(ref.replace(" ", ""));
+    }
+
+    /**
+     * Traffic Wales RSS (traffic.wales/feeds/…): naslov "M4 : Eastbound : J23A Magor : Onslip closed : Roadworks : …",
+     * opis sa "Start time: 24/11/2026 20:00 , End Date:  27/11/2026 6:00, Severity: Road closure", tačka u georss:point.
+     * Radovi (često samo noću) idu samo u listu; obaveštenja samo za incidente. Izvor se navodi: „Traffic Wales“.
+     */
+    static List<Dogadjaj> izWales(String xml, String ref, boolean radovi) {
+        List<Dogadjaj> l = new ArrayList<>();
+        long sada = System.currentTimeMillis();
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy H:mm", Locale.UK);
+        f.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+        java.util.regex.Matcher m = RSS_ITEM.matcher(xml);
+        while (m.find()) {
+            String it = m.group(1), naslov = tag(it, "title"), opis = tag(it, "description");
+            String[] d = naslov.split("\\s*:\\s*");
+            if (d.length < 2 || !istiPut(d[0], ref)) continue;
+            long od = 0, doK = 0;
+            java.util.regex.Matcher t = java.util.regex.Pattern.compile("Start time:\\s*([0-9/]+ [0-9:]+)").matcher(opis);
+            try { if (t.find()) od = f.parse(t.group(1)).getTime(); } catch (Exception ignored) { }
+            t = java.util.regex.Pattern.compile("End Date:\\s*([0-9/]+ [0-9:]+)").matcher(opis);
+            try { if (t.find()) doK = f.parse(t.group(1)).getTime(); } catch (Exception ignored) { }
+            if (od > sada || (doK > 0 && doK < sada)) continue; // još nije počelo ili je prošlo
+            String sve = naslov.toLowerCase(Locale.UK);
+            boolean prilaz = sve.contains("slip") && !sve.matches(".*\\bclosed \\(between the slips\\).*");
+            int vrsta;
+            if (sve.contains("collision") || sve.contains("accident") || sve.contains("crash")) vrsta = UDES;
+            else if (sve.contains("closed")) vrsta = prilaz ? PRILAZ : ZATVORENO;
+            else if (sve.contains("congestion") || sve.contains("queu") || sve.contains("delays")) vrsta = KOLONA;
+            else if (radovi || sve.contains("lane")) vrsta = TRAKA;
+            else vrsta = OPASNOST;
+            String smer = d[1], strana = smer.toLowerCase(Locale.UK);
+            double lat = Double.NaN, lon = Double.NaN, lat2 = Double.NaN, lon2 = Double.NaN;
+            String[] g = tag(it, "georss:point").split("\\s+");
+            if (g.length == 2) {
+                try {
+                    lat = Double.parseDouble(g[0]);
+                    lon = Double.parseDouble(g[1]);
+                    // druga tačka ~1 km u smeru vožnje – Vožnja tako zna za koju stranu je poruka
+                    double dLat = 0, dLon = 0, k = 0.009;
+                    if (strana.startsWith("east")) dLon = k / Math.cos(Math.toRadians(lat));
+                    else if (strana.startsWith("west")) dLon = -k / Math.cos(Math.toRadians(lat));
+                    else if (strana.startsWith("north")) dLat = k;
+                    else if (strana.startsWith("south")) dLat = -k;
+                    if (dLat != 0 || dLon != 0) { lat2 = lat + dLat; lon2 = lon + dLon; }
+                } catch (NumberFormatException ignored) { }
+            }
+            String link = tag(it, "link");
+            Dogadjaj x = new Dogadjaj(tag(it, "guid"), vrsta, d.length > 2 ? d[2] : "",
+                    strana.startsWith("both") ? "" : "→ " + smer,
+                    naslov.replaceAll("\\s*:\\s*$", "") + (link.isEmpty() ? "" : "\n" + link), 0, od, lat, lon, lat2, lon2);
+            x.bezObavestenja = radovi;
+            l.add(x);
+        }
+        return l;
+    }
+
+    /**
+     * TrafficWatchNI RSS (Severna Irska): naslov "M1 East Bound  , M1, Kilvergan Road, Craigavon", tekst u opisu,
+     * bez koordinata (samo lista). Preskaču se završeni i stari događaji. Izvor: „DfI Traffic Information and Control Centre“.
+     */
+    static List<Dogadjaj> izNi(String xml, String ref) {
+        List<Dogadjaj> l = new ArrayList<>();
+        long sada = System.currentTimeMillis();
+        SimpleDateFormat f = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+        java.util.regex.Matcher m = RSS_ITEM.matcher(xml);
+        while (m.find()) {
+            String it = m.group(1), naslov = tag(it, "title"), opis = tag(it, "description").replaceAll("\\s+", " ");
+            boolean nasPut = false;
+            for (String deo : naslov.split(",")) {
+                String p = deo.trim();
+                if (istiPut(p, ref) || p.toUpperCase(Locale.UK).startsWith(ref.toUpperCase(Locale.UK) + " ")) nasPut = true;
+            }
+            if (!nasPut) continue;
+            String mala = opis.toLowerCase(Locale.UK);
+            if (mala.contains("cleared") || mala.contains("reopened") || mala.contains("re-opened")) continue;
+            long od = 0;
+            try { od = f.parse(tag(it, "pubDate")).getTime(); } catch (Exception ignored) { }
+            if (od > 0 && sada - od > 12 * 3600_000L) continue; // stari zapisi koji ostaju u feed-u
+            int vrsta = mala.contains("collision") || mala.contains("crash") ? UDES
+                    : mala.contains("closed") ? ZATVORENO
+                    : mala.contains("queue") || mala.contains("congestion") || mala.contains("delays") ? KOLONA : OPASNOST;
+            String[] d = naslov.split(",");
+            String smer = d[0].replaceFirst("(?i)^" + java.util.regex.Pattern.quote(ref), "").trim();
+            l.add(new Dogadjaj(tag(it, "guid"), vrsta, d.length > 2 ? d[2].trim() : "",
+                    smer.isEmpty() ? "" : "→ " + smer, opis, 0, od,
+                    Double.NaN, Double.NaN, Double.NaN, Double.NaN));
+        }
+        return l;
+    }
+
     // ---------- Austrija: EVIS.AT / ASFINAG preko našeg posrednika (Cloudflare Worker) ----------
 
     /**
