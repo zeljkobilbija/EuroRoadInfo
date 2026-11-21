@@ -120,6 +120,8 @@ public class ZemljaActivity extends AppCompatActivity {
 
         String zemlja = getIntent().getStringExtra(EXTRA_ZEMLJA);
         if (zemlja == null) zemlja = "NL";
+        if ("GB".equals(zemlja) || "NI".equals(zemlja)) // Velika Britanija: po miljama
+            ((android.widget.TextView) findViewById(R.id.podnaslovZemlje)).setText(R.string.podnaslov_mi);
         ((TextView) findViewById(R.id.imeZemlje)).setText(ime(zemlja));
         ((ImageView) findViewById(R.id.zastava)).setImageResource(zastava(zemlja));
         findViewById(R.id.nazad).setOnClickListener(v -> finish());

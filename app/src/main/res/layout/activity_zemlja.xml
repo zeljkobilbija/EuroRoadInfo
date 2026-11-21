@@ -90,6 +90,7 @@
         android:paddingTop="4dp"
         android:paddingEnd="20dp"
         android:paddingBottom="12dp"
+        android:id="@+id/podnaslovZemlje"
         android:text="@string/podnaslov"
         android:textColor="@color/tekst_sekundarni"
         android:textSize="15sp" />
