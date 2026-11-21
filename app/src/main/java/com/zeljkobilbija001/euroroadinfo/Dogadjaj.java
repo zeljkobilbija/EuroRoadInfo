@@ -82,13 +82,8 @@ public final class Dogadjaj {
             String tipovi = t == null ? "" : t.toString(), podtipovi = d == null ? "" : d.toString();
             int vrsta = vrstaEvis(tipovi, podtipovi);
             String opis = o.optString("o", "");
-            // "A9 Pyhrn Autobahn, Graz Richtung Maribor (SLO), zwischen Übelbach (km 157.1) und Peggau (km 165.2), …"
-            String deonica = "";
-            String[] delovi = opis.split(", ");
-            if (delovi.length >= 3) {
-                deonica = delovi[2].replaceFirst("^zwischen ", "").replace(" und ", " – ")
-                        .replaceAll(" \\(km [\\d.,]+\\)", "");
-            }
+            String deonica = mestoEvis(opis);
+            if (deonica.isEmpty()) deonica = o.optString("m", "");
             String smer = o.optString("s", "");
             JSONArray p1 = o.optJSONArray("a"), p2 = o.optJSONArray("b");
             Dogadjaj x = new Dogadjaj(o.optString("id"), vrsta, deonica, smer.isEmpty() ? "" : "→ " + smer, opis, 0,
@@ -100,6 +95,26 @@ public final class Dogadjaj {
             l.add(x);
         }
         return l;
+    }
+
+    // Planirani radovi: "A1 West Autobahn: In Fahrtrichtung von Linz nach Wien zwischen Anschlussstelle Haag und
+    // Anschlussstelle St.Valentin sind …, 16.11.2026 - 11.12.2026: Mo, Di …" (ranije je naslov bio „Di“).
+    private static final java.util.regex.Pattern EVIS_PLAN = java.util.regex.Pattern.compile(
+            "[Ii]n Fahrtrichtung .*? (?:zwischen|bei) (.+?)(?: ist | sind | wird | Verkehr | veränderte | gesperrt| Die |,|$)");
+
+    /** Mesto (deonica) iz opisa EVIS vesti, bez kilometara; prazno ako se ne prepozna. */
+    static String mestoEvis(String opis) {
+        String m = "";
+        java.util.regex.Matcher pl = EVIS_PLAN.matcher(opis);
+        if (pl.find()) {
+            m = pl.group(1);
+        } else {
+            // Uživo: "A9 Pyhrn Autobahn, Graz Richtung Maribor (SLO), zwischen Übelbach (km 157.1) und Peggau (km 165.2), …"
+            String[] delovi = opis.split(", ");
+            if (delovi.length >= 3) m = delovi[2];
+        }
+        return m.replaceFirst("^zwischen ", "").replace("Anschlussstelle ", "").replace(" und ", " – ")
+                .replaceAll(" \\(km [\\d.,]+\\)", "").trim();
     }
 
     static int vrstaEvis(String t, String d) {
