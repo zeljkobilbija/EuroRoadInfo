@@ -1,0 +1,41 @@
+NASLOV:
+Euro Road Info: motorways
+
+KRATAK OPIS:
+Exits, services, fuel and traffic news on motorways in 26 European countries.
+
+PUN OPIS:
+Driving across Europe and need fuel, a coffee, a toilet or a break? Euro Road Info shows what's ahead on the motorways of 26 European countries – exit by exit, sorted by kilometre (miles in the UK), in your direction of travel.
+
+Pick a country, a motorway and your direction, and you get:
+• every exit and interchange with its kilometre
+• service areas and rest areas on your side of the road
+• fuel stations with brand logos, restaurants and facilities (toilets, showers, shop, hotel)
+• EV chargers and truck parking
+• average national fuel prices
+• phone number, website and opening hours where available
+
+DRIVING MODE
+Start Driving mode and the app finds the motorway you are on, the kilometre and your direction, and shows the next exits, services and fuel stations ahead. When you change motorway or cross a border, the list follows you. Stop it with one tap or by closing the app.
+
+TRAFFIC NEWS
+Closures, roadworks, accidents and queues from official sources for Germany (Autobahn GmbH), Austria (ASFINAG) and the UK (National Highways, Traffic Wales, Northern Ireland), with direction. With notifications on, you get alerts for the motorway you selected or the one you are driving on.
+
+COVERAGE
+Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Luxembourg, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland and the United Kingdom – more than 560 motorways.
+
+WORKS OFFLINE
+All motorway data is built into the app, so the lists work without signal. Only traffic news and fuel prices need a connection.
+
+MADE FOR DRIVERS
+• one tap opens navigation to the place
+• share any service area or exit
+• filters: fuel, food, parking, exits, EV charging
+• no account, no sign-up; your location stays on your phone
+• one-time purchase to remove ads
+• 18 languages
+
+DATA SOURCES
+Motorway data © OpenStreetMap contributors (ODbL). Traffic: Autobahn GmbH des Bundes; EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG); Powered by National Highways' Transport Data Feeds; Traffic Wales; DfI Traffic Information and Control Centre. Fuel prices: EU Weekly Oil Bulletin (fuel-prices.eu).
+
+Independent app, not affiliated with the European Union, any motorway operator or government agency. Always follow road signs and traffic rules; do not use your phone while driving.
