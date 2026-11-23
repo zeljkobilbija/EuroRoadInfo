@@ -131,21 +131,23 @@ for f in os.listdir(os.path.join(res, 'layout')):
 print('layout-i:', nl)
 
 # ---------- VoznjaKartica: dugme ----------
-p = os.path.join(JAVA, 'VoznjaKartica.java'); s = open(p, encoding='utf-8').read()
+p = os.path.join(JAVA, 'VoznjaKartica.java')
+if not os.path.exists(p): p = os.path.join(JAVA, 'MainActivity.java')
+s = open(p, encoding='utf-8').read()
 if 'voznjaGlas' not in s:
-    old = '        dugme.setOnClickListener(v -> {'
+    old = '        dugme.setOnClickListener(v -> {' if 'VoznjaKartica' in p else '        voznjaDugme.setOnClickListener(v -> {'
     new = '''        // 🔊/🔇: glasovne poruke u Vožnji (podrazumevano uključene)
-        TextView glas = a.findViewById(R.id.voznjaGlas);
+        android.widget.TextView glas = KONT.findViewById(R.id.voznjaGlas);
         if (glas != null) {
-            glas.setText(Glas.ukljucen(a) ? "🔊" : "🔇");
+            glas.setText(Glas.ukljucen(KONT) ? "🔊" : "🔇");
             glas.setOnClickListener(v -> {
-                boolean da = !Glas.ukljucen(a);
-                Glas.postavi(a, da);
+                boolean da = !Glas.ukljucen(KONT);
+                Glas.postavi(KONT, da);
                 glas.setText(da ? "🔊" : "🔇");
             });
         }
 ''' + old
-    assert old in s; s = s.replace(old, new, 1)
+    assert old in s, p; s = s.replace(old, new, 1).replace('KONT', 'a' if 'VoznjaKartica' in p else 'this')
     if 'import android.widget.TextView;' not in s:
         s = s.replace('import android.view.View;', 'import android.view.View;\nimport android.widget.TextView;', 1)
     open(p, 'w', encoding='utf-8').write(s)
@@ -157,8 +159,9 @@ if 'Glas glas' not in s:
         global s
         assert old in s, old[:60]
         s = s.replace(old, new, cnt)
-    zameni('    private long pocetak, poslednjiPutNaAutoputu, poslednjaProvera;',
-           '''    private long pocetak, poslednjiPutNaAutoputu, poslednjaProvera;
+    red_p = re.search(r'    private long pocetak, poslednjiPutNaAutoputu[^;]*;', s).group(0)
+    zameni(red_p,
+           red_p + '''
     /** Glasovne poruke (start, autoput/km/pravac, odmorište ispred, saobraćaj, stop). */
     private Glas glas;
     private String najavljenAutoput;
@@ -176,10 +179,9 @@ if 'Glas glas' not in s:
             glas.ugasi();
             glas = null;
         }''')
-    zameni('''        osveziObavestenje();
-        // novi autoput''', '''        osveziObavestenje();
-        najave();
-        // novi autoput''')
+    i0 = s.index('private void obradiLokaciju'); i1 = s.index('private float brzina', i0)
+    j = s.rindex('        osveziObavestenje();', i0, i1)
+    s = s[:j] + '        osveziObavestenje();\n        najave();' + s[j + len('        osveziObavestenje();'):]
     zameni('''    /** Brzina u m/s:''', '''    // ---------- Glasovne poruke ----------
 
     private boolean milje() {
