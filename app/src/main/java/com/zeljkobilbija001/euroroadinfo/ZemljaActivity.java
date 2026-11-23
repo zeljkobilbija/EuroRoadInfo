@@ -143,13 +143,10 @@ public class ZemljaActivity extends AppCompatActivity {
         if (Autoputevi.ZEMLJE.length == 1) Reklame.prikupiSaglasnost(this, this::posleSaglasnosti);
         else posleSaglasnosti();
 
-        // jedna zemlja: kartica Vožnja i dugme Bez reklama su ovde; inače su na početnom ekranu
-        if (Autoputevi.ZEMLJE.length == 1) {
-            voznja = new VoznjaKartica(this);
-            VoznjaKartica.bezReklama(this);
-        } else {
-            findViewById(R.id.voznja).setVisibility(android.view.View.GONE);
-        }
+        // kartica Vožnja je i na ekranu zemlje (korisnik 23.11.2026: da se vožnja može pokrenuti i odavde);
+        // dugme Bez reklama samo u aplikaciji za jednu zemlju, inače je na početnom ekranu
+        voznja = new VoznjaKartica(this);
+        if (Autoputevi.ZEMLJE.length == 1) VoznjaKartica.bezReklama(this);
     }
 
     /** Vožnja: štit autoputa na kom je vozač je narandžast; menja se sam pri prelasku na drugi. */
