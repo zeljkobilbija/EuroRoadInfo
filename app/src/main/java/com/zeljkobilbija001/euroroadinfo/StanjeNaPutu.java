@@ -37,6 +37,8 @@ public final class StanjeNaPutu {
      *  Vels – Traffic Wales RSS (M4); Severna Irska – TrafficWatchNI RSS. */
     /** Švajcarska: FEDRO/ASTRA Traffic Data Platform preko posrednika (ključ samo na serveru, obrađeni zapisi). */
     private static final String CH = "https://evis-posrednik.zeljkobilbija.workers.dev/ch?put=";
+    /** Beneluks: NDW (NL), Verkeerscentrum Vlaanderen (BE – Flandrija), CITA (LU); vesti već smeštene na autoput ("NL-A2"). */
+    private static final String BNL = "https://evis-posrednik.zeljkobilbija.workers.dev/bnl?put=";
     private static final String NH = "https://evis-posrednik.zeljkobilbija.workers.dev/uk?put=";
     private static final String WALES = "https://traffic.wales/feeds/";
     private static final String NI = "https://rss.trafficwatchni.com/trafficwatchni_incidents_rss.xml";
@@ -50,6 +52,7 @@ public final class StanjeNaPutu {
         if (autoputId == null) return false;
         return autoputId.startsWith("DE-") || autoputId.startsWith("AT-") || autoputId.startsWith("NI-")
                 || autoputId.startsWith("FR-") || autoputId.startsWith("CH-")
+                || autoputId.startsWith("NL-") || autoputId.startsWith("BE-") || autoputId.startsWith("LU-")
                 || (autoputId.startsWith("GB-") && !SKOTSKA.contains(autoputId));
     }
 
@@ -82,6 +85,9 @@ public final class StanjeNaPutu {
         } else if (autoput.startsWith("CH-")) {
             Autoput ap = Autoputevi.poId(autoput);
             l.addAll(Dogadjaj.izCh(get(CH + ref), c == null || ap == null ? null : Podaci.za(c, ap)));
+        } else if (autoput.startsWith("NL-") || autoput.startsWith("BE-") || autoput.startsWith("LU-")) {
+            Autoput ap = Autoputevi.poId(autoput);
+            l.addAll(Dogadjaj.izCh(get(BNL + autoput), c == null || ap == null ? null : Podaci.za(c, ap)));
         } else if (autoput.startsWith("AT-")) {
             l.addAll(Dogadjaj.izEvis(get(EVIS + ref)));
         } else if (autoput.startsWith("NI-")) {

@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Um Meldungen über Unfälle, Staus und Sperrungen zu erhalten, erlauben Sie Benachrichtigungen für diese App in den Telefoneinstellungen. Tippen Sie auf Einstellungen und schalten Sie sie ein.</string>
     <string name="stanje_greska">Verkehrsmeldungen sind gerade nicht verfügbar.</string>
     <string name="stanje_iskljuceno">Benachrichtigungen sind aus. Schalten Sie sie ein, um Verkehrsmeldungen zu sehen.</string>
-    <string name="stanje_izvor">Verkehrsdaten: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · Bison Futé (DGITM, France: “Information fournie par …”) · Federal Roads Office (FEDRO) Traffic Data Platform (TDP, Switzerland) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Meldung antippen für den vollständigen Text.</string>
+    <string name="stanje_izvor">Verkehrsdaten: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · NDW (NL) · Verkeerscentrum Vlaanderen (CC BY) · CITA (LU) · Bison Futé (DGITM, France: “Information fournie par …”) · Federal Roads Office (FEDRO) Traffic Data Platform (TDP, Switzerland) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Meldung antippen für den vollständigen Text.</string>
     <string name="stanje_kasnjenje">+%d Min.</string>
     <string name="stanje_na_mapi">Auf Karte zeigen</string>
     <string name="stanje_naslov">Verkehrslage</string>

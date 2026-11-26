@@ -230,7 +230,7 @@ public final class Dogadjaj {
                     }
                 }
             }
-            Dogadjaj x = new Dogadjaj(o.optString("id"), vrsta, deonica, smer.isEmpty() ? "" : "→ " + smer, opis, 0,
+            Dogadjaj x = new Dogadjaj(o.optString("id"), vrsta, deonica, smer.isEmpty() ? "" : "→ " + smer, opis, o.optInt("k", 0),
                     o.optLong("st", 0), la, lo, la2, lo2);
             x.bezObavestenja = tipovi.contains("VehicleObstruction") && podtipovi.contains("brokenDownVehicle")
                     && !tipovi.contains("Accident");
