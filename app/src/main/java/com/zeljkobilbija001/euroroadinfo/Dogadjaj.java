@@ -30,6 +30,17 @@ public final class Dogadjaj {
     public final double lat, lon;  // početak; NaN ako nema
     public final double lat2, lon2; // kraj (iz geometrije, u smeru vožnje); NaN ako nema
     private boolean bezObavestenja;  // npr. vozilo u kvaru (Austrija): samo u listi
+    public boolean bezbednost;       // Francuska „Action C“ (bezbednost na putu): u listi uvek prva
+
+    /** Francuska (Bison Futé, vidi Francuska.java). */
+    static Dogadjaj izFrancuske(String id, int vrsta, String deonica, String smer, String opis, long pocetak,
+                                double lat, double lon, double lat2, double lon2,
+                                boolean bezObavestenja, boolean bezbednost) {
+        Dogadjaj d = new Dogadjaj(id, vrsta, deonica, smer, opis, 0, pocetak, lat, lon, lat2, lon2);
+        d.bezObavestenja = bezObavestenja;
+        d.bezbednost = bezbednost;
+        return d;
+    }
 
     private Dogadjaj(String id, int vrsta, String deonica, String smer, String opis,
                      int kasnjenjeMin, long pocetak, double lat, double lon, double lat2, double lon2) {

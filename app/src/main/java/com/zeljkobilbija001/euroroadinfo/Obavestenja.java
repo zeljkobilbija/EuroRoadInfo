@@ -140,7 +140,7 @@ public final class Obavestenja {
         for (String id : praceni) {
             List<Dogadjaj> trenutno;
             try {
-                trenutno = StanjeNaPutu.preuzmi(id);
+                trenutno = StanjeNaPutu.preuzmi(c, id);
             } catch (Exception e) {
                 Dnevnik.upisi(c, "OBAVEŠTENJA " + id + ": aktuelne nisu stigle, " + e.getMessage());
                 continue;

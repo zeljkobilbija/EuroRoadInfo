@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Ak chcete dostávať správy o nehodách, kolónach a uzávierkach, povoľte oznámenia pre túto aplikáciu v nastaveniach telefónu. Ťuknite na Nastavenia a oznámenia zapnite.</string>
     <string name="stanje_greska">Dopravné informácie momentálne nie sú dostupné.</string>
     <string name="stanje_iskljuceno">Oznámenia sú vypnuté. Zapnite ich a uvidíte dopravné správy.</string>
-    <string name="stanje_izvor">Dopravné údaje: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Ťuknite na správu pre celý text.</string>
+    <string name="stanje_izvor">Dopravné údaje: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · Bison Futé (DGITM, France: “Information fournie par …”) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Ťuknite na správu pre celý text.</string>
     <string name="stanje_kasnjenje">+%d min</string>
     <string name="stanje_na_mapi">Zobraziť na mape</string>
     <string name="stanje_naslov">Dopravná situácia</string>

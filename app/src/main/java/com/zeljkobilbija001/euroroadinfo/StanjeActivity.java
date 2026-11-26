@@ -157,7 +157,7 @@ public class StanjeActivity extends AppCompatActivity {
         osvezi.animate().rotationBy(360f).setDuration(600).start();
         podnaslov.setText(R.string.stanje_ucitavanje);
         if (poslednje == null) prikaziPoruku(getString(R.string.stanje_ucitavanje));
-        StanjeNaPutu.ucitaj(autoput.id, l -> {
+        StanjeNaPutu.ucitaj(this, autoput.id, l -> {
             if (isFinishing() || isDestroyed()) return;
             ucitavanje = false;
             osvezi.setEnabled(true);

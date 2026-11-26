@@ -1,5 +1,6 @@
 package com.zeljkobilbija001.euroroadinfo;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -41,19 +42,22 @@ public final class StanjeNaPutu {
     private static final java.util.Set<String> SKOTSKA = new java.util.HashSet<>(java.util.Arrays.asList(
             "GB-M8", "GB-M9", "GB-M73", "GB-M74", "GB-M77", "GB-M80", "GB-M90", "GB-A74M"));
 
-    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Velika Britanija bez Škotske; ostale zemlje kasnije. */
+    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Francuska (Bison Futé, Action B i C),
+     *  Velika Britanija bez Škotske; ostale zemlje kasnije. */
     public static boolean podrzan(String autoputId) {
         if (autoputId == null) return false;
         return autoputId.startsWith("DE-") || autoputId.startsWith("AT-") || autoputId.startsWith("NI-")
+                || autoputId.startsWith("FR-")
                 || (autoputId.startsWith("GB-") && !SKOTSKA.contains(autoputId));
     }
 
-    public static void ucitaj(String autoput, Odgovor odgovor) {
+    public static void ucitaj(Context c, String autoput, Odgovor odgovor) {
+        Context app = c.getApplicationContext();
         Handler glavna = new Handler(Looper.getMainLooper());
         NIT.execute(() -> {
             List<Dogadjaj> l;
             try {
-                l = preuzmi(autoput);
+                l = preuzmi(app, autoput);
             } catch (Exception e) {
                 l = null;
             }
@@ -65,12 +69,15 @@ public final class StanjeNaPutu {
     /**
      * Preuzimanje na tekućoj niti (i za proveru u pozadini). Najnovija poruka ide prva bez obzira
      * na važnost (važnost pokazuje boja), poruke bez vremena na kraj; isto vreme: važnija prva.
+     * Francuska: poruke „Action C“ (bezbednost) uvek prve (licenca).
      */
-    public static List<Dogadjaj> preuzmi(String autoput) throws Exception {
+    public static List<Dogadjaj> preuzmi(Context c, String autoput) throws Exception {
         if (!podrzan(autoput)) return new ArrayList<>();
         String ref = autoput.substring(3); // "DE-A8" -> "A8", "AT-S6" -> "S6"
         List<Dogadjaj> l = new ArrayList<>();
-        if (autoput.startsWith("AT-")) {
+        if (autoput.startsWith("FR-")) {
+            l.addAll(Francuska.preuzmi(c, autoput, ref));
+        } else if (autoput.startsWith("AT-")) {
             l.addAll(Dogadjaj.izEvis(get(EVIS + ref)));
         } else if (autoput.startsWith("NI-")) {
             l.addAll(Dogadjaj.izNi(get(NI), ref));
@@ -84,7 +91,8 @@ public final class StanjeNaPutu {
             l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/warning"), "warning"));
             l.addAll(Dogadjaj.izJsona(get(API + ref + "/services/closure"), "closure"));
         }
-        Collections.sort(l, (a, b) -> a.pocetak != b.pocetak ? Long.compare(b.pocetak, a.pocetak)
+        Collections.sort(l, (a, b) -> a.bezbednost != b.bezbednost ? (a.bezbednost ? -1 : 1)
+                : a.pocetak != b.pocetak ? Long.compare(b.pocetak, a.pocetak)
                 : Integer.compare(a.vrsta, b.vrsta));
         return l;
     }

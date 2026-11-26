@@ -30,7 +30,7 @@ public class ProveraWorker extends Worker {
                 continue;
             }
             try {
-                java.util.List<Dogadjaj> l = StanjeNaPutu.preuzmi(id);
+                java.util.List<Dogadjaj> l = StanjeNaPutu.preuzmi(c, id);
                 int vaznih = 0;
                 for (Dogadjaj d : l) if (d.zaObavestenje()) vaznih++;
                 Dnevnik.upisi(c, "PRAĆENJE " + id + ": " + l.size() + " poruka, važnih " + vaznih);

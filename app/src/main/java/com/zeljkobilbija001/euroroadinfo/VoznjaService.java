@@ -492,7 +492,7 @@ public class VoznjaService extends Service {
         String id = autoput;
         List<Dogadjaj> svi;
         try {
-            svi = StanjeNaPutu.preuzmi(id);
+            svi = StanjeNaPutu.preuzmi(this, id);
         } catch (Exception e) {
             Dnevnik.upisi(this, "PROVERA " + id + ": greška " + e.getMessage());
             return;
