@@ -35,6 +35,8 @@ public final class StanjeNaPutu {
 
     /** Velika Britanija: Engleska – National Highways preko našeg posrednika (ključ samo na serveru, isti oblik kao EVIS);
      *  Vels – Traffic Wales RSS (M4); Severna Irska – TrafficWatchNI RSS. */
+    /** Švajcarska: FEDRO/ASTRA Traffic Data Platform preko posrednika (ključ samo na serveru, obrađeni zapisi). */
+    private static final String CH = "https://evis-posrednik.zeljkobilbija.workers.dev/ch?put=";
     private static final String NH = "https://evis-posrednik.zeljkobilbija.workers.dev/uk?put=";
     private static final String WALES = "https://traffic.wales/feeds/";
     private static final String NI = "https://rss.trafficwatchni.com/trafficwatchni_incidents_rss.xml";
@@ -42,12 +44,12 @@ public final class StanjeNaPutu {
     private static final java.util.Set<String> SKOTSKA = new java.util.HashSet<>(java.util.Arrays.asList(
             "GB-M8", "GB-M9", "GB-M73", "GB-M74", "GB-M77", "GB-M80", "GB-M90", "GB-A74M"));
 
-    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Francuska (Bison Futé, Action B i C),
+    /** Izvori: Nemačka (Autobahn GmbH), Austrija (EVIS.AT / ASFINAG), Francuska (Bison Futé, Action B i C), Švajcarska (FEDRO),
      *  Velika Britanija bez Škotske; ostale zemlje kasnije. */
     public static boolean podrzan(String autoputId) {
         if (autoputId == null) return false;
         return autoputId.startsWith("DE-") || autoputId.startsWith("AT-") || autoputId.startsWith("NI-")
-                || autoputId.startsWith("FR-")
+                || autoputId.startsWith("FR-") || autoputId.startsWith("CH-")
                 || (autoputId.startsWith("GB-") && !SKOTSKA.contains(autoputId));
     }
 
@@ -77,6 +79,9 @@ public final class StanjeNaPutu {
         List<Dogadjaj> l = new ArrayList<>();
         if (autoput.startsWith("FR-")) {
             l.addAll(Francuska.preuzmi(c, autoput, ref));
+        } else if (autoput.startsWith("CH-")) {
+            Autoput ap = Autoputevi.poId(autoput);
+            l.addAll(Dogadjaj.izCh(get(CH + ref), c == null || ap == null ? null : Podaci.za(c, ap)));
         } else if (autoput.startsWith("AT-")) {
             l.addAll(Dogadjaj.izEvis(get(EVIS + ref)));
         } else if (autoput.startsWith("NI-")) {

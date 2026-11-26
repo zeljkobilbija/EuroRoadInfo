@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Om berichten over ongevallen, files en afsluitingen te ontvangen, sta meldingen voor deze app toe in de telefooninstellingen. Tik op Instellingen en zet meldingen aan.</string>
     <string name="stanje_greska">Verkeersberichten zijn nu niet beschikbaar.</string>
     <string name="stanje_iskljuceno">Meldingen staan uit. Zet ze aan om verkeersberichten te zien.</string>
-    <string name="stanje_izvor">Verkeersgegevens: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · Bison Futé (DGITM, France: “Information fournie par …”) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Tik op een bericht voor de volledige tekst.</string>
+    <string name="stanje_izvor">Verkeersgegevens: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · Bison Futé (DGITM, France: “Information fournie par …”) · Federal Roads Office (FEDRO) Traffic Data Platform (TDP, Switzerland) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Tik op een bericht voor de volledige tekst.</string>
     <string name="stanje_kasnjenje">+%d min</string>
     <string name="stanje_na_mapi">Op kaart tonen</string>
     <string name="stanje_naslov">Verkeer</string>

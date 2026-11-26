@@ -186,6 +186,88 @@ public final class Dogadjaj {
     // ---------- Austrija: EVIS.AT / ASFINAG preko našeg posrednika (Cloudflare Worker) ----------
 
     /**
+     * Švajcarska (FEDRO/ASTRA Traffic Data Platform preko posrednika /ch): isti oblik zapisa kao EVIS, ali
+     * poruke na autoputevima nemaju koordinate – mesto je u polju m ("Villeneuve – Raststätte Yvorne") i
+     * traži se po imenu među mestima autoputa (izlazi, petlje, odmorišta). Dva mesta i poznat smer
+     * ("A9 Vevey -> Martigny"): početak i kraj u smeru vožnje; oba smera: samo prvo mesto (bez smera).
+     */
+    static List<Dogadjaj> izCh(String json, Podaci p) throws Exception {
+        List<Dogadjaj> l = new ArrayList<>();
+        JSONArray a = new JSONObject(json).optJSONArray("dogadjaji");
+        if (a == null) return l;
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.optJSONObject(i);
+            if (o == null) continue;
+            JSONArray t = o.optJSONArray("t"), d = o.optJSONArray("d");
+            String tipovi = t == null ? "" : t.toString(), podtipovi = d == null ? "" : d.toString();
+            int vrsta = vrstaEvis(tipovi, podtipovi);
+            String opis = o.optString("o", "");
+            String deonica = o.optString("m", "");
+            String smer = o.optString("s", "");
+            double la = Double.NaN, lo = Double.NaN, la2 = Double.NaN, lo2 = Double.NaN;
+            JSONArray p1 = o.optJSONArray("a"), p2 = o.optJSONArray("b");
+            if (p1 != null) {
+                la = p1.optDouble(0);
+                lo = p1.optDouble(1);
+                if (p2 != null) {
+                    la2 = p2.optDouble(0);
+                    lo2 = p2.optDouble(1);
+                }
+            } else if (p != null && !deonica.isEmpty()) {
+                String[] mesta = deonica.split(" – ");
+                Stavka s1 = mestoPoImenu(p, mesta[0]);
+                Stavka s2 = mesta.length > 1 ? mestoPoImenu(p, mesta[1]) : null;
+                if (s1 == null && s2 != null) {
+                    s1 = s2;
+                    s2 = null;
+                }
+                if (s1 != null) {
+                    la = s1.lat;
+                    lo = s1.lon;
+                    if (s2 != null && !smer.isEmpty() && s2 != s1) {
+                        la2 = s2.lat;
+                        lo2 = s2.lon;
+                    }
+                }
+            }
+            Dogadjaj x = new Dogadjaj(o.optString("id"), vrsta, deonica, smer.isEmpty() ? "" : "→ " + smer, opis, 0,
+                    o.optLong("st", 0), la, lo, la2, lo2);
+            x.bezObavestenja = tipovi.contains("VehicleObstruction") && podtipovi.contains("brokenDownVehicle")
+                    && !tipovi.contains("Accident");
+            l.add(x);
+        }
+        return l;
+    }
+
+    /** Mesto autoputa po imenu iz švajcarske poruke ("Raststätte Yvorne", "Verzweigung Hagnau", "Belmont-Tunnel"). */
+    private static Stavka mestoPoImenu(Podaci p, String ime) {
+        String trazi = normalizuj(ime.replaceAll("(?i)\\b(Autobahndreieck|Autobahnkreuz|Verzweigung|Raststätte|Rastplatz"
+                + "|Parkplatz|Tunnel|Anschluss|Ortschaft|Zollamt|Grenze)\\b", " ").replaceAll("(?i)-?Tunnel$", " "));
+        if (trazi.length() < 3) return null;
+        Stavka tacno = null, pocetak = null;
+        for (Stavka s : p.stavke) {
+            if (!s.imaKoordinate()) continue;
+            String n = normalizuj(s.naziv);
+            if (n.isEmpty()) continue;
+            if (n.equals(trazi)) {
+                if (tacno == null) tacno = s;
+            } else if (pocetak == null && (n.startsWith(trazi + " ") || trazi.startsWith(n + " "))) {
+                pocetak = s;
+            }
+        }
+        return tacno != null ? tacno : pocetak;
+    }
+
+    /** Bez akcenata i znakova; strane sveta i „Saint/Sankt“ izjednačene na sva tri jezika (Sion-Ost = Sion-Est). */
+    private static String normalizuj(String s) {
+        return java.text.Normalizer.normalize(s == null ? "" : s, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", " ").trim()
+                .replaceAll("\\b(ost|est|east)\\b", "e").replaceAll("\\b(west|ouest|ovest)\\b", "w")
+                .replaceAll("\\b(sud|sued)\\b", "s").replaceAll("\\bnord\\b", "n")
+                .replaceAll("\\b(sankt|saint|san)\\b", "st");
+    }
+
+    /**
      * Odgovor posrednika evis-posrednik.zeljkobilbija.workers.dev: {"dogadjaji":[{id, p, t, d, st, en, o, m, s, a, b, man}]}
      * (t = vrste zapisa DATEX II: Accident, AbnormalTraffic, RoadOrCarriagewayOrLaneManagement…; d = podvrste).
      */

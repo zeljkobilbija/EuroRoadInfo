@@ -4,7 +4,7 @@ Euro Road Info: motorways
 KRATAK OPIS:
 Exits, services, fuel and traffic news on motorways in 26 European countries.
 
-PUN OPIS (3785/4000, isto kao na Play-u 26.11.2026):
+PUN OPIS (3964/4000, isto kao na Play-u 26.11.2026):
 ⚠️ Unofficial app: Euro Road Info is an independent app. It is not published by any government, road authority or motorway operator, and does not represent any government entity.
 
 Driving across Europe and need fuel, a coffee, a toilet or a break? Euro Road Info shows what's ahead on the motorways of 26 European countries – exit by exit, sorted by kilometre (miles in the UK), in your direction of travel.
@@ -21,7 +21,7 @@ DRIVING MODE
 Start Driving mode and the app finds the motorway you are on, the kilometre and your direction, and shows the next exits, services and fuel stations ahead. When you change motorway or cross a border, the list follows you. Stop it with one tap or by closing the app.
 
 TRAFFIC NEWS
-Closures, roadworks, accidents and queues from official sources for Germany (Autobahn GmbH), Austria (ASFINAG), France (Bison Futé, all motorways including toll motorways) and the UK (National Highways, Traffic Wales, Northern Ireland), with direction. With notifications on, you get alerts for the motorway you selected or the one you are driving on.
+Closures, roadworks, accidents and queues from official sources for Germany (Autobahn GmbH), Austria (ASFINAG), France (Bison Futé, all motorways including toll motorways), Switzerland (FEDRO) and the UK (National Highways, Traffic Wales, Northern Ireland), with direction. With notifications on, you get alerts for the motorway you selected or the one you are driving on.
 
 COVERAGE
 Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Luxembourg, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland and the United Kingdom – more than 560 motorways.
@@ -38,12 +38,13 @@ MADE FOR DRIVERS
 • 18 languages
 
 DATA SOURCES
-Motorway data © OpenStreetMap contributors (ODbL). Traffic: Autobahn GmbH des Bundes; EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG); Bison Futé, French Ministry of Transport (DGITM), data reuse licences “Action B” and “Action C”; Powered by National Highways' Transport Data Feeds; Traffic Wales; DfI Traffic Information and Control Centre. Fuel prices: EU Weekly Oil Bulletin (fuel-prices.eu).
+Motorway data © OpenStreetMap contributors (ODbL). Traffic: Autobahn GmbH des Bundes; EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG); Bison Futé, French Ministry of Transport (DGITM), data reuse licences “Action B” and “Action C”; Federal Roads Office (FEDRO) Traffic Data Platform (TDP); Powered by National Highways' Transport Data Feeds; Traffic Wales; DfI Traffic Information and Control Centre. Fuel prices: EU Weekly Oil Bulletin (fuel-prices.eu).
 
 OFFICIAL SOURCES (links)
 • Germany: Autobahn GmbH des Bundes – https://www.autobahn.de
 • Austria: ASFINAG / EVIS.AT – https://www.asfinag.at – https://www.evis.at
 • France: Bison Futé (DGITM) – https://www.bison-fute.gouv.fr – Action B licence: https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_b_-_v9.pdf – Action C licence: https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_c_-_vdef-3-3.pdf
+• Switzerland: Federal Roads Office (FEDRO) Traffic Data Platform – https://opentransportdata.swiss
 • England: National Highways – https://nationalhighways.co.uk
 • Wales: Traffic Wales – https://traffic.wales
 • Northern Ireland: DfI TrafficWatchNI – https://www.trafficwatchni.com
