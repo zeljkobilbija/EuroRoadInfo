@@ -120,7 +120,7 @@
     <string name="stanje_dozvola_poruka">Da biste primali vijesti o nesrećama, kolonama i zatvaranjima, dopustite obavijesti za ovu aplikaciju u postavkama telefona. Dodirnite Postavke i uključite obavijesti.</string>
     <string name="stanje_greska">Prometne informacije trenutno nisu dostupne.</string>
     <string name="stanje_iskljuceno">Obavijesti su isključene. Uključite ih da biste vidjeli vijesti o prometu.</string>
-    <string name="stanje_izvor">Prometni podaci: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · NDW (NL) · Verkeerscentrum Vlaanderen (CC BY) · CITA (LU) · Bison Futé (DGITM, France: “Information fournie par …”) · Federal Roads Office (FEDRO) Traffic Data Platform (TDP, Switzerland) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Dodirnite vijest za cijeli tekst.</string>
+    <string name="stanje_izvor">Prometni podaci: Autobahn GmbH des Bundes (verkehr.autobahn.de) · EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG) · NDW (NL) · Verkeerscentrum Vlaanderen (CC BY) · CITA (LU) · DGT (ES, CC BY) · Bison Futé (DGITM, France: “Information fournie par …”) · Federal Roads Office (FEDRO) Traffic Data Platform (TDP, Switzerland) · Powered by National Highways\' Transport Data Feeds · Traffic Wales · DfI Traffic Information and Control Centre (Northern Ireland). Dodirnite vijest za cijeli tekst.</string>
     <string name="stanje_kasnjenje">+%d min</string>
     <string name="stanje_na_mapi">Prikaži na karti</string>
     <string name="stanje_naslov">Stanje na cesti</string>
