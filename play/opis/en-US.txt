@@ -4,7 +4,7 @@ Euro Road Info: motorways
 KRATAK OPIS:
 Exits, services, fuel and traffic news on motorways in 26 European countries.
 
-PUN OPIS (3964/4000, isto kao na Play-u 26.11.2026):
+PUN OPIS (3789/4000, za Play 27.11.2026):
 ⚠️ Unofficial app: Euro Road Info is an independent app. It is not published by any government, road authority or motorway operator, and does not represent any government entity.
 
 Driving across Europe and need fuel, a coffee, a toilet or a break? Euro Road Info shows what's ahead on the motorways of 26 European countries – exit by exit, sorted by kilometre (miles in the UK), in your direction of travel.
