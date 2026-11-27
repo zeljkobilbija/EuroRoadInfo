@@ -21,7 +21,7 @@ DRIVING MODE
 Start Driving mode and the app finds the motorway you are on, the kilometre and your direction, and shows the next exits, services and fuel stations ahead. When you change motorway or cross a border, the list follows you. Stop it with one tap or by closing the app.
 
 TRAFFIC NEWS
-Closures, roadworks, accidents and queues from official sources for Germany (Autobahn GmbH), Austria (ASFINAG), France (Bison Futé, all motorways including toll motorways), Switzerland (FEDRO) and the UK (National Highways, Traffic Wales, Northern Ireland), with direction. With notifications on, you get alerts for the motorway you selected or the one you are driving on.
+Closures, roadworks, accidents and queues from official sources for Germany (Autobahn GmbH), Austria (ASFINAG), France (Bison Futé, all motorways including toll motorways), Switzerland (FEDRO), the Netherlands (NDW), Flanders (Verkeerscentrum Vlaanderen), Luxembourg (CITA), Spain (DGT) and the UK (National Highways, Traffic Wales, Northern Ireland), with direction. With notifications on, you get alerts for the motorway you selected or the one you are driving on.
 
 COVERAGE
 Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Luxembourg, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland and the United Kingdom – more than 560 motorways.
@@ -38,20 +38,20 @@ MADE FOR DRIVERS
 • 18 languages
 
 DATA SOURCES
-Motorway data © OpenStreetMap contributors (ODbL). Traffic: Autobahn GmbH des Bundes; EVIS.AT / ASFINAG (CC BY 4.0 ASFINAG); Bison Futé, French Ministry of Transport (DGITM), data reuse licences “Action B” and “Action C”; Federal Roads Office (FEDRO) Traffic Data Platform (TDP); Powered by National Highways' Transport Data Feeds; Traffic Wales; DfI Traffic Information and Control Centre. Fuel prices: EU Weekly Oil Bulletin (fuel-prices.eu).
+Motorway data © OpenStreetMap contributors (ODbL). Traffic: Autobahn GmbH; EVIS.AT / ASFINAG (CC BY 4.0); Bison Futé (DGITM), licences “Action B” and “Action C”; FEDRO TDP; NDW (CC0); Verkeerscentrum Vlaanderen (CC BY); CITA (CC0); DGT (CC BY); Powered by National Highways' Transport Data Feeds; Traffic Wales; DfI. Fuel prices: EU Weekly Oil Bulletin and national statistics.
 
 OFFICIAL SOURCES (links)
-• Germany: Autobahn GmbH des Bundes – https://www.autobahn.de
-• Austria: ASFINAG / EVIS.AT – https://www.asfinag.at – https://www.evis.at
-• France: Bison Futé (DGITM) – https://www.bison-fute.gouv.fr – Action B licence: https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_b_-_v9.pdf – Action C licence: https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_c_-_vdef-3-3.pdf
-• Switzerland: Federal Roads Office (FEDRO) Traffic Data Platform – https://opentransportdata.swiss
+• Germany: Autobahn GmbH – https://www.autobahn.de
+• Austria: ASFINAG / EVIS.AT – https://www.asfinag.at
+• France: Bison Futé – https://www.bison-fute.gouv.fr – licences: https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_b_-_v9.pdf – https://www.bison-fute.gouv.fr/IMG/pdf/Licence_reutilisation_donnees_action_c_-_vdef-3-3.pdf
+• Switzerland: FEDRO – https://opentransportdata.swiss
+• Netherlands: NDW – https://opendata.ndw.nu
+• Flanders: Verkeerscentrum Vlaanderen – https://www.verkeerscentrum.be
+• Luxembourg: CITA – https://www.cita.lu
+• Spain: DGT – https://nap.dgt.es
 • England: National Highways – https://nationalhighways.co.uk
-• Wales: Traffic Wales – https://traffic.wales
-• Northern Ireland: DfI TrafficWatchNI – https://www.trafficwatchni.com
-• Fuel prices: EU Weekly Oil Bulletin (European Commission) – https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en
-• Fuel prices Belgium: Statbel (Belgian statistical office) – https://statbel.fgov.be
-• Fuel prices Netherlands: CBS (Statistics Netherlands) – https://www.cbs.nl
-• Fuel prices Luxembourg: Ministère de la Mobilité, data.public.lu – https://data.public.lu
-• Motorway data: OpenStreetMap – https://www.openstreetmap.org/copyright
+• Wales: https://traffic.wales · Northern Ireland: https://www.trafficwatchni.com
+• Fuel prices: https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en · https://statbel.fgov.be · https://www.cbs.nl · https://data.public.lu
+• OpenStreetMap – https://www.openstreetmap.org/copyright
 
 Independent app, not affiliated with the European Union, any motorway operator or government agency. Always follow road signs and traffic rules; do not use your phone while driving.
